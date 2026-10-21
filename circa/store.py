@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 CHARTS = DATA / "charts.jsonl.gz"
 LEXICON = DATA / "lexicon.json"
+REAL_CHARTS = DATA / "real" / "charts.jsonl.gz"  # MIMIC-IV demo, see circa/mimic.py
+REAL_LEXICON = DATA / "real" / "lexicon.json"
 
 
 def save_charts(charts: list[dict], path: Path = CHARTS) -> None:

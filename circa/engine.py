@@ -168,6 +168,17 @@ class Engine:
             return self._answered([{"text": f"No {lc(label)} in the record.", "cites": []}],
                                   {"state": "never", "codes": []})
         rs.sort(key=lambda r: (r["at"], r["id"]))
+        if all(r["status"] == "recorded" for r in rs):  # hospital billing diagnoses: dated by stay, never resolved
+            last = rs[-1]["date"]
+            recent = [r for r in rs if r["date"] == last]
+            names = []
+            for r in recent:
+                if r["name"] not in names:
+                    names.append(r["name"])
+            claims = [{"text": f"Yes. {join_list(names)}, recorded at the hospital stay of {fmt_date(last)}.", "cites": [r["id"] for r in recent]}]
+            if len(rs) > len(recent):
+                claims.append({"text": f"{plural(len(rs), 'record')} of it in total.", "cites": [r["id"] for r in rs]})
+            return self._answered(claims, {"state": "recorded", "codes": sorted({r["code"] for r in rs})})
         active = [r for r in rs if r["status"] == "active"]
         if active:
             names = []
@@ -185,7 +196,32 @@ class Engine:
             claims.append({"text": f"{plural(len(rs), 'episode')} on record.", "cites": [r["id"] for r in rs]})
         return self._answered(claims, {"state": "resolved", "codes": sorted({r["code"] for r in rs})})
 
+    @staticmethod
+    def _last_stay(records: list[dict]) -> str | None:
+        """The hospital stay of the most recent of these records."""
+        rs = [r for r in records if r.get("enc")]
+        return max(rs, key=lambda r: (r["at"], r["id"]))["enc"] if rs else None
+
+    def _stay_items(self, rs: list[dict], enc: str) -> list[dict]:
+        first: dict[str, dict] = {}
+        for r in sorted(rs, key=lambda r: (r["at"], r["id"])):
+            if r.get("enc") == enc:
+                first.setdefault(r["code"], r)
+        return sorted(first.values(), key=lambda r: (r["at"], r["id"]))
+
     def _problem_list(self, chart, concept, window):
+        if chart.get("source") == "hospital":
+            conds = self._of(chart, "Condition")
+            enc = self._last_stay(conds)
+            if not enc:
+                return self._answered([{"text": "No diagnoses in the record.", "cites": []}], {"codes": []})
+            items = self._stay_items(conds, enc)
+            claims = [{"text": f"{plural(len(items), 'diagnosis')} at the most recent hospital stay, {fmt_date(items[0]['date'])}:".replace("diagnosiss", "diagnoses"),
+                       "cites": [r["id"] for r in items]}]
+            for r in items:
+                claims.append({"text": f"{r['name']};", "cites": [r["id"]]})
+            claims[-1]["text"] = claims[-1]["text"][:-1] + "."
+            return self._answered(claims, {"codes": sorted({r["code"] for r in items})})
         rs = [r for r in self._of(chart, "Condition") if r["status"] == "active"]
         if not rs:
             return self._answered([{"text": "No active problems in the record.", "cites": []}], {"codes": []})
@@ -207,6 +243,16 @@ class Engine:
         label = concept["label"]
         if not rs:
             return self._answered([{"text": f"No {lc(label)} in the record.", "cites": []}], {"state": "never", "codes": []})
+        if chart.get("source") == "hospital":
+            enc = self._last_stay(self._med_series(chart, None))
+            hits = self._stay_items(rs, enc) if enc else []
+            if hits:
+                claims = [{"text": f"Yes, ordered during the most recent hospital stay: {join_list([r['name'] for r in hits])}, from {fmt_date(hits[0]['date'])}.",
+                           "cites": [r["id"] for r in hits][:8]}]
+                return self._answered(claims, {"state": "last_stay", "codes": sorted({r["code"] for r in hits})})
+            last = rs[-1]
+            return self._answered([{"text": f"Not during the most recent hospital stay. {last['name']} was last ordered on {fmt_date(last['date'])}.",
+                                    "cites": [last["id"]]}], {"state": "past", "codes": []})
         active = [r for r in rs if r["status"] == "active"]
         if active:
             claims = [{"text": "Yes.", "cites": [r["id"] for r in active]}]
@@ -225,6 +271,17 @@ class Engine:
 
     def _med_list(self, chart, concept, window):
         rs = self._med_series(chart, None)
+        if chart.get("source") == "hospital":
+            enc = self._last_stay(rs)
+            if not enc:
+                return self._answered([{"text": "No medication orders in the record.", "cites": []}], {"codes": []})
+            items = self._stay_items(rs, enc)
+            claims = [{"text": f"{plural(len(items), 'medication')} ordered during the most recent hospital stay, from {fmt_date(items[0]['date'])}:",
+                       "cites": [r["id"] for r in items]}]
+            for r in items:
+                claims.append({"text": f"{r['name']} ({fmt_date(r['date'])});", "cites": [r["id"]]})
+            claims[-1]["text"] = claims[-1]["text"][:-1] + "."
+            return self._answered(claims, {"codes": sorted({r["code"] for r in items})})
         active = [r for r in rs if r["status"] == "active"]
         if not active:
             return self._answered([{"text": "No active medications in the record.", "cites": []}], {"codes": []})

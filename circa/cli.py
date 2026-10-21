@@ -47,7 +47,9 @@ def find(charts: list[dict], who: str) -> dict:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="circa", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
-    p = sub.add_parser("ingest"); p.add_argument("src", nargs="?", default="synthea/fhir")
+    ap.add_argument("--data", choices=["synthetic", "real"], default="synthetic",
+                    help="synthetic: Synthea patients (default); real: MIMIC-IV demo hospital patients")
+    p = sub.add_parser("ingest"); p.add_argument("src", nargs="?", default=None, help="synthea/fhir, or the MIMIC fhir/ folder with --data real")
     sub.add_parser("patients")
     p = sub.add_parser("ask"); p.add_argument("patient"); p.add_argument("question"); p.add_argument("--json", action="store_true")
     sub.add_parser("questions")
@@ -56,11 +58,26 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("export")
     a = ap.parse_args(argv)
 
+    real = a.data == "real"
+    charts_path = store.REAL_CHARTS if real else store.CHARTS
+    lex_path = store.REAL_LEXICON if real else store.LEXICON
+    q_path = bench.BENCH / ("real-questions.jsonl" if real else "questions.jsonl")
+    prefix = "real-bench" if real else "bench"
+
+    if a.cmd == "ingest" and real:
+        from .lexicon import build
+        from .mimic import ingest as ingest_mimic
+        charts, _ = ingest_mimic(Path(a.src or "mimic/fhir"))
+        store.save_charts(charts, store.REAL_CHARTS)
+        store.save_json(build(charts), store.REAL_LEXICON)
+        print(f"{len(charts)} real patients, {sum(len(c['records']) for c in charts):,} records -> {store.REAL_CHARTS}")
+        return 0
+
     if a.cmd == "ingest":
         from .fhir import ingest_bundle, load_bundle
         from .lexicon import build
         charts = []
-        for f in sorted(Path(a.src).glob("*.json")):
+        for f in sorted(Path(a.src or "synthea/fhir").glob("*.json")):
             chart, _ = ingest_bundle(load_bundle(f))
             if not chart["deceased"]:
                 charts.append(chart)
@@ -70,8 +87,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{len(charts)} living patients, {sum(len(c['records']) for c in charts):,} records -> {store.CHARTS}")
         return 0
 
-    charts = store.load_charts()
-    lex = store.load_json(store.LEXICON)
+    charts = store.load_charts(charts_path)
+    lex = store.load_json(lex_path)
 
     if a.cmd == "patients":
         for c in charts:
@@ -94,12 +111,12 @@ def main(argv: list[str] | None = None) -> int:
     if a.cmd == "questions":
         heldout = store.load_json(bench.BENCH / "heldout.json")
         qs = bench.build(charts, lex, heldout)
-        bench.save_questions(qs, bench.BENCH / "questions.jsonl")
-        print(f"{len(qs)} questions over {len(charts)} patients -> bench/questions.jsonl")
+        bench.save_questions(qs, q_path)
+        print(f"{len(qs)} questions over {len(charts)} patients -> {q_path}")
         return 0
 
     if a.cmd == "bench":
-        qs = bench.load_questions(bench.BENCH / "questions.jsonl")
+        qs = bench.load_questions(q_path)
         if a.split != "all":
             qs = [q for q in qs if q["split"] == a.split]
         use = charts[: a.limit] if a.limit else charts
@@ -107,7 +124,7 @@ def main(argv: list[str] | None = None) -> int:
         res = bench.evaluate(_answerer(a.answerer, lex), use, qs)
         res["answerer"] = a.answerer
         res["seconds"] = round(time.time() - t0, 1)
-        out = Path("artifacts") / f"bench-{a.answerer}.json"
+        out = Path("artifacts") / f"{prefix}-{a.answerer}.json"
         out.parent.mkdir(exist_ok=True)
         out.write_text(json.dumps(res, indent=1, ensure_ascii=False))
         for split, s in res["by_split"].items():
@@ -119,7 +136,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if a.cmd == "export":
         from .export import export
-        export(charts, lex)
+        export()
         return 0
     return 1
 

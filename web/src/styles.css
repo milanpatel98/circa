@@ -1374,3 +1374,34 @@ button.cite::after {
     height: 20px;
   }
 }
+
+/* ---- real / synthetic switch and data credit --------------------------------------------------- */
+
+.seg-sq {
+  display: inline-flex;
+  margin-bottom: 28px;
+  border: 1px solid var(--olive-line);
+}
+
+.seg-sq button {
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--olive-soft);
+}
+
+.seg-sq button.on {
+  background: var(--olive-ink);
+  color: var(--olive-deep);
+}
+
+.credit {
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--soft);
+}
+
+.credit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

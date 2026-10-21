@@ -9,9 +9,11 @@ const KIND = { Observation: "Lab or vital", Condition: "Condition", MedicationRe
 const STATUS = { answered: "Answered", not_found: "Not in record", unsupported: "Outside record", advice: "Declined" };
 const LISTS = new Set(["med_list", "problem_list", "allergy_list", "vaccine_list"]);
 const LANES = [["Visits", "Encounter"], ["Labs", "Observation"], ["Conditions", "Condition"], ["Medications", "MedicationRequest"], ["Vaccines", "Immunization"]];
+const HOSPITAL_LANES = [["Visits", "Encounter"], ["Labs", "Observation"], ["Diagnoses", "Condition"], ["Medications", "MedicationRequest"]];
 const YEARS = 12;
 const pct = (k, n) => `${(Math.round((k / n) * 1000) / 10).toFixed(1)}%`;
 const brand = (s) => s.replace(/\bCirca\b/g, NAME);
+const initials = (name) => (/^Patient \d+$/.test(name) ? `#${name.slice(-3)}` : name.split(" ").map((w) => w[0]).join(""));
 const pron = (sex) => (sex === "female" ? ["her", "she"] : ["his", "he"]);
 
 const CATS = [
@@ -27,6 +29,17 @@ const CATS = [
     ["Tetanus", (p) => `When was ${p} last tetanus shot?`]]],
   ["Visits", [["Last visit", (p, s) => `When was ${s} last seen?`], ["ER this year", () => "How many ER visits in the past year?"],
     ["Age", (p, s) => `How old is ${s}?`]]],
+];
+
+// hospital records: inpatient labs, orders from the last stay, diagnoses by stay, no allergies or vaccines
+const HOSPITAL_CATS = [
+  ["Labs", [["Last A1c", (p) => `What was ${p} last A1c?`], ["Creatinine trend", (p) => `How has ${p} creatinine changed?`],
+    ["Hemoglobin trend", (p) => `How has ${p} hemoglobin changed?`], ["Last potassium", (p) => `What was ${p} last potassium?`]]],
+  ["Medications", [["Current medications", (p, s) => `What medications is ${s} on?`], ["Blood thinner?", (p, s) => `Is ${s} on a blood thinner?`],
+    ["Insulin?", (p, s) => `Is ${s} on insulin?`], ["Treatment question", (p) => `Should we increase ${p} insulin?`]]],
+  ["Conditions", [["Diagnoses", (p) => `What are ${p} active problems?`], ["Diabetes?", (p, s) => `Does ${s} have diabetes?`],
+    ["Heart failure?", (p, s) => `Does ${s} have heart failure?`], ["Kidney disease?", (p, s) => `Does ${s} have kidney disease?`]]],
+  CATS[CATS.length - 1],
 ];
 
 function useNarrow() {
@@ -108,7 +121,7 @@ export default function App() {
       {route.page === "home" && <Home meta={meta} />}
       {route.page === "patients" && <Patients meta={meta} />}
       {route.page === "patient" && patient && <Patient key={patient.id} meta={meta} patient={patient} engine={engine} />}
-      {route.page === "results" && <Results r={results} meta={meta} />}
+      {route.page === "results" && <Results r={results} />}
       <Dock page={route.page === "results" ? "results" : route.page === "home" ? "home" : "patients"} />
       <footer className={`foot wrap ${route.page === "home" ? "on-home" : ""}`}>
         <span>© 2026 Milan Patel · MIT License</span>
@@ -141,28 +154,29 @@ const Logo = () => (
 
 function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, callout }) {
   const compact = useNarrow();
+  const lanes = chart.source === "hospital" ? HOSPITAL_LANES : LANES;
   const YEARS = compact ? 6 : 12;
   const W = compact ? 560 : 1000, lane = compact ? 44 : 30, top = callout ? (compact ? 84 : 64) : 10, left = labels ? (compact ? 150 : 112) : 0;
-  const H = top + LANES.length * lane + 34;
+  const H = top + lanes.length * lane + 34;
   const end = Date.parse(asOf), start = end - YEARS * 365.25 * 864e5;
   const x = (d) => left + ((Date.parse(d) - start) / (end - start)) * (W - left - 8);
   const citedSet = new Set(cited);
   const marks = useMemo(() => {
     const out = [];
-    LANES.forEach(([, type], i) => {
+    lanes.forEach(([, type], i) => {
       for (const r of chart.records) {
         if (r.type !== type || r.date < new Date(start).toISOString().slice(0, 10)) continue;
         out.push({ r, i });
       }
     });
     return out;
-  }, [chart]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [chart, lanes]); // eslint-disable-line react-hooks/exhaustive-deps
   const hits = marks.filter((m) => citedSet.has(m.r.id));
   const y0 = new Date(start).getUTCFullYear() + 1;
   const first = hits[0];
   return (
     <svg className={`tl ${tone} ${compact ? "compact" : ""}`} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${chart.name}'s record over ${YEARS} years`}>
-      {LANES.map(([name], i) => (
+      {lanes.map(([name], i) => (
         <g key={name}>
           <line x1={left} x2={W - 8} y1={top + i * lane + lane / 2} y2={top + i * lane + lane / 2} className="tl-rule" />
           {labels && <text x={0} y={top + i * lane + lane / 2 + 4} className="tl-lane">{name}</text>}
@@ -213,7 +227,7 @@ function Home({ meta }) {
         <Drawing />
         <h1>Ask the chart. Get the proof.</h1>
         <a className="btn light big home-btn" href="#/patients"><Icon d={I.ask} />Ask a patient</a>
-        <p className="home-note">{meta.patients.length} patients ready</p>
+        <p className="home-note">{meta.patients.length} real hospital patients ready</p>
       </div>
     </section>
   );
@@ -257,13 +271,13 @@ function Patients({ meta }) {
         <div className="cards">
           {meta.patients.map((p) => (
             <a key={p.id} className="card" href={`#/p/${p.id}`}>
-              <span className="mono">{p.name.split(" ").map((w) => w[0]).join("")}</span>
+              <span className="mono">{initials(p.name)}</span>
               <span className="card-name">{p.name}</span>
-              <span className="soft">{yearsBetween(p.birthDate, meta.asOf)}, {p.sex}</span>
+              <span className="soft">{yearsBetween(p.birthDate, p.asOf)}, {p.sex}</span>
               <Spark counts={p.spark} />
               <span className="card-stats">
-                <span><b>{p.conditions}</b> conditions</span>
-                <span><b>{p.meds}</b> medications</span>
+                <span><b>{p.stays}</b> {p.stays === 1 ? "hospital stay" : "hospital stays"}</span>
+                <span><b>{p.meds}</b> recent medications</span>
               </span>
               <span className="card-go">Open chart <Icon d={I.arrow} size={16} /></span>
             </a>
@@ -284,6 +298,7 @@ function Patient({ meta, patient, engine }) {
   const [asked, setAsked] = useState("");
   const [sheet, setSheet] = useState(null);
   const [poss, subj] = pron(patient.sex);
+  const cats = file?.chart.source === "hospital" ? HOSPITAL_CATS : CATS;
   const first = patient.name.split(" ")[0];
 
   useEffect(() => {
@@ -326,34 +341,34 @@ function Patient({ meta, patient, engine }) {
         <Nav dark />
         <div className="wrap">
           <div className="pt-head">
-            <span className="mono big-mono">{patient.name.split(" ").map((w) => w[0]).join("")}</span>
+            <span className="mono big-mono">{initials(patient.name)}</span>
             <div>
               <h1 className="pt-name">{patient.name}</h1>
-              <p className="pt-sub">{yearsBetween(patient.birthDate, meta.asOf)}, {patient.sex}. {patient.records.toLocaleString()} records.</p>
+              <p className="pt-sub">{yearsBetween(patient.birthDate, patient.asOf)}, {patient.sex}. {patient.records.toLocaleString()} real hospital records, dates shifted for privacy.</p>
             </div>
             <select className="switch" value={patient.id} onChange={(e) => (location.hash = `#/p/${e.target.value}`)} aria-label="Switch patient">
               {meta.patients.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
           </div>
           <figure className="hero-fig flat">
-            {file ? <Timeline chart={file.chart} asOf={meta.asOf} cited={sources} tone="dark" /> : <div className="tl-wait" />}
+            {file ? <Timeline chart={file.chart} asOf={patient.asOf} cited={sources} tone="dark" /> : <div className="tl-wait" />}
           </figure>
         </div>
       </section>
 
       <section className="wrap ask">
         <div className="tabs" role="tablist" aria-label="Category">
-          {CATS.map(([k]) => (
+          {cats.map(([k]) => (
             <button key={k} role="tab" aria-selected={cat === k} className={cat === k ? "on" : ""} onClick={() => setCat(k)}>{k}</button>
           ))}
         </div>
         <div className="qs">
-          {CATS.find(([k]) => k === cat)[1].map(([label, make]) => (
+          {(cats.find(([k]) => k === cat) || cats[0])[1].map(([label, make]) => (
             <button key={label} className="btn chip" onClick={() => run(make(poss, subj))} disabled={!file}>{label}</button>
           ))}
         </div>
         <form className="field" onSubmit={(e) => { e.preventDefault(); run(q); }}>
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Or ask anything about ${first}`} aria-label="Question" disabled={!file} />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Or type a question" aria-label="Question" disabled={!file} />
           <button type="submit" className="btn dark" disabled={!file || !q.trim()}>Ask</button>
         </form>
 
@@ -440,18 +455,29 @@ function Sheet({ ids, focus, records, raw, chart, onClose }) {
 
 /* ---- results ---------------------------------------------------------------------------------- */
 
-function Results({ r, meta }) {
+function Results({ r }) {
+  const [set, setSet] = useState("real");
   const [more, setMore] = useState(false);
-  const H = (n) => r[n].by_split.heldout;
-  const keys = more ? r.categories.map(([k]) => k).filter((k) => r.circa.by_category[k]) : ["latest", "trend", "med_active", "meds", "problems", "last_visit"];
+  const d = r[set];
+  const H = (n) => d[n].by_split.heldout;
+  const all = r.categories.map(([k]) => k).filter((k) => d.circa.by_category[k]);
+  const keys = more ? all : ["latest", "trend", "med_active", "meds", "problems", "last_visit"].filter((k) => all.includes(k));
   const label = Object.fromEntries(r.categories);
   return (
     <>
       <section className="hero slim">
         <Nav dark />
         <div className="wrap res-head">
+          <div className="seg-sq" role="tablist" aria-label="Patients">
+            {[["real", "Real patients"], ["synthetic", "Synthetic patients"]].map(([k, l]) => (
+              <button key={k} role="tab" aria-selected={set === k} className={set === k ? "on" : ""} onClick={() => setSet(k)}>{l}</button>
+            ))}
+          </div>
           <p className="res-big">{pct(H("circa").correct, H("circa").n)}</p>
-          <p>correct on {H("circa").n.toLocaleString()} questions worded by someone who never saw how {NAME} reads them. {meta.cohort} patients.</p>
+          <p>
+            correct on {H("circa").n.toLocaleString()} questions worded by someone who never saw how {NAME} reads them.{" "}
+            {set === "real" ? "100 real hospital patients from MIMIC-IV." : "130 Synthea patients."}
+          </p>
         </div>
       </section>
       <section className="wrap block">
@@ -485,13 +511,16 @@ function Results({ r, meta }) {
             {keys.map((k) => (
               <tr key={k}>
                 <td>{label[k]}</td>
-                <td><b>{Math.round(r.circa.by_category[k].heldout * 100)}%</b></td>
-                <td className="soft">{Math.round(r.rag20.by_category[k].heldout * 100)}%</td>
+                <td><b>{Math.round(d.circa.by_category[k].heldout * 100)}%</b></td>
+                <td className="soft">{Math.round(d.rag20.by_category[k].heldout * 100)}%</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button className="btn line-dark" onClick={() => setMore((m) => !m)} aria-expanded={more}>{more ? "Show fewer" : `Show all ${r.categories.length}`}</button>
+        <button className="btn line-dark" onClick={() => setMore((m) => !m)} aria-expanded={more}>{more ? "Show fewer" : `Show all ${all.length}`}</button>
+        <p className="credit">
+          Real patients: <a href="https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/">MIMIC-IV Clinical Database Demo on FHIR</a> on PhysioNet, Open Database License.
+        </p>
       </section>
     </>
   );

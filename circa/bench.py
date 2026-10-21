@@ -176,7 +176,7 @@ def build(charts: list[dict], lexicon: dict, heldout: dict, seed: int = 7) -> li
             k = key[5:]
             return rng.choice(COND_SURFACE[k]) if k in COND_SURFACE else concepts[key]["label"].lower()
 
-        active = sorted(k for k, rs in by_concept.items() if gold.condition_state(chart, concepts[k]["codes"])[0] == "active")
+        active = sorted(k for k, rs in by_concept.items() if gold.condition_state(chart, concepts[k]["codes"])[0] in ("active", "recorded"))
         resolved = sorted(k for k, rs in by_concept.items() if gold.condition_state(chart, concepts[k]["codes"])[0] == "resolved")
         if active:
             k = rng.choice(active)
@@ -204,7 +204,7 @@ def build(charts: list[dict], lexicon: dict, heldout: dict, seed: int = 7) -> li
         def med_surface(key):
             return rng.choice(MEDCLASS_SURFACE[key[9:]]) if key.startswith("medclass:") else concepts[key]["label"].lower()
 
-        act = sorted(k for k in med_keys + class_keys if gold.med_state(chart, concepts[k]["codes"])[0] == "active")
+        act = sorted(k for k in med_keys + class_keys if gold.med_state(chart, concepts[k]["codes"])[0] in ("active", "last_stay"))
         past = sorted(k for k in med_keys if gold.med_state(chart, concepts[k]["codes"])[0] == "past")
         if act:
             k = rng.choice(act)
@@ -223,25 +223,26 @@ def build(charts: list[dict], lexicon: dict, heldout: dict, seed: int = 7) -> li
             items.append(("med_never", "on_med", {"concept": med_surface(k)}, {"intent": "on_med", "state": "never", "codes": []}))
         items.append(("meds", "med_list", {}, {"intent": "med_list", "codes": gold.active_meds(chart)}))
 
-        # allergies
-        items.append(("allergies", "allergy_list", {}, {"intent": "allergy_list", "codes": gold.allergies(chart)}))
-        mine = set(gold.allergies(chart))
-        allergen = [(c, ALLERGEN_SURFACE[_allergen_name(c)]) for c in concepts.values()
-                    if c["kind"] == "allergy" and _allergen_name(c) in ALLERGEN_SURFACE]
-        yes = [x for x in allergen if set(x[0]["codes"]) & mine]
-        no = [x for x in allergen if not set(x[0]["codes"]) & mine and _allergen_name(x[0]) in ("penicillin v", "peanut", "latex", "shellfish", "sulfamethoxazole trimethoprim", "aspirin")]
-        if yes:
-            c, s = rng.choice(yes)
-            items.append(("allergy_yes", "allergy_check", {"concept": s}, {"intent": "allergy_check", "allergic": True}))
-        if no:
-            c, s = rng.choice(no)
-            items.append(("allergy_no", "allergy_check", {"concept": s}, {"intent": "allergy_check", "allergic": False}))
+        # allergies and vaccines: hospital records in this dataset carry neither, so they are not asked about
+        if chart.get("source") != "hospital":
+            items.append(("allergies", "allergy_list", {}, {"intent": "allergy_list", "codes": gold.allergies(chart)}))
+            mine = set(gold.allergies(chart))
+            allergen = [(c, ALLERGEN_SURFACE[_allergen_name(c)]) for c in concepts.values()
+                        if c["kind"] == "allergy" and _allergen_name(c) in ALLERGEN_SURFACE]
+            yes = [x for x in allergen if set(x[0]["codes"]) & mine]
+            no = [x for x in allergen if not set(x[0]["codes"]) & mine and _allergen_name(x[0]) in ("penicillin v", "peanut", "latex", "shellfish", "sulfamethoxazole trimethoprim", "aspirin")]
+            if yes:
+                c, s = rng.choice(yes)
+                items.append(("allergy_yes", "allergy_check", {"concept": s}, {"intent": "allergy_check", "allergic": True}))
+            if no:
+                c, s = rng.choice(no)
+                items.append(("allergy_no", "allergy_check", {"concept": s}, {"intent": "allergy_check", "allergic": False}))
 
-        # vaccines, visits, age
-        vk = rng.choice(sorted(VAX_SURFACE))
-        items.append(("vaccine", "vaccine_last", {"concept": VAX_SURFACE[vk][0]}, {"intent": "vaccine_last", "date": gold.last_vaccine(chart, concepts[f"vax:{vk}"]["codes"])}))
-        if vk != "flu":
-            items.append(("vaccine", "vaccine_last", {"concept": "flu"}, {"intent": "vaccine_last", "date": gold.last_vaccine(chart, concepts["vax:flu"]["codes"])}))
+            # vaccines, visits, age
+            vk = rng.choice(sorted(VAX_SURFACE))
+            items.append(("vaccine", "vaccine_last", {"concept": VAX_SURFACE[vk][0]}, {"intent": "vaccine_last", "date": gold.last_vaccine(chart, concepts[f"vax:{vk}"]["codes"])}))
+            if vk != "flu":
+                items.append(("vaccine", "vaccine_last", {"concept": "flu"}, {"intent": "vaccine_last", "date": gold.last_vaccine(chart, concepts["vax:flu"]["codes"])}))
         items.append(("er", "er_visits", {}, {"intent": "er_visits", "count": gold.er_count(chart, minus_months(chart["asOf"], 12), chart["asOf"])}))
         items.append(("last_visit", "last_visit", {}, {"intent": "last_visit", "id": gold.last_visit(chart)}))
         items.append(("age", "age", {}, {"intent": "age", "years": gold.age(chart)}))
@@ -283,7 +284,7 @@ def grade(ans: dict, g: dict) -> bool:
     if it == "trend":
         return r.get("ids") == g["ids"] and r.get("direction") == g["direction"]
     if it in ("has_condition", "on_med"):
-        return r.get("state") == g["state"] and (g["state"] != "active" or r.get("codes") == g["codes"])
+        return r.get("state") == g["state"] and (g["state"] not in ("active", "recorded", "last_stay") or r.get("codes") == g["codes"])
     if it in ("problem_list", "med_list", "allergy_list"):
         return r.get("codes") == g["codes"]
     if it == "med_start":

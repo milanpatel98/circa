@@ -23,6 +23,11 @@ jobs:
           circa bench
           circa bench --answerer rag20
           python -c "import json; a=json.load(open('artifacts/bench-circa.json'))['by_split']['heldout']; b=json.load(open('artifacts/bench-rag20.json'))['by_split']['heldout']; assert a['accuracy'] >= 0.95 and a['unverified'] == 0 and a['accuracy'] > b['accuracy'] + 0.1, (a, b)"
+      - name: The same bar on 100 real hospital patients
+        run: |
+          circa --data real bench
+          circa --data real bench --answerer rag20
+          python -c "import json; a=json.load(open('artifacts/real-bench-circa.json'))['by_split']['heldout']; b=json.load(open('artifacts/real-bench-rag20.json'))['by_split']['heldout']; assert a['accuracy'] >= 0.95 and a['unverified'] == 0 and a['accuracy'] > b['accuracy'] + 0.1, (a, b)"
 
   parity:
     runs-on: ubuntu-latest

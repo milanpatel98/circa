@@ -21,7 +21,7 @@ const CUES = {
   outside: /\b(family|mother|father|mom|dad|siblings?|brothers?|sisters?|parents?|grand\w*|relatives?|mri|x ray|xray|ct|cat scan|ultrasound|echo\w*|imaging|scans?|biops\w*|genetic\w*|genes?|dna|insurance|insurer|coverage|copay|doctor|physician|provider|pcp|specialist|nurse|diet|eat\w*|exercis\w*|workouts?|sleep\w*|said|say|says|complain\w*|feel\w*|mood|job|occupation|work|address|phone|email|married|lives?|pharmacy|cost|price)\b/,
   admit: /\b(hospitali[sz]\w*|admitted|admissions?|admits?|inpatient|hospital stays?)\b/,
   visit: /\b(visits?|seen|appointments?|appts?|encounters?|came in|come in|office|check ?ups?|clinic)\b|\blast\b.*\b(see|saw)\b|\b(see|saw)\b.*\blast\b/,
-  med: /\b(meds?|medications?|medicines?|prescri\w*|drugs?|pills?|rx|taking|takes|take|on any|regimen|scripts?)\b/,
+  med: /\b(meds?|medications?|medicines?|prescri\w*|drugs?|pills?|rx|taking|takes|take|on any|regimen|scripts?)\b|\b(still|currently|now) on\b|\b(is|are|was|were) (he|she|they|the patient|pt|patient) (currently |still |now )?on\b/,
   start: /\b(start\w*|begin|began|begun|first|initiat\w*|put on|commenced|since when|how long)\b/,
   problem: /\b(problems?|diagnos[ie]s|dx|dxs|conditions?|medical history|pmh|hx|history|issues|comorbidit\w*|illness\w*|diseases?|ailments?|wrong)\b/,
   has: /\b(have|has|had|diagnos\w*|history of|hx of|hx|dx|dx of|suffer\w*|with|got|gets|known|positive)\b/,
@@ -143,10 +143,10 @@ export class Parser {
 
   static window(q, asOf) {
     const y = +asOf.slice(0, 4);
-    const m = q.match(/\b(?:in|during|for|from|of)?\s*(?:the\s+)?(?:year\s+)?((?:19|20)\d\d)\b/);
-    const since = q.match(/\b(?:since|after)\s+((?:19|20)\d\d)\b/);
+    const m = q.match(/\b(?:in|during|for|from|of)?\s*(?:the\s+)?(?:year\s+)?((?:19|20|21|22)\d\d)\b/);
+    const since = q.match(/\b(?:since|after)\s+((?:19|20|21|22)\d\d)\b/);
     if (since) return { start: `${since[1]}-01-01`, end: asOf, label: `since ${since[1]}` };
-    const before = q.match(/\bbefore\s+((?:19|20)\d\d)\b/);
+    const before = q.match(/\bbefore\s+((?:19|20|21|22)\d\d)\b/);
     if (before) return { start: "1900-01-01", end: `${+before[1] - 1}-12-31`, label: `before ${before[1]}` };
     if (m) return { start: `${m[1]}-01-01`, end: `${m[1]}-12-31`, label: `in ${m[1]}` };
     const n = q.match(/\b(?:past|last|previous|prior)\s+(\d+|one|two|three|four|five|six|seven|eight|nine|ten|twelve)\s+(months?|years?|yrs?|mos?)\b/);
@@ -341,6 +341,15 @@ export class Engine {
     const rs = this._of(chart, "Condition", concept.codes);
     if (!rs.length) return this._answered([{ text: `No ${lc(concept.label)} in the record.`, cites: [] }], { state: "never", codes: [] });
     rs.sort(byAtId);
+    if (rs.every((r) => r.status === "recorded")) {
+      const last = rs[rs.length - 1].date;
+      const recent = rs.filter((r) => r.date === last);
+      const names = [];
+      for (const r of recent) if (!names.includes(r.name)) names.push(r.name);
+      const claims = [{ text: `Yes. ${joinList(names)}, recorded at the hospital stay of ${fmtDate(last)}.`, cites: recent.map((r) => r.id) }];
+      if (rs.length > recent.length) claims.push({ text: `${plural(rs.length, "record")} of it in total.`, cites: rs.map((r) => r.id) });
+      return this._answered(claims, { state: "recorded", codes: sortedUnique(rs.map((r) => r.code)) });
+    }
     const active = rs.filter((r) => r.status === "active");
     if (active.length) {
       const names = [];
@@ -356,7 +365,29 @@ export class Engine {
     return this._answered(claims, { state: "resolved", codes: sortedUnique(rs.map((r) => r.code)) });
   }
 
+  _lastStay(records) {
+    let best = null;
+    for (const r of records) if (r.enc && (!best || r.at > best.at || (r.at === best.at && r.id > best.id))) best = r;
+    return best ? best.enc : null;
+  }
+
+  _stayItems(rs, enc) {
+    const first = new Map();
+    for (const r of [...rs].sort(byAtId)) if (r.enc === enc && !first.has(r.code)) first.set(r.code, r);
+    return [...first.values()].sort(byAtId);
+  }
+
   _problem_list(chart) {
+    if (chart.source === "hospital") {
+      const conds = this._of(chart, "Condition");
+      const enc = this._lastStay(conds);
+      if (!enc) return this._answered([{ text: "No diagnoses in the record.", cites: [] }], { codes: [] });
+      const items = this._stayItems(conds, enc);
+      const claims = [{ text: `${plural(items.length, "diagnosis")} at the most recent hospital stay, ${fmtDate(items[0].date)}:`.replace("diagnosiss", "diagnoses"), cites: items.map((r) => r.id) }];
+      for (const r of items) claims.push({ text: `${r.name};`, cites: [r.id] });
+      claims[claims.length - 1].text = claims[claims.length - 1].text.slice(0, -1) + ".";
+      return this._answered(claims, { codes: sortedUnique(items.map((r) => r.code)) });
+    }
     const rs = this._of(chart, "Condition").filter((r) => r.status === "active");
     if (!rs.length) return this._answered([{ text: "No active problems in the record.", cites: [] }], { codes: [] });
     const first = new Map();
@@ -373,6 +404,17 @@ export class Engine {
   _on_med(chart, concept) {
     const rs = this._medSeries(chart, concept.codes);
     if (!rs.length) return this._answered([{ text: `No ${lc(concept.label)} in the record.`, cites: [] }], { state: "never", codes: [] });
+    if (chart.source === "hospital") {
+      const enc = this._lastStay(this._medSeries(chart, null));
+      const hits = enc ? this._stayItems(rs, enc) : [];
+      if (hits.length) {
+        return this._answered([{ text: `Yes, ordered during the most recent hospital stay: ${joinList(hits.map((r) => r.name))}, from ${fmtDate(hits[0].date)}.`,
+          cites: hits.map((r) => r.id).slice(0, 8) }], { state: "last_stay", codes: sortedUnique(hits.map((r) => r.code)) });
+      }
+      const last = rs[rs.length - 1];
+      return this._answered([{ text: `Not during the most recent hospital stay. ${last.name} was last ordered on ${fmtDate(last.date)}.`, cites: [last.id] }],
+        { state: "past", codes: [] });
+    }
     const active = rs.filter((r) => r.status === "active");
     if (active.length) {
       const claims = [{ text: "Yes.", cites: active.map((r) => r.id) }];
@@ -392,6 +434,15 @@ export class Engine {
 
   _med_list(chart) {
     const rs = this._medSeries(chart, null);
+    if (chart.source === "hospital") {
+      const enc = this._lastStay(rs);
+      if (!enc) return this._answered([{ text: "No medication orders in the record.", cites: [] }], { codes: [] });
+      const items = this._stayItems(rs, enc);
+      const claims = [{ text: `${plural(items.length, "medication")} ordered during the most recent hospital stay, from ${fmtDate(items[0].date)}:`, cites: items.map((r) => r.id) }];
+      for (const r of items) claims.push({ text: `${r.name} (${fmtDate(r.date)});`, cites: [r.id] });
+      claims[claims.length - 1].text = claims[claims.length - 1].text.slice(0, -1) + ".";
+      return this._answered(claims, { codes: sortedUnique(items.map((r) => r.code)) });
+    }
     const active = rs.filter((r) => r.status === "active");
     if (!active.length) return this._answered([{ text: "No active medications in the record.", cites: [] }], { codes: [] });
     const codes = [];

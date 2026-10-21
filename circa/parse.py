@@ -35,7 +35,8 @@ CUES = {
                r"address|phone|email|married|lives?|pharmacy|cost|price)\b",
     "admit": r"\b(hospitali[sz]\w*|admitted|admissions?|admits?|inpatient|hospital stays?)\b",
     "visit": r"\b(visits?|seen|appointments?|appts?|encounters?|came in|come in|office|check ?ups?|clinic)\b|\blast\b.*\b(see|saw)\b|\b(see|saw)\b.*\blast\b",
-    "med": r"\b(meds?|medications?|medicines?|prescri\w*|drugs?|pills?|rx|taking|takes|take|on any|regimen|scripts?)\b",
+    "med": r"\b(meds?|medications?|medicines?|prescri\w*|drugs?|pills?|rx|taking|takes|take|on any|regimen|scripts?)\b|"
+           r"\b(still|currently|now) on\b|\b(is|are|was|were) (he|she|they|the patient|pt|patient) (currently |still |now )?on\b",
     "start": r"\b(start\w*|begin|began|begun|first|initiat\w*|put on|commenced|since when|how long)\b",
     "problem": r"\b(problems?|diagnos[ie]s|dx|dxs|conditions?|medical history|pmh|hx|history|issues|comorbidit\w*|illness\w*|diseases?|ailments?|wrong)\b",
     "has": r"\b(have|has|had|diagnos\w*|history of|hx of|hx|dx|dx of|suffer\w*|with|got|gets|known|positive)\b",
@@ -144,11 +145,11 @@ class Parser:
     @staticmethod
     def window(q: str, as_of: str) -> dict | None:
         y = int(as_of[:4])
-        m = re.search(r"\b(?:in|during|for|from|of)?\s*(?:the\s+)?(?:year\s+)?((?:19|20)\d\d)\b", q)
-        since = re.search(r"\b(?:since|after)\s+((?:19|20)\d\d)\b", q)
+        m = re.search(r"\b(?:in|during|for|from|of)?\s*(?:the\s+)?(?:year\s+)?((?:19|20|21|22)\d\d)\b", q)
+        since = re.search(r"\b(?:since|after)\s+((?:19|20|21|22)\d\d)\b", q)
         if since:
             return {"start": f"{since.group(1)}-01-01", "end": as_of, "label": f"since {since.group(1)}"}
-        before = re.search(r"\bbefore\s+((?:19|20)\d\d)\b", q)
+        before = re.search(r"\bbefore\s+((?:19|20|21|22)\d\d)\b", q)
         if before:
             return {"start": "1900-01-01", "end": f"{int(before.group(1)) - 1}-12-31", "label": f"before {before.group(1)}"}
         if m:

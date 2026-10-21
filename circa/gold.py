@@ -51,10 +51,20 @@ def trend(chart, codes, n=6):
     return [r["id"] for r in rs], direction
 
 
+def _last_enc(rs):
+    best = None
+    for r in rs:
+        if r.get("enc") and (best is None or (r["at"], r["id"]) > (best["at"], best["id"])):
+            best = r
+    return best["enc"] if best else None
+
+
 def condition_state(chart, codes):
     rs = [r for r in chart["records"] if r["type"] == "Condition" and r["code"] in codes]
     if not rs:
         return "never", []
+    if chart.get("source") == "hospital":
+        return "recorded", sorted({r["code"] for r in rs})
     act = sorted({r["code"] for r in rs if r["status"] == "active"})
     if act:
         return "active", act
@@ -62,6 +72,10 @@ def condition_state(chart, codes):
 
 
 def active_problems(chart):
+    if chart.get("source") == "hospital":
+        conds = [r for r in chart["records"] if r["type"] == "Condition"]
+        enc = _last_enc(conds)
+        return sorted({r["code"] for r in conds if r.get("enc") == enc}) if enc else []
     return sorted({r["code"] for r in chart["records"] if r["type"] == "Condition" and r["status"] == "active"})
 
 
@@ -69,11 +83,19 @@ def med_state(chart, codes):
     rs = [r for r in chart["records"] if r["type"] == "MedicationRequest" and r["code"] in codes]
     if not rs:
         return "never", []
+    if chart.get("source") == "hospital":
+        enc = _last_enc([r for r in chart["records"] if r["type"] == "MedicationRequest"])
+        hit = sorted({r["code"] for r in rs if r.get("enc") == enc}) if enc else []
+        return ("last_stay", hit) if hit else ("past", [])
     act = sorted({r["code"] for r in rs if r["status"] == "active"})
     return ("active", act) if act else ("past", [])
 
 
 def active_meds(chart):
+    if chart.get("source") == "hospital":
+        meds = [r for r in chart["records"] if r["type"] == "MedicationRequest"]
+        enc = _last_enc(meds)
+        return sorted({r["code"] for r in meds if r.get("enc") == enc}) if enc else []
     return sorted({r["code"] for r in chart["records"] if r["type"] == "MedicationRequest" and r["status"] == "active"})
 
 

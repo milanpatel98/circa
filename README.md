@@ -4,41 +4,55 @@
 
 Clinicians ask a patient's chart the same questions every day. "What was her last A1c?" "Is he still on the statin?" "Any ER visits this year?" Circa answers those questions from a patient's FHIR record and shows the exact resource behind each sentence. If the chart has no answer, it says so. If the question asks for a treatment decision, it declines.
 
-**[Try it in your browser](https://milanpatel98.github.io/circa/)**: six synthetic patients, the full engine running client-side, and the original FHIR resource for every citation.
+**[Try it in your browser](https://milanpatel98.github.io/circa/)**: six real (de-identified) hospital patients, the full engine running client-side, and the original FHIR resource for every citation.
 
 ---
 
 ## Results
 
-5,834 questions about 130 synthetic patients. Each question has an answer key computed from the record by separate code (`gold.py`). Each question is asked twice: once in wording written while the parser was built, and once in **held-out wording** written separately by someone who never saw the parser (`bench/heldout.json`).
+Two cohorts, both FHIR R4:
 
-| Answerer | Held-out wording | Confident wrong answers |
-| --- | --- | --- |
-| **Circa** | **96.2%** (95% CI 95.4–96.8) | 40 of 2,917 |
-| Search, top 20 records | 79.4% | 492 |
-| Search, top 5 records | 65.6% | 875 |
+- **Real:** 100 de-identified patients from the [MIMIC-IV Clinical Database Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (Beth Israel Deaconess Medical Center), 118,869 records: admissions, ED visits, diagnoses, medication orders, labs and vitals.
+- **Synthetic:** 130 [Synthea](https://github.com/synthetichealth/synthea) patients, which add allergies, vaccines and outpatient visits that the hospital data does not have.
 
-"Search" is the usual retrieval-augmented approach: index each record as text, retrieve the records most similar to the question with BM25, and answer from those. To make the comparison about evidence and nothing else, the search baseline uses Circa' own vocabulary for query expansion and Circa' own answer logic. The only difference is that it reads k retrieved records instead of querying the whole chart.
+Every question has an answer key computed from the record by separate code (`gold.py`). Each is asked twice: in the wording written while the parser was built, and in **held-out wording** written separately by someone who never saw the parser (`bench/heldout.json`). Held-out scores:
 
-Where retrieval breaks:
+| Answerer | Real patients (1,679 questions) | Wrong answers | Synthetic (2,917) | Wrong answers |
+| --- | --- | --- | --- | --- |
+| **Circa** | **97.3%** (95% CI 96.4–98.0) | **6** | **96.2%** (95.4–96.8) | **40** |
+| Search, top 20 records | 70.3% | 430 | 79.4% | 492 |
+| Search, top 5 records | 61.8% | 558 | 65.6% | 875 |
+
+"Search" is the usual retrieval-augmented approach: index each record as text, retrieve the records most similar to the question with BM25, and answer from those. To make the comparison about evidence and nothing else, the search baseline uses Circa's own vocabulary for query expansion and Circa's own answer logic. The only difference is that it reads k retrieved records instead of querying the whole chart.
+
+Where retrieval breaks, on real patients:
 
 | Question type | Circa | Search, top 20 | Search, top 5 |
 | --- | --- | --- | --- |
-| Latest result ("last A1c") | 100% | 79% | 26% |
-| Trend | 100% | 73% | 18% |
-| Current medication ("still on lisinopril?") | 100% | 46% | 32% |
-| Medication list | 100% | 23% | 21% |
-| Problem list | 88% | 22% | 9% |
-| Last visit | 79% | 7% | 1% |
+| Latest result ("last A1c") | 100% | 73% | 35% |
+| Trend | 100% | 68% | 18% |
+| Current medication ("still on heparin?") | 99% | 79% | 74% |
+| Stopped medication | 100% | 13% | 13% |
+| Medication list | 100% | 0% | 0% |
+| Problem list | 91% | 0% | 0% |
+| ER visits in a period | 100% | 48% | 48% |
+| Last visit | 86% | 40% | 36% |
 
-Similar is not the same as newest, and the top k records are not the whole list. A retriever returns the A1c results that best match the words, not the most recent one. It also returns an old lisinopril order marked `stopped`, without the active one, and states the patient is off it.
+Similar is not the same as newest, and the top k records are not the whole list. A real hospital stay can carry 40 medication orders and 30 diagnoses; 20 retrieved records cannot list them.
 
-**On honesty of the numbers:** with the wording it was built against, Circa scores 100%, which says little. On the held-out wording, the first run scored **95.9%**. That run exposed one vocabulary bug: packaging words in RxNorm names ("Auto-Injector", "28 Day Pack") were read as medicine names. Fixing only that gives 96.2%. No wording rules changed after the held-out set was opened, and `artifacts/heldout-first-run.json` keeps the first run. Of the 111 held-out misses, 71 were refusals ("the record does not cover that") rather than wrong answers.
+**Hospital records mean different things.** MIMIC diagnoses are billing codes attached to a stay, with no onset or resolved date, so Circa says "recorded at the hospital stay of …" rather than "active". Every medication order is completed by discharge, so "current medications" means those ordered during the most recent stay, and the answer says so. Dates are shifted into the 2100s for privacy; each patient's "today" is their latest record.
+
+**On honesty of the numbers:** with the wording it was built against, Circa scores 100% on both cohorts, which says little.
+
+- *Synthetic:* the first held-out run scored **95.9%**. It exposed one vocabulary bug: packaging words in RxNorm names ("Auto-Injector", "28 Day Pack") were read as medicine names. Fixing only that gives 96.2%. `artifacts/heldout-first-run.json` keeps the first run.
+- *Real:* the first held-out run scored **95.3%** (40 wrong answers). Two parser gaps caused most misses: years in the shifted 2100s were not read as years, and "currently on glucose" was read as the glucose lab rather than the medicine. Fixing those gives 97.3%. Both fixes came after the synthetic held-out set had been opened; they leave its score unchanged.
+
+No held-out phrasing was edited after it was opened.
 
 ## How it works
 
 ```
- Synthea  ──►  FHIR R4 bundles  ──►  chart (one list of records, each with its resource id)
+ MIMIC / Synthea  ──►  FHIR R4  ──►  chart (one list of records, each with its resource id)
                                           │
  "is he still on a statin?"               │
         │                                 ▼
@@ -50,9 +64,9 @@ Similar is not the same as newest, and the top k records are not the whole list.
    answer, sentence by sentence, each with the ids it rests on  ──►  checker
 ```
 
-**Real record format.** Patients come from [Synthea](https://github.com/synthetichealth/synthea), pinned to v3.3.0 with fixed seeds, exported as FHIR R4. Ingest keeps Observations (labs, vitals, smoking status), Conditions, MedicationRequests, AllergyIntolerances, Immunizations, Encounters and Procedures. It drops billing (Claim, ExplanationOfBenefit), and keeps social-circumstance findings (employment, education, housing) out of the problem list. Regenerating from scratch gives byte-identical charts.
+**Real record format.** Real patients come from MIMIC-IV's FHIR export (`circa/mimic.py` reads the NDJSON files: Patient, Encounter, Condition, MedicationRequest, lab and vital-sign Observations). Synthetic patients come from [Synthea](https://github.com/synthetichealth/synthea), pinned to v3.3.0 with fixed seeds, exported as FHIR R4. Ingest keeps Observations (labs, vitals, smoking status), Conditions, MedicationRequests, AllergyIntolerances, Immunizations, Encounters and Procedures. It drops billing (Claim, ExplanationOfBenefit), and keeps social-circumstance findings (employment, education, housing) out of the problem list. Regenerating from scratch gives byte-identical charts.
 
-**Vocabulary.** Labs and vitals map to LOINC by hand ("A1c", "kidney function" to eGFR, "bp"). Conditions, medications, vaccines and allergens are read from the records' own SNOMED, RxNorm and CVX codes, then grouped the way clinicians talk: "high blood pressure", "a statin", "blood thinner", "flu shot". The same vocabulary file drives Python and the browser.
+**Vocabulary.** Labs and vitals map to LOINC (and MIMIC's lab item ids) by hand ("A1c", "kidney function" to eGFR, "bp"). Conditions, medications, vaccines and allergens are read from the records' own SNOMED, RxNorm and CVX codes, then grouped the way clinicians talk: "high blood pressure", "a statin", "blood thinner", "flu shot". The same vocabulary file drives Python and the browser.
 
 **Parsing.** No model. The parser finds medical terms (longest match, with plural and one-typo tolerance), reads cue words outside those terms (so "allergic rhinitis" is not an allergy question), and works out the time frame ("in 2021", "past 12 months", "since 2020"). Anything it cannot place becomes `unsupported`, which is a refusal, not a guess.
 
@@ -87,16 +101,20 @@ circa ask dane "should we increase his lisinopril"
 circa bench                      # Circa, both wordings
 circa bench --answerer rag5      # the retrieval baseline
 circa bench --answerer rag20
+circa --data real bench          # the same on the 100 real patients
 
 cd web && npm install && npm run dev    # http://localhost:5181
 ```
 
-To regenerate the patients from scratch (Java 17+, about two minutes): `./scripts/generate.sh && circa ingest && circa questions`.
+The 100 real charts are committed in processed form (`data/real/`). To rebuild them from source, download the [MIMIC-IV Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (open access, about 50 MB), unzip its `fhir/` folder into `mimic/fhir/`, then `circa --data real ingest mimic/fhir && circa --data real questions`.
+
+To regenerate the synthetic patients from scratch (Java 17+, about two minutes): `./scripts/generate.sh && circa ingest && circa questions`.
 
 ## Project layout
 
 ```
-circa/fhir.py      FHIR bundle -> chart
+circa/fhir.py      FHIR bundle -> chart (Synthea)
+circa/mimic.py     MIMIC-IV FHIR NDJSON -> chart (real patients)
 circa/lexicon.py   how clinicians say it -> LOINC / SNOMED / RxNorm / CVX
 circa/parse.py     question -> intent, concept, time frame
 circa/engine.py    query + chart -> cited answer
@@ -106,13 +124,13 @@ circa/llm.py       Claude as the answerer, through tools
 circa/gold.py      answer key, written separately from the engine
 circa/bench.py     question generation, grading, Wilson intervals
 bench/heldout.json  held-out phrasings
-data/               130 ingested charts and the vocabulary
+data/               130 synthetic charts, data/real/ the 100 real ones, and their vocabularies
 web/                the site, with a JavaScript port of the engine
 ```
 
 ## Limitations
 
-- The data is synthetic. Synthea is realistic in structure, not in every value. Some kidney patients have implausibly low A1c results, for example.
+- The real cohort is 100 patients from one hospital, and only its hospital stays: no outpatient visits, allergies or vaccines. Those question types are tested on synthetic data only.
 - Structured data only. Clinical notes are not read, and they are where much of a real chart lives.
 - The parser covers the question types in the benchmark. Questions outside them are refused, not answered.
 - Medication status comes from the order's status. Real records also need dispense and administration data to know what a patient actually takes.
@@ -120,4 +138,4 @@ web/                the site, with a JavaScript port of the engine
 
 ## License
 
-MIT. Synthea is Apache 2.0. All patients are synthetic.
+Code: MIT. Real patient data: MIMIC-IV Clinical Database Demo on FHIR v2.1.0 (PhysioNet), Open Database License v1.0; `data/real/` is a derived database under the same license. Synthea is Apache 2.0.
