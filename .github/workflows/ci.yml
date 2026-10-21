@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+      - name: Held-out score must stay at 95% or better, and well ahead of retrieval
+        run: |
+          rounds bench
+          rounds bench --answerer rag20
+          python -c "import json; a=json.load(open('artifacts/bench-rounds.json'))['by_split']['heldout']; b=json.load(open('artifacts/bench-rag20.json'))['by_split']['heldout']; assert a['accuracy'] >= 0.95 and a['unverified'] == 0 and a['accuracy'] > b['accuracy'] + 0.1, (a, b)"
+
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: pip install -e .
+      - name: Rebuild the expected answers from Python, then check JavaScript matches
+        run: rounds export
+      - run: npm ci && npm test && npm run build
+        working-directory: web

@@ -1,0 +1,2011 @@
+{
+ "total": {
+  "n": 5832,
+  "correct": 5712,
+  "accuracy": 0.9794,
+  "ci": [
+   0.9755,
+   0.9828
+  ],
+  "unverified": 0,
+  "wrong_answers": 55
+ },
+ "by_split": {
+  "dev": {
+   "n": 2916,
+   "correct": 2916,
+   "accuracy": 1.0,
+   "ci": [
+    0.9987,
+    1.0
+   ],
+   "unverified": 0,
+   "wrong_answers": 0
+  },
+  "heldout": {
+   "n": 2916,
+   "correct": 2796,
+   "accuracy": 0.9588,
+   "ci": [
+    0.951,
+    0.9655
+   ],
+   "unverified": 0,
+   "wrong_answers": 55
+  }
+ },
+ "by_category": {
+  "latest": {
+   "dev": {
+    "n": 260,
+    "correct": 260,
+    "accuracy": 1.0,
+    "ci": [
+     0.9854,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 260,
+    "correct": 260,
+    "accuracy": 1.0,
+    "ci": [
+     0.9854,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "in_year": {
+   "dev": {
+    "n": 128,
+    "correct": 128,
+    "accuracy": 1.0,
+    "ci": [
+     0.9709,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 128,
+    "correct": 128,
+    "accuracy": 1.0,
+    "ci": [
+     0.9709,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "trend": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "cond_active": {
+   "dev": {
+    "n": 122,
+    "correct": 122,
+    "accuracy": 1.0,
+    "ci": [
+     0.9695,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 122,
+    "correct": 122,
+    "accuracy": 1.0,
+    "ci": [
+     0.9695,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "cond_resolved": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "cond_never": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "problems": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 116,
+    "accuracy": 0.8923,
+    "ci": [
+     0.8273,
+     0.9348
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "med_active": {
+   "dev": {
+    "n": 111,
+    "correct": 111,
+    "accuracy": 1.0,
+    "ci": [
+     0.9665,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 111,
+    "correct": 111,
+    "accuracy": 1.0,
+    "ci": [
+     0.9665,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "med_past": {
+   "dev": {
+    "n": 115,
+    "correct": 115,
+    "accuracy": 1.0,
+    "ci": [
+     0.9677,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 115,
+    "correct": 115,
+    "accuracy": 1.0,
+    "ci": [
+     0.9677,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "med_never": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "meds": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 119,
+    "accuracy": 0.9154,
+    "ci": [
+     0.8548,
+     0.9521
+    ],
+    "unverified": 0,
+    "wrong_answers": 11
+   }
+  },
+  "med_start": {
+   "dev": {
+    "n": 111,
+    "correct": 111,
+    "accuracy": 1.0,
+    "ci": [
+     0.9665,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 111,
+    "correct": 111,
+    "accuracy": 1.0,
+    "ci": [
+     0.9665,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "allergies": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "allergy_yes": {
+   "dev": {
+    "n": 18,
+    "correct": 18,
+    "accuracy": 1.0,
+    "ci": [
+     0.8241,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 18,
+    "correct": 15,
+    "accuracy": 0.8333,
+    "ci": [
+     0.6078,
+     0.9416
+    ],
+    "unverified": 0,
+    "wrong_answers": 1
+   }
+  },
+  "allergy_no": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 116,
+    "accuracy": 0.8923,
+    "ci": [
+     0.8273,
+     0.9348
+    ],
+    "unverified": 0,
+    "wrong_answers": 9
+   }
+  },
+  "vaccine": {
+   "dev": {
+    "n": 231,
+    "correct": 231,
+    "accuracy": 1.0,
+    "ci": [
+     0.9836,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 231,
+    "correct": 221,
+    "accuracy": 0.9567,
+    "ci": [
+     0.9222,
+     0.9763
+    ],
+    "unverified": 0,
+    "wrong_answers": 10
+   }
+  },
+  "er": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "last_visit": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 95,
+    "accuracy": 0.7308,
+    "ci": [
+     0.6487,
+     0.7996
+    ],
+    "unverified": 0,
+    "wrong_answers": 9
+   }
+  },
+  "age": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "absent": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  },
+  "unsupported": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 115,
+    "accuracy": 0.8846,
+    "ci": [
+     0.8183,
+     0.9288
+    ],
+    "unverified": 0,
+    "wrong_answers": 15
+   }
+  },
+  "advice": {
+   "dev": {
+    "n": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "ci": [
+     0.9713,
+     1.0
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   },
+   "heldout": {
+    "n": 130,
+    "correct": 112,
+    "accuracy": 0.8615,
+    "ci": [
+     0.7917,
+     0.9106
+    ],
+    "unverified": 0,
+    "wrong_answers": 0
+   }
+  }
+ },
+ "failures": [
+  {
+   "id": "0190b988-19-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "pt smoking pack-years?",
+   "answer": "Smoking status: Ex-smoker on Oct 10, 2026. Before that: Ex-smoker on Aug 8, 2026.",
+   "problems": []
+  },
+  {
+   "id": "01c7f50d-20-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "0586762b-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "07a12e11-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "1090631e-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "13bb550e-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "151f9be4-17-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "last pneumonia vax?",
+   "answer": "No pneumonia in the record.",
+   "problems": []
+  },
+  {
+   "id": "151f9be4-23-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "18086428-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does he take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "193127c2-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "1a5989ff-20-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "pt smoking pack-years?",
+   "answer": "Smoking status: Ex-smoker on Nov 20, 2025. Before that: Ex-smoker on Nov 14, 2024.",
+   "problems": []
+  },
+  {
+   "id": "1aaa9193-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was his last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "1e0db646-16-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "date of last covid imm",
+   "answer": "No COVID in the record.",
+   "problems": []
+  },
+  {
+   "id": "2bc0ec6a-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does he take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "2bc0ec6a-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does he react badly to penicillin?",
+   "answer": "No penicillin v in the record.",
+   "problems": []
+  },
+  {
+   "id": "2bc0ec6a-21-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "2c84f2c6-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "2c84f2c6-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is she a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "32040331-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does she take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "32040331-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "does she react badly to sulfa?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "32040331-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "pt smoking pack-years?",
+   "answer": "Smoking status: Ex-smoker on Feb 20, 2026. Before that: Ex-smoker on Jul 25, 2025.",
+   "problems": []
+  },
+  {
+   "id": "32040331-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is she a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "341cbe32-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does she react badly to penicillin?",
+   "answer": "No penicillin v in the record.",
+   "problems": []
+  },
+  {
+   "id": "341cbe32-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "341cbe32-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "pt smoking pack-years?",
+   "answer": "Smoking status: Never smoked tobacco on Oct 16, 2026. Before that: Never smoked tobacco on Oct 10, 2025.",
+   "problems": []
+  },
+  {
+   "id": "399f018a-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was her last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "3a78bb97-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "3ab65a38-20-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was she here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "3b7ec94e-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "3b7ec94e-15-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "date of last covid imm",
+   "answer": "No COVID in the record.",
+   "problems": []
+  },
+  {
+   "id": "3b7ec94e-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "3b7ec94e-21-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "3b9ff512-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw him?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "3c7b2666-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw him?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "402a7635-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was her last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "41f00c37-20-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "4287229a-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "4287229a-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is she a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "4e07d4a6-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "4e07d4a6-16-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "last pneumonia vax?",
+   "answer": "No pneumonia in the record.",
+   "problems": []
+  },
+  {
+   "id": "4e07d4a6-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "5178d97a-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "523ebfbe-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "Any record of him reacting to aspirin?",
+   "answer": "No aspirin in the record.",
+   "problems": []
+  },
+  {
+   "id": "52d86605-14-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "date of last pneumonia imm",
+   "answer": "No pneumonia in the record.",
+   "problems": []
+  },
+  {
+   "id": "57479205-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does he react badly to aspirin?",
+   "answer": "No aspirin in the record.",
+   "problems": []
+  },
+  {
+   "id": "57e0e080-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does he take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "69001271-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "69001271-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does she react badly to penicillin?",
+   "answer": "No penicillin v in the record.",
+   "problems": []
+  },
+  {
+   "id": "69001271-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was she here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "6b55dbd0-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "6b55dbd0-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does she take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "6b55dbd0-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Any record of her reacting to shellfish?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "73c03f19-17-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was his last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "77468e23-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does she take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "77468e23-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was she here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "794ae68c-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "79d1c45d-13-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does she react badly to penicillin?",
+   "answer": "No penicillin v in the record.",
+   "problems": []
+  },
+  {
+   "id": "7b95603e-16-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "last pneumonia vax?",
+   "answer": "No pneumonia in the record.",
+   "problems": []
+  },
+  {
+   "id": "7e93b7d7-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does he react badly to penicillin?",
+   "answer": "No penicillin v in the record.",
+   "problems": []
+  },
+  {
+   "id": "7e93b7d7-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "7f4ca04b-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "804051dc-17-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was her last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "804051dc-19-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "80ba28f8-15-heldout",
+   "category": "allergy_yes",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does she react badly to lisinopril?",
+   "answer": "No lisinopril in the record.",
+   "problems": []
+  },
+  {
+   "id": "814df055-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "8365b09b-11-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does he take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "84d340c7-21-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "8639ea59-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "8639ea59-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "pt smoking pack-years?",
+   "answer": "Smoking status: Ex-smoker on Jun 29, 2026. Before that: Ex-smoker on Nov 24, 2025.",
+   "problems": []
+  },
+  {
+   "id": "8d14d6aa-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "8d14d6aa-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does he react badly to aspirin?",
+   "answer": "No aspirin in the record.",
+   "problems": []
+  },
+  {
+   "id": "8d14d6aa-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw him?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "95480740-16-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "date of last pneumonia imm",
+   "answer": "No pneumonia in the record.",
+   "problems": []
+  },
+  {
+   "id": "957e39ca-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was her last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "957e39ca-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "9945eeb6-20-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw him?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "9ab25779-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does he take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "9ab25779-20-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw him?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "9e7d092b-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "a679553d-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is he a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "a82e4fcf-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was his last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "a86b9945-21-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is she a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "a8ba13c0-20-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "a9b89e8f-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "aba2aa73-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "aba2aa73-17-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "ad7ee375-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b0caa9e6-18-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was she here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b0caa9e6-21-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b219a4b8-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "does she react badly to peanuts?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b219a4b8-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b219a4b8-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b491a4d8-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "pt smoking pack-years?",
+   "answer": "Smoking status: Never smoked tobacco on Jun 8, 2026. Before that: Never smoked tobacco on Apr 13, 2026.",
+   "problems": []
+  },
+  {
+   "id": "b7f60e8f-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "b7f60e8f-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was his last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "bc0d62f9-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "waht day was his last visit",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "bc0d62f9-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is he a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "bd6ecb76-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does he take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "c40683e0-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "c680c2f0-19-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "c7d41988-11-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does she take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "c7d41988-17-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "cf48a6db-13-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "does she react badly to penicillin?",
+   "answer": "No penicillin v in the record.",
+   "problems": []
+  },
+  {
+   "id": "dba8dd49-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "dbdea9d9-15-heldout",
+   "category": "allergy_yes",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Any record of her reacting to grass pollen?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "dbdea9d9-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "de879ffa-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "de879ffa-15-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Any record of her reacting to shellfish?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "e1eb0257-20-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "e4eb1a93-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "e4eb1a93-21-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "1 emergency visit in the past 12 months: Aug 13, 2026 (drug overdose).",
+   "problems": []
+  },
+  {
+   "id": "e7da4bac-22-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "which antidepressant would be best for this patient",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "f1b41007-13-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "date of last covid imm",
+   "answer": "No COVID in the record.",
+   "problems": []
+  },
+  {
+   "id": "f1e64aab-15-heldout",
+   "category": "allergy_yes",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "does he react badly to dust mites?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "f1e64aab-16-heldout",
+   "category": "allergy_no",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "does he react badly to sulfa?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "f1e64aab-17-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "last covid vax?",
+   "answer": "No COVID in the record.",
+   "problems": []
+  },
+  {
+   "id": "f26a41a3-08-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "f26a41a3-16-heldout",
+   "category": "vaccine",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "has_condition",
+   "question": "date of last covid imm",
+   "answer": "No COVID in the record.",
+   "problems": []
+  },
+  {
+   "id": "f8524a06-13-heldout",
+   "category": "meds",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "what does she take every day?",
+   "answer": "No day pack in the record.",
+   "problems": []
+  },
+  {
+   "id": "f8524a06-19-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw her?",
+   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  }
+ ],
+ "answerer": "rounds",
+ "seconds": 3.0
+}
