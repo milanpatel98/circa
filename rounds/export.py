@@ -49,7 +49,9 @@ def export(charts: list[dict], lex: dict, synthea: Path = store.ROOT / "synthea"
         p = _pron(c["sex"])
         active = sorted({r["name"] for r in c["records"] if r["type"] == "Condition" and r["status"] == "active"})
         meds = len({r["code"] for r in c["records"] if r["type"] == "MedicationRequest" and r["status"] == "active"})
-        listing.append({"id": c["id"], "name": c["name"], "sex": c["sex"], "birthDate": c["birthDate"], "records": len(c["records"]),
+        y0 = int(c["asOf"][:4]) - 11
+        spark = [sum(1 for r in c["records"] if int(r["date"][:4]) == y) for y in range(y0, y0 + 12)]
+        listing.append({"id": c["id"], "name": c["name"], "sex": c["sex"], "birthDate": c["birthDate"], "records": len(c["records"]), "spark": spark,
                         "conditions": len(active), "meds": meds,
                         "suggest": [bench.fill(t, p) for t in SUGGEST["default"]]})
     store.save_json({"asOf": charts[0]["asOf"], "patients": listing, "cohort": len(charts),

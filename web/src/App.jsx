@@ -2,57 +2,58 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Engine, fmtDate, yearsBetween } from "./rounds.js";
 
 const NAME = "Circa";
+const REPO = "https://github.com/milanpatel98/rounds";
 
-const KIND = { Observation: "Lab or vital", Condition: "Condition", MedicationRequest: "Medication order", AllergyIntolerance: "Allergy",
+const KIND = { Observation: "Lab or vital", Condition: "Condition", MedicationRequest: "Medication", AllergyIntolerance: "Allergy",
   Immunization: "Vaccine", Encounter: "Visit", Procedure: "Procedure" };
 const STATUS = { answered: "Answered", not_found: "Not in record", unsupported: "Outside record", advice: "Declined" };
 const LISTS = new Set(["med_list", "problem_list", "allergy_list", "vaccine_list"]);
+const LANES = [["Visits", "Encounter"], ["Labs", "Observation"], ["Conditions", "Condition"], ["Medications", "MedicationRequest"], ["Vaccines", "Immunization"]];
+const YEARS = 12;
 const pct = (k, n) => `${(Math.round((k / n) * 1000) / 10).toFixed(1)}%`;
 const brand = (s) => s.replace(/\bRounds\b/g, NAME);
+const pron = (sex) => (sex === "female" ? ["her", "she"] : ["his", "he"]);
 
-/* Categories and their one-tap questions. p = his/her, s = he/she. */
 const CATS = [
-  ["labs", "Labs", [
-    ["Last A1c", (p) => `What was ${p} last A1c?`],
-    ["Blood pressure trend", (p) => `How has ${p} blood pressure changed?`],
-    ["Latest LDL", (p) => `What was ${p} last LDL?`],
-    ["Weight over time", (p) => `How has ${p} weight changed?`],
-  ]],
-  ["meds", "Medications", [
-    ["Current medications", (p, s) => `What medications is ${s} on?`],
-    ["On a blood thinner?", (p, s) => `Is ${s} on a blood thinner?`],
-    ["On a statin?", (p, s) => `Is ${s} on a statin?`],
-    ["When started lisinopril", (p, s) => `When did ${s} start lisinopril?`],
-    ["Treatment question", (p) => `Should we increase ${p} lisinopril?`],
-  ]],
-  ["conditions", "Conditions", [
-    ["Problem list", (p) => `What are ${p} active problems?`],
-    ["Diabetes?", (p, s) => `Does ${s} have diabetes?`],
-    ["Hypertension?", (p, s) => `Does ${s} have hypertension?`],
-    ["Asthma?", (p, s) => `Does ${s} have asthma?`],
-  ]],
-  ["allergies", "Allergies", [
-    ["All allergies", () => "Any allergies?"],
-    ["Penicillin?", (p, s) => `Is ${s} allergic to penicillin?`],
-    ["Peanuts?", (p, s) => `Is ${s} allergic to peanuts?`],
-  ]],
-  ["vaccines", "Vaccines", [
-    ["Last flu shot", (p) => `When was ${p} last flu shot?`],
-    ["COVID vaccine", (p) => `When was ${p} last covid vaccine?`],
-    ["Tetanus", (p) => `When was ${p} last tetanus shot?`],
-  ]],
-  ["visits", "Visits", [
-    ["Last visit", (p, s) => `When was ${s} last seen?`],
-    ["ER visits this year", () => "How many ER visits in the past year?"],
-    ["Age", (p, s) => `How old is ${s}?`],
-  ]],
+  ["Labs", [["Last A1c", (p) => `What was ${p} last A1c?`], ["Blood pressure trend", (p) => `How has ${p} blood pressure changed?`],
+    ["Latest LDL", (p) => `What was ${p} last LDL?`], ["Weight over time", (p) => `How has ${p} weight changed?`]]],
+  ["Medications", [["Current medications", (p, s) => `What medications is ${s} on?`], ["Blood thinner?", (p, s) => `Is ${s} on a blood thinner?`],
+    ["Statin?", (p, s) => `Is ${s} on a statin?`], ["Treatment question", (p) => `Should we increase ${p} lisinopril?`]]],
+  ["Conditions", [["Problem list", (p) => `What are ${p} active problems?`], ["Diabetes?", (p, s) => `Does ${s} have diabetes?`],
+    ["Hypertension?", (p, s) => `Does ${s} have hypertension?`], ["Asthma?", (p, s) => `Does ${s} have asthma?`]]],
+  ["Allergies", [["All allergies", () => "Any allergies?"], ["Penicillin?", (p, s) => `Is ${s} allergic to penicillin?`],
+    ["Peanuts?", (p, s) => `Is ${s} allergic to peanuts?`]]],
+  ["Vaccines", [["Last flu shot", (p) => `When was ${p} last flu shot?`], ["COVID vaccine", (p) => `When was ${p} last covid vaccine?`],
+    ["Tetanus", (p) => `When was ${p} last tetanus shot?`]]],
+  ["Visits", [["Last visit", (p, s) => `When was ${s} last seen?`], ["ER this year", () => "How many ER visits in the past year?"],
+    ["Age", (p, s) => `How old is ${s}?`]]],
 ];
+
+function useRoute() {
+  const read = () => {
+    const h = location.hash;
+    if (h.startsWith("#/p/")) return { page: "patient", id: h.slice(4) };
+    if (h === "#/results") return { page: "results" };
+    return { page: "home", anchor: h.slice(1) };
+  };
+  const [route, setRoute] = useState(read);
+  useEffect(() => {
+    const on = () => setRoute(read());
+    addEventListener("hashchange", on);
+    return () => removeEventListener("hashchange", on);
+  }, []);
+  useEffect(() => {
+    if (route.page === "home" && route.anchor) document.getElementById(route.anchor)?.scrollIntoView();
+    else scrollTo(0, 0);
+  }, [route]);
+  return route;
+}
 
 export default function App() {
   const [meta, setMeta] = useState(null);
   const [lex, setLex] = useState(null);
   const [results, setResults] = useState(null);
-  const [view, setView] = useState(() => location.hash.slice(1) || "ask");
+  const route = useRoute();
 
   useEffect(() => {
     Promise.all(["patients", "lexicon", "results"].map((f) => fetch(`data/${f}.json`).then((r) => r.json()))).then(([p, l, r]) => {
@@ -60,78 +61,255 @@ export default function App() {
       setLex(l);
       setResults(r);
     });
-    const onHash = () => setView(location.hash.slice(1) || "ask");
-    addEventListener("hashchange", onHash);
-    return () => removeEventListener("hashchange", onHash);
   }, []);
-
   const engine = useMemo(() => (lex ? new Engine(lex) : null), [lex]);
-  const tabs = [["ask", "Ask", "#"], ["results", "Results", "#results"], ["method", "Method", "#method"]];
+  if (!meta || !engine || !results) return <div className="boot" />;
 
+  const patient = route.page === "patient" ? meta.patients.find((p) => p.id === route.id) : null;
   return (
-    <div className="page">
-      <header className="top">
-        <a href="#" className="brand">{NAME}</a>
-        <nav className="nav" aria-label="Section">
-          {tabs.map(([k, label, href]) => (
-            <a key={k} href={href} className={view === k ? "on" : ""} aria-current={view === k ? "page" : undefined}>{label}</a>
-          ))}
-        </nav>
-      </header>
-
-      <main>
-        {view === "results" && results && meta ? <Results r={results} meta={meta} />
-          : view === "method" ? <Method />
-          : meta && engine ? <Ask meta={meta} engine={engine} /> : null}
-      </main>
-
-      <footer className="foot">© 2026 Milan Patel · MIT License</footer>
-    </div>
+    <>
+      {route.page === "home" && <Home meta={meta} engine={engine} r={results} />}
+      {route.page === "patient" && patient && <Patient key={patient.id} meta={meta} patient={patient} engine={engine} />}
+      {route.page === "results" && <Results r={results} meta={meta} />}
+      <footer className="foot wrap">
+        <span>© 2026 Milan Patel · MIT License</span>
+        <a href={REPO}>GitHub</a>
+      </footer>
+    </>
   );
 }
 
-/* ---- ask -------------------------------------------------------------------------------- */
+function Nav({ dark }) {
+  return (
+    <header className={`nav wrap ${dark ? "on-olive" : ""}`}>
+      <a href="#" className="logo"><Logo />{NAME}</a>
+      <nav>
+        <a href="#patients">Patients</a>
+        <a href="#/results">Results</a>
+        <a href="#how" className="hide-sm">How it works</a>
+      </nav>
+    </header>
+  );
+}
 
-function Ask({ meta, engine }) {
-  const [pid, setPid] = useState(meta.patients[0].id);
-  const [picking, setPicking] = useState(false);
+const Logo = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+    <circle cx="11" cy="11" r="8.5" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="40 13.4" transform="rotate(-50 11 11)" />
+    <rect x="9" y="9" width="4" height="4" fill="currentColor" />
+  </svg>
+);
+
+/* ---- the record drawn as a timeline ------------------------------------------------------- */
+
+function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, callout }) {
+  const W = 1000, lane = 30, top = callout ? 64 : 10, left = labels ? 112 : 0;
+  const H = top + LANES.length * lane + 34;
+  const end = Date.parse(asOf), start = end - YEARS * 365.25 * 864e5;
+  const x = (d) => left + ((Date.parse(d) - start) / (end - start)) * (W - left - 8);
+  const citedSet = new Set(cited);
+  const marks = useMemo(() => {
+    const out = [];
+    LANES.forEach(([, type], i) => {
+      for (const r of chart.records) {
+        if (r.type !== type || r.date < new Date(start).toISOString().slice(0, 10)) continue;
+        out.push({ r, i });
+      }
+    });
+    return out;
+  }, [chart]); // eslint-disable-line react-hooks/exhaustive-deps
+  const hits = marks.filter((m) => citedSet.has(m.r.id));
+  const y0 = new Date(start).getUTCFullYear() + 1;
+  const first = hits[0];
+  return (
+    <svg className={`tl ${tone}`} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${chart.name}'s record over ${YEARS} years`}>
+      {LANES.map(([name], i) => (
+        <g key={name}>
+          <line x1={left} x2={W - 8} y1={top + i * lane + lane / 2} y2={top + i * lane + lane / 2} className="tl-rule" />
+          {labels && <text x={0} y={top + i * lane + lane / 2 + 4} className="tl-lane">{name}</text>}
+        </g>
+      ))}
+      {marks.map(({ r, i }) =>
+        r.type === "Condition" ? (
+          <rect key={r.id} x={x(r.date)} y={top + i * lane + lane / 2 - 2} width={Math.max(3, x(r.end || asOf) - x(r.date))} height={4} className="tl-span" />
+        ) : (
+          <rect key={r.id} x={x(r.date) - 1} y={top + i * lane + 8} width={2} height={lane - 16} className="tl-mark" />
+        ))}
+      {hits.map(({ r, i }) => (
+        <rect key={`h${r.id}`} x={x(r.date) - 4} y={top + i * lane + 5} width={8} height={lane - 10} className="tl-hit" />
+      ))}
+      {callout && first && (
+        <g className="tl-call">
+          <line x1={x(first.r.date)} x2={x(first.r.date)} y1={top - 18} y2={top + first.i * lane + 5} />
+          <foreignObject x={Math.min(x(first.r.date) - 300, W - 430)} y={0} width={420} height={46}>
+            <div className="callout">{callout}</div>
+          </foreignObject>
+        </g>
+      )}
+      {Array.from({ length: YEARS / 2 }, (_, k) => y0 + k * 2).map((y) => (
+        <text key={y} x={x(`${y}-01-01`)} y={H - 8} className="tl-year">{y}</text>
+      ))}
+    </svg>
+  );
+}
+
+function Spark({ counts }) {
+  const max = Math.max(...counts);
+  return (
+    <svg className="spark" viewBox="0 0 120 28" aria-hidden="true">
+      {counts.map((c, i) => (
+        <rect key={i} x={i * 10 + 1} y={28 - Math.max(2, (c / max) * 26)} width={7} height={Math.max(2, (c / max) * 26)} />
+      ))}
+    </svg>
+  );
+}
+
+/* ---- home ------------------------------------------------------------------------------------ */
+
+function Home({ meta, engine, r }) {
+  const lead = meta.patients[0];
   const [file, setFile] = useState(null);
-  const [cat, setCat] = useState("labs");
+  useEffect(() => {
+    fetch(`data/p/${lead.id}.json`).then((x) => x.json()).then(setFile);
+  }, [lead.id]);
+  const demo = useMemo(() => (file ? engine.ask(file.chart, `What was ${pron(lead.sex)[0]} last A1c?`) : null), [file, engine, lead.sex]);
+  const H = (n) => r[n].by_split.heldout;
+
+  return (
+    <>
+      <section className="hero">
+        <Nav dark />
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <h1>Ask a patient’s chart.<br />See exactly where the answer came from.</h1>
+            <p>Every answer points to the record behind it. If the chart doesn’t say, neither does {NAME}.</p>
+            <div className="actions">
+              <a className="btn light" href={`#/p/${lead.id}`}>Try it</a>
+              <a className="btn line" href="#/results">See the results</a>
+            </div>
+          </div>
+          <figure className="hero-fig">
+            <div className="fig-head">
+              <span>{lead.name}</span>
+              <span>Last {YEARS} years</span>
+            </div>
+            {file && demo && (
+              <Timeline chart={file.chart} asOf={meta.asOf} cited={demo.claims[0].cites} tone="dark"
+                callout={<><b>“Last A1c?”</b> {demo.claims[0].text}</>} />
+            )}
+          </figure>
+        </div>
+      </section>
+
+      <section className="wrap block" id="patients">
+        <div className="block-head">
+          <h2>Choose a patient</h2>
+          <p>Six synthetic patients, real hospital data format.</p>
+        </div>
+        <div className="cards">
+          {meta.patients.map((p) => (
+            <a key={p.id} className="card" href={`#/p/${p.id}`}>
+              <span className="mono">{p.name.split(" ").map((w) => w[0]).join("")}</span>
+              <span className="card-name">{p.name}</span>
+              <span className="soft">{yearsBetween(p.birthDate, meta.asOf)}, {p.sex}</span>
+              <Spark counts={p.spark} />
+              <span className="card-stats">
+                <span><b>{p.conditions}</b> conditions</span>
+                <span><b>{p.meds}</b> medications</span>
+              </span>
+              <span className="card-go">Open chart</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="wrap block" id="how">
+        <div className="block-head">
+          <h2>How it works</h2>
+        </div>
+        <ol className="steps">
+          <li><StepArt n={1} /><h3>Ask</h3><p>Plain words, like “still on a statin?”</p></li>
+          <li><StepArt n={2} /><h3>Read the whole chart</h3><p>Every lab, order and visit, not a handful.</p></li>
+          <li><StepArt n={3} /><h3>Cite and check</h3><p>Each number is matched to its record.</p></li>
+        </ol>
+      </section>
+
+      <section className="wrap block">
+        <div className="score">
+          <div>
+            <p className="score-big">{pct(H("rounds").correct, H("rounds").n)}</p>
+            <p className="soft">correct on {H("rounds").n.toLocaleString()} questions it had never seen worded</p>
+          </div>
+          <div className="mini-bars">
+            {[[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
+              <div key={k} className={`mb ${k === "rounds" ? "ours" : ""}`}>
+                <span>{name}</span>
+                <span className="mb-track"><span style={{ width: `${(H(k).correct / H(k).n) * 100}%` }} /></span>
+                <span>{pct(H(k).correct, H(k).n)}</span>
+              </div>
+            ))}
+            <a className="btn dark" href="#/results">All results</a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function StepArt({ n }) {
+  return (
+    <svg className="step-art" viewBox="0 0 160 90" aria-hidden="true">
+      {n === 1 && (
+        <>
+          <rect x="10" y="22" width="140" height="34" className="sa-box" />
+          <rect x="22" y="36" width="64" height="6" className="sa-ink" />
+          <rect x="118" y="30" width="22" height="18" className="sa-olive" />
+        </>
+      )}
+      {n === 2 &&
+        [0, 1, 2, 3].map((row) => (
+          <g key={row}>
+            <line x1="10" x2="150" y1={18 + row * 18} y2={18 + row * 18} className="sa-rule" />
+            {Array.from({ length: 12 }, (_, i) => (
+              <rect key={i} x={14 + i * 11.5 + ((row * 5) % 7)} y={13 + row * 18} width="2" height="10" className="sa-ink" />
+            ))}
+          </g>
+        ))}
+      {n === 3 && (
+        <>
+          <rect x="10" y="22" width="88" height="6" className="sa-ink" />
+          <rect x="10" y="36" width="70" height="6" className="sa-ink" />
+          <rect x="84" y="31" width="14" height="14" className="sa-olive" />
+          <line x1="98" y1="38" x2="128" y2="38" className="sa-line" />
+          <rect x="128" y="24" width="22" height="28" className="sa-box" />
+          <path d="M133 38l4 4 8-9" className="sa-tick" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+/* ---- a patient ------------------------------------------------------------------------------- */
+
+function Patient({ meta, patient, engine }) {
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState("Labs");
   const [q, setQ] = useState("");
   const [answer, setAnswer] = useState(null);
   const [asked, setAsked] = useState("");
-  const [sheet, setSheet] = useState(null); // id of the record to show, or "all"
-  const pickRef = useRef(null);
-  const inputRef = useRef(null);
-  const patient = meta.patients.find((p) => p.id === pid);
+  const [sheet, setSheet] = useState(null);
+  const [poss, subj] = pron(patient.sex);
   const first = patient.name.split(" ")[0];
-  const poss = patient.sex === "female" ? "her" : "his";
-  const subj = patient.sex === "female" ? "she" : "he";
 
   useEffect(() => {
-    let live = true;
-    setFile(null);
-    setAnswer(null);
-    setSheet(null);
-    fetch(`data/p/${pid}.json`).then((r) => r.json()).then((f) => live && setFile(f));
-    return () => {
-      live = false;
-    };
-  }, [pid]);
-
+    fetch(`data/p/${patient.id}.json`).then((r) => r.json()).then(setFile);
+  }, [patient.id]);
   useEffect(() => {
-    const close = (e) => pickRef.current && !pickRef.current.contains(e.target) && setPicking(false);
-    const esc = (e) => e.key === "Escape" && (setSheet(null), setPicking(false));
-    document.addEventListener("pointerdown", close);
-    document.addEventListener("keydown", esc);
-    return () => {
-      document.removeEventListener("pointerdown", close);
-      document.removeEventListener("keydown", esc);
-    };
+    const esc = (e) => e.key === "Escape" && setSheet(null);
+    addEventListener("keydown", esc);
+    return () => removeEventListener("keydown", esc);
   }, []);
 
   const records = useMemo(() => (file ? Object.fromEntries(file.chart.records.map((r) => [r.id, r])) : {}), [file]);
-
   function run(text) {
     if (!file || !text.trim()) return;
     setAnswer(engine.ask(file.chart, text));
@@ -139,7 +317,6 @@ function Ask({ meta, engine }) {
     setQ("");
     setSheet(null);
   }
-
   const isList = answer && LISTS.has(answer.intent) && answer.claims.length > 2;
   const sources = useMemo(() => {
     const out = [];
@@ -149,99 +326,82 @@ function Ask({ meta, engine }) {
     }
     return out;
   }, [answer, isList]);
-
   const Mark = ({ id }) => {
     const n = sources.indexOf(id) + 1;
-    if (!n) return null;
-    return <button className={`cite ${sheet === id ? "on" : ""}`} onClick={() => setSheet(id)} aria-label={`Record ${n}`}>{n}</button>;
+    return n ? <button className={`cite ${sheet === id ? "on" : ""}`} onClick={() => setSheet(id)} aria-label={`Record ${n}`}>{n}</button> : null;
   };
 
-  const questions = CATS.find(([k]) => k === cat)[2];
-
   return (
-    <section className="ask">
-      <div className="who" ref={pickRef}>
-        <button className="who-name" onClick={() => setPicking((v) => !v)} aria-haspopup="listbox" aria-expanded={picking}>
-          {patient.name}
-          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" /></svg>
-        </button>
-        <p className="who-sub">{yearsBetween(patient.birthDate, meta.asOf)}, {patient.sex}</p>
-        {picking && (
-          <ul className="pick" role="listbox" aria-label="Choose a patient">
-            {meta.patients.map((p) => (
-              <li key={p.id}>
-                <button role="option" aria-selected={p.id === pid} onClick={() => {
-                  setPid(p.id);
-                  setPicking(false);
-                }}>
-                  <span>{p.name}</span>
-                  <span className="soft">{yearsBetween(p.birthDate, meta.asOf)}, {p.sex}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div className="index">
-        <div className="cats" role="tablist" aria-label="Category">
-          {CATS.map(([k, label]) => (
-            <button key={k} role="tab" aria-selected={cat === k} className={`cat ${cat === k ? "on" : ""}`} onClick={() => setCat(k)}>{label}</button>
-          ))}
-        </div>
-        <div className="qs" role="tabpanel">
-          {questions.map(([label, make]) => (
-            <button key={label} className="qb" onClick={() => run(make(poss, subj))} disabled={!file}>{label}</button>
-          ))}
-        </div>
-      </div>
-
-      <form className="q" onSubmit={(e) => {
-        e.preventDefault();
-        run(q);
-      }}>
-        <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Ask anything about ${first}`} aria-label="Question" disabled={!file} />
-        <button type="submit" className="primary" disabled={!file || !q.trim()}>Ask</button>
-      </form>
-
-      {answer && (
-        <article className="said" aria-live="polite">
-          <div className="said-head">
-            <p className="asked">{asked}</p>
-            <span className={`tag ${answer.status}`}>{STATUS[answer.status]}</span>
+    <>
+      <section className="hero slim">
+        <Nav dark />
+        <div className="wrap">
+          <div className="pt-head">
+            <span className="mono big-mono">{patient.name.split(" ").map((w) => w[0]).join("")}</span>
+            <div>
+              <h1 className="pt-name">{patient.name}</h1>
+              <p className="pt-sub">{yearsBetween(patient.birthDate, meta.asOf)}, {patient.sex}. {patient.records.toLocaleString()} records.</p>
+            </div>
+            <select className="switch" value={patient.id} onChange={(e) => (location.hash = `#/p/${e.target.value}`)} aria-label="Switch patient">
+              {meta.patients.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+            </select>
           </div>
-          {isList ? (
-            <>
-              <p className="text">{answer.claims[0].text.replace(/:$/, ".")}</p>
-              <ul className="rows">
-                {answer.claims.slice(1).map((c, i) => (
-                  <li key={i}>
-                    <span>{c.text.replace(/[;.]$/, "")}</span>
-                    <Mark id={c.cites[0]} />
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <p className="text">
-              {answer.claims.map((c, i) => (
-                <span key={i}>
-                  {brand(c.text)}
-                  {c.cites.length > 0 && c.cites.length <= 8 && c.cites.map((id) => <Mark key={id} id={id} />)}{" "}
-                </span>
-              ))}
-            </p>
-          )}
-          {sources.length > 0 && (
-            <button className="ghost" onClick={() => setSheet("all")}>View {sources.length === 1 ? "1 record" : `${sources.length} records`}</button>
-          )}
-        </article>
-      )}
+          <figure className="hero-fig flat">
+            {file ? <Timeline chart={file.chart} asOf={meta.asOf} cited={sources} tone="dark" /> : <div className="tl-wait" />}
+          </figure>
+        </div>
+      </section>
 
-      {sheet && file && (
-        <Sheet ids={sources} focus={sheet === "all" ? null : sheet} records={records} raw={file.raw} chart={file.chart} onClose={() => setSheet(null)} />
-      )}
-    </section>
+      <section className="wrap ask">
+        <div className="tabs" role="tablist" aria-label="Category">
+          {CATS.map(([k]) => (
+            <button key={k} role="tab" aria-selected={cat === k} className={cat === k ? "on" : ""} onClick={() => setCat(k)}>{k}</button>
+          ))}
+        </div>
+        <div className="qs">
+          {CATS.find(([k]) => k === cat)[1].map(([label, make]) => (
+            <button key={label} className="btn chip" onClick={() => run(make(poss, subj))} disabled={!file}>{label}</button>
+          ))}
+        </div>
+        <form className="field" onSubmit={(e) => { e.preventDefault(); run(q); }}>
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Or ask anything about ${first}`} aria-label="Question" disabled={!file} />
+          <button type="submit" className="btn dark" disabled={!file || !q.trim()}>Ask</button>
+        </form>
+
+        {answer && (
+          <article className="said" aria-live="polite">
+            <div className="said-head">
+              <p className="soft">{asked}</p>
+              <span className={`tag ${answer.status}`}>{STATUS[answer.status]}</span>
+            </div>
+            {isList ? (
+              <>
+                <p className="said-text">{answer.claims[0].text.replace(/:$/, ".")}</p>
+                <ul className="rows">
+                  {answer.claims.slice(1).map((c, i) => (
+                    <li key={i}><span>{c.text.replace(/[;.]$/, "")}</span><Mark id={c.cites[0]} /></li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="said-text">
+                {answer.claims.map((c, i) => (
+                  <span key={i}>{brand(c.text)}{c.cites.length > 0 && c.cites.length <= 8 && c.cites.map((id) => <Mark key={id} id={id} />)}{" "}</span>
+                ))}
+              </p>
+            )}
+            {sources.length > 0 && (
+              <p className="said-foot">
+                <span className="dot" /> Highlighted on the timeline above.
+                <button className="btn line-dark" onClick={() => setSheet("all")}>View {sources.length === 1 ? "record" : `${sources.length} records`}</button>
+              </p>
+            )}
+          </article>
+        )}
+      </section>
+
+      {sheet && file && <Sheet ids={sources} focus={sheet === "all" ? null : sheet} records={records} raw={file.raw} chart={file.chart} onClose={() => setSheet(null)} />}
+    </>
   );
 }
 
@@ -255,9 +415,9 @@ function Sheet({ ids, focus, records, raw, chart, onClose }) {
       <div className="scrim" onClick={onClose} />
       <aside className="sheet" role="dialog" aria-label="Cited records" tabIndex={-1} ref={panel}>
         <div className="sheet-head">
-          <p>Records</p>
+          <p>Source records</p>
           <button onClick={onClose} aria-label="Close">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" /></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" /></svg>
           </button>
         </div>
         <ol className="recs">
@@ -271,9 +431,7 @@ function Sheet({ ids, focus, records, raw, chart, onClose }) {
                   <span className={`cite ${isOpen ? "on" : ""}`} aria-hidden="true">{i + 1}</span>
                   <span className="rec-body">
                     <span className="rec-name">{isPatient ? chart.name : r?.name}</span>
-                    <span className="soft">
-                      {isPatient ? `Patient, born ${fmtDate(chart.birthDate)}` : `${KIND[r?.type] || "Record"}, ${fmtDate(r.date)}`}
-                    </span>
+                    <span className="soft">{isPatient ? `Patient, born ${fmtDate(chart.birthDate)}` : `${KIND[r?.type] || "Record"}, ${fmtDate(r.date)}`}</span>
                   </span>
                 </button>
                 {isOpen && (
@@ -291,70 +449,61 @@ function Sheet({ ids, focus, records, raw, chart, onClose }) {
   );
 }
 
-/* ---- results ------------------------------------------------------------------------------ */
+/* ---- results ---------------------------------------------------------------------------------- */
 
 function Results({ r, meta }) {
   const [more, setMore] = useState(false);
   const H = (n) => r[n].by_split.heldout;
-  const lines = [[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]];
-  const keys = more ? r.categories.map(([k]) => k).filter((k) => r.rounds.by_category[k]) : ["latest", "med_active", "meds", "problems"];
+  const keys = more ? r.categories.map(([k]) => k).filter((k) => r.rounds.by_category[k]) : ["latest", "trend", "med_active", "meds", "problems", "last_visit"];
   const label = Object.fromEntries(r.categories);
   return (
-    <section className="results">
-      <p className="big">{pct(H("rounds").correct, H("rounds").n)}</p>
-      <p className="caption">correct on unseen wording</p>
-      <p className="soft note">
-        {H("rounds").n.toLocaleString()} held-out questions, {meta.cohort} synthetic patients. Search answers from the records most like the question; {NAME} reads the whole chart.
-      </p>
-
-      <div className="bars">
-        {lines.map(([name, k]) => (
-          <div key={k} className={`bar ${k === "rounds" ? "ours" : ""}`}>
-            <span className="bar-name">{name}</span>
-            <span className="bar-track"><span style={{ width: `${(H(k).correct / H(k).n) * 100}%` }} /></span>
-            <span className="bar-v">{pct(H(k).correct, H(k).n)}</span>
-          </div>
-        ))}
-      </div>
-
-      <table className="t">
-        <thead>
-          <tr><th scope="col">Question type</th><th scope="col">{NAME}</th><th scope="col">Search, top 20</th></tr>
-        </thead>
-        <tbody>
-          {keys.map((k) => (
-            <tr key={k}>
-              <td>{label[k]}</td>
-              <td>{Math.round(r.rounds.by_category[k].heldout * 100)}%</td>
-              <td className="soft">{Math.round(r.rag20.by_category[k].heldout * 100)}%</td>
-            </tr>
+    <>
+      <section className="hero slim">
+        <Nav dark />
+        <div className="wrap res-head">
+          <p className="res-big">{pct(H("rounds").correct, H("rounds").n)}</p>
+          <p>correct on {H("rounds").n.toLocaleString()} questions worded by someone who never saw how {NAME} reads them. {meta.cohort} patients.</p>
+        </div>
+      </section>
+      <section className="wrap block">
+        <div className="block-head">
+          <h2>Against the usual approach</h2>
+          <p>Search answers from the records that read most like the question. {NAME} reads the whole chart.</p>
+        </div>
+        <div className="mini-bars wide">
+          {[[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
+            <div key={k} className={`mb ${k === "rounds" ? "ours" : ""}`}>
+              <span>{name}</span>
+              <span className="mb-track"><span style={{ width: `${(H(k).correct / H(k).n) * 100}%` }} /></span>
+              <span>{pct(H(k).correct, H(k).n)}</span>
+            </div>
           ))}
-        </tbody>
-      </table>
-      <button className="ghost" onClick={() => setMore((m) => !m)} aria-expanded={more}>{more ? "Show fewer" : `Show all ${r.categories.length}`}</button>
-    </section>
-  );
-}
-
-/* ---- method ------------------------------------------------------------------------------- */
-
-function Method() {
-  const rows = [
-    ["Record", "Synthetic FHIR patients from Synthea: labs, vitals, conditions, medications, allergies, vaccines and visits, each kept with its id."],
-    ["Question", "A clinical vocabulary maps everyday wording to codes; no language model, and anything it cannot place is declined."],
-    ["Answer", "Worked out over the whole chart, so latest means newest and current means still active; every sentence cites its records."],
-    ["Limits", "Structured fields only, no clinical notes, not for clinical use."],
-  ];
-  return (
-    <section className="method">
-      <div className="grid">
-        {rows.map(([t, s]) => (
-          <div key={t} className="cell">
-            <h2>{t}</h2>
-            <p>{s}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+        </div>
+        <div className="wrongs">
+          {[[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
+            <div key={k} className={k === "rounds" ? "ours" : ""}>
+              <b>{H(k).wrong_answers}</b>
+              <span>confident wrong answers, {name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="wrap block">
+        <div className="block-head"><h2>By question</h2></div>
+        <table className="t">
+          <thead><tr><th scope="col">Question</th><th scope="col">{NAME}</th><th scope="col">Search, 20</th></tr></thead>
+          <tbody>
+            {keys.map((k) => (
+              <tr key={k}>
+                <td>{label[k]}</td>
+                <td><b>{Math.round(r.rounds.by_category[k].heldout * 100)}%</b></td>
+                <td className="soft">{Math.round(r.rag20.by_category[k].heldout * 100)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button className="btn line-dark" onClick={() => setMore((m) => !m)} aria-expanded={more}>{more ? "Show fewer" : `Show all ${r.categories.length}`}</button>
+      </section>
+    </>
   );
 }
