@@ -106,7 +106,7 @@ export default function App() {
   const route = useRoute();
 
   useEffect(() => {
-    Promise.all(["patients", "lexicon", "results"].map((f) => fetch(`data/${f}.json`).then((r) => r.json()))).then(([p, l, r]) => {
+    Promise.all(["patients", "lexicon", "results"].map((f) => fetch(`data/${f}.json?v=${__BUILD__}`).then((r) => r.json()))).then(([p, l, r]) => {
       setMeta(p);
       setLex(l);
       setResults(r);
@@ -317,7 +317,7 @@ function Patient({ meta, patient, engine }) {
   const first = patient.name.split(" ")[0];
 
   useEffect(() => {
-    fetch(`data/p/${patient.id}.json`).then((r) => r.json()).then(setFile);
+    fetch(`data/p/${patient.id}.json?v=${__BUILD__}`).then((r) => r.json()).then(setFile);
   }, [patient.id]);
   useEffect(() => {
     const esc = (e) => e.key === "Escape" && setSheet(null);
