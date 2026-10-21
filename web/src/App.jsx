@@ -163,11 +163,11 @@ function Nav({ dark }) {
   );
 }
 
-// the mark: "c." as circa is abbreviated; the full stop is a square, the one record that backs the answer
+// the mark: a square C holding one square, the chart around the one record that backs the answer
 const Logo = () => (
   <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true">
-    <path d="M21.78 23.78A11 11 0 1 1 21.78 8.22" fill="none" stroke="currentColor" strokeWidth="4.2" />
-    <rect x="23.5" y="12.5" width="7" height="7" fill="currentColor" />
+    <path d="M26 7.5H6.5V24.5H26" fill="none" stroke="currentColor" strokeWidth="4.2" />
+    <rect x="13" y="13" width="6" height="6" fill="currentColor" />
   </svg>
 );
 
