@@ -55,7 +55,7 @@ const I = {
 };
 
 function Dock({ page }) {
-  const items = [["home", "Home", "#", I.home], ["patients", "Patients", "#patients", I.people], ["results", "Results", "#/results", I.chart]];
+  const items = [["home", "Home", "#", I.home], ["patients", "Patients", "#/patients", I.people], ["results", "Results", "#/results", I.chart]];
   return (
     <nav className="dock" aria-label="Main">
       {items.map(([k, label, href, icon]) => (
@@ -70,6 +70,7 @@ function useRoute() {
     const h = location.hash;
     if (h.startsWith("#/p/")) return { page: "patient", id: h.slice(4) };
     if (h === "#/results") return { page: "results" };
+    if (h === "#/patients" || h === "#patients") return { page: "patients" };
     return { page: "home", anchor: h.slice(1) };
   };
   const [route, setRoute] = useState(read);
@@ -104,11 +105,12 @@ export default function App() {
   const patient = route.page === "patient" ? meta.patients.find((p) => p.id === route.id) : null;
   return (
     <>
-      {route.page === "home" && <Home meta={meta} engine={engine} r={results} />}
+      {route.page === "home" && <Home meta={meta} />}
+      {route.page === "patients" && <Patients meta={meta} />}
       {route.page === "patient" && patient && <Patient key={patient.id} meta={meta} patient={patient} engine={engine} />}
       {route.page === "results" && <Results r={results} meta={meta} />}
-      <Dock page={route.page === "results" ? "results" : route.page === "patient" ? "patients" : route.anchor === "patients" ? "patients" : "home"} />
-      <footer className="foot wrap">
+      <Dock page={route.page === "results" ? "results" : route.page === "home" ? "home" : "patients"} />
+      <footer className={`foot wrap ${route.page === "home" ? "on-home" : ""}`}>
         <span>© 2026 Milan Patel · MIT License</span>
         <a href={REPO}>GitHub</a>
       </footer>
@@ -121,9 +123,8 @@ function Nav({ dark }) {
     <header className={`nav wrap ${dark ? "on-olive" : ""}`}>
       <a href="#" className="logo"><Logo />{NAME}</a>
       <nav>
-        <a href="#patients">Patients</a>
+        <a href="#/patients">Patients</a>
         <a href="#/results">Results</a>
-        <a href="#how" className="hide-sm">How it works</a>
       </nav>
     </header>
   );
@@ -204,46 +205,55 @@ function Spark({ counts }) {
 
 /* ---- home ------------------------------------------------------------------------------------ */
 
-function Home({ meta, engine, r }) {
-  const lead = meta.patients[0];
-  const [file, setFile] = useState(null);
-  useEffect(() => {
-    fetch(`data/p/${lead.id}.json`).then((x) => x.json()).then(setFile);
-  }, [lead.id]);
-  const demo = useMemo(() => (file ? engine.ask(file.chart, `What was ${pron(lead.sex)[0]} last A1c?`) : null), [file, engine, lead.sex]);
-  const H = (n) => r[n].by_split.heldout;
+function Home({ meta }) {
+  return (
+    <section className="home">
+      <Nav dark />
+      <div className="home-center">
+        <Drawing />
+        <h1>Ask a patient’s chart.<br />See where every answer came from.</h1>
+        <a className="btn light big home-btn" href="#/patients"><Icon d={I.ask} />Ask a patient</a>
+        <p className="home-note">{meta.patients.length} patients ready</p>
+      </div>
+    </section>
+  );
+}
 
+/* one drawn idea: a record over time, one mark picked out, and the answer it backs */
+function Drawing() {
+  const rows = [
+    [18, 46, 70, 96, 130, 158, 190],
+    [30, 60, 84, 120, 150, 176, 206],
+    [24, 52, 104, 140, 168, 198],
+  ];
+  return (
+    <svg className="drawing" viewBox="0 0 260 150" aria-hidden="true">
+      <rect x="1" y="1" width="258" height="148" className="dr-frame" />
+      {rows.map((xs, i) => (
+        <g key={i}>
+          <line x1="16" x2="244" y1={44 + i * 30} y2={44 + i * 30} className="dr-rule" />
+          {xs.map((x) => <rect key={x} x={x} y={36 + i * 30} width="2.5" height="16" className="dr-mark" />)}
+        </g>
+      ))}
+      <rect x="221" y="62" width="9" height="24" className="dr-hit" />
+      <line x1="225.5" x2="225.5" y1="62" y2="30" className="dr-lead" />
+      <rect x="150" y="12" width="94" height="18" className="dr-tag" />
+      <rect x="157" y="19" width="50" height="4" className="dr-tag-ink" />
+      <rect x="212" y="19" width="24" height="4" className="dr-tag-ink" />
+    </svg>
+  );
+}
+
+function Patients({ meta }) {
   return (
     <>
-      <section className="hero">
+      <section className="hero slim">
         <Nav dark />
-        <div className="wrap hero-grid">
-          <div className="hero-copy">
-            <h1>Ask a patient’s chart.<br />See exactly where the answer came from.</h1>
-            <p>Every answer points to the record behind it. If the chart doesn’t say, neither does {NAME}.</p>
-            <div className="actions">
-              <a className="btn light big" href={`#/p/${lead.id}`}><Icon d={I.ask} />Ask a patient</a>
-              <a className="btn line big" href="#/results"><Icon d={I.chart} />See the results</a>
-            </div>
-          </div>
-          <figure className="hero-fig">
-            <div className="fig-head">
-              <span>{lead.name}</span>
-              <span>Full record</span>
-            </div>
-            {file && demo && (
-              <Timeline chart={file.chart} asOf={meta.asOf} cited={demo.claims[0].cites} tone="dark"
-                callout={<><b>“Last A1c?”</b> {demo.claims[0].text}</>} />
-            )}
-          </figure>
+        <div className="wrap">
+          <h1 className="page-title">Choose a patient</h1>
         </div>
       </section>
-
-      <section className="wrap block" id="patients">
-        <div className="block-head">
-          <h2>Choose a patient</h2>
-          <p>Six synthetic patients, real hospital data format.</p>
-        </div>
+      <section className="wrap block tight">
         <div className="cards">
           {meta.patients.map((p) => (
             <a key={p.id} className="card" href={`#/p/${p.id}`}>
@@ -260,70 +270,7 @@ function Home({ meta, engine, r }) {
           ))}
         </div>
       </section>
-
-      <section className="wrap block" id="how">
-        <div className="block-head">
-          <h2>How it works</h2>
-        </div>
-        <ol className="steps">
-          <li><StepArt n={1} /><h3>Ask</h3><p>Plain words, like “still on a statin?”</p></li>
-          <li><StepArt n={2} /><h3>Read the whole chart</h3><p>Every lab, order and visit, not a handful.</p></li>
-          <li><StepArt n={3} /><h3>Cite and check</h3><p>Each number is matched to its record.</p></li>
-        </ol>
-      </section>
-
-      <section className="wrap block">
-        <div className="score">
-          <div>
-            <p className="score-big">{pct(H("rounds").correct, H("rounds").n)}</p>
-            <p className="soft">correct on {H("rounds").n.toLocaleString()} questions it had never seen worded</p>
-          </div>
-          <div className="mini-bars">
-            {[[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
-              <div key={k} className={`mb ${k === "rounds" ? "ours" : ""}`}>
-                <span>{name}</span>
-                <span className="mb-track"><span style={{ width: `${(H(k).correct / H(k).n) * 100}%` }} /></span>
-                <span>{pct(H(k).correct, H(k).n)}</span>
-              </div>
-            ))}
-            <a className="btn dark big" href="#/results"><Icon d={I.chart} />All results</a>
-          </div>
-        </div>
-      </section>
     </>
-  );
-}
-
-function StepArt({ n }) {
-  return (
-    <svg className="step-art" viewBox="0 0 160 90" aria-hidden="true">
-      {n === 1 && (
-        <>
-          <rect x="10" y="22" width="140" height="34" className="sa-box" />
-          <rect x="22" y="36" width="64" height="6" className="sa-ink" />
-          <rect x="118" y="30" width="22" height="18" className="sa-olive" />
-        </>
-      )}
-      {n === 2 &&
-        [0, 1, 2, 3].map((row) => (
-          <g key={row}>
-            <line x1="10" x2="150" y1={18 + row * 18} y2={18 + row * 18} className="sa-rule" />
-            {Array.from({ length: 12 }, (_, i) => (
-              <rect key={i} x={14 + i * 11.5 + ((row * 5) % 7)} y={13 + row * 18} width="2" height="10" className="sa-ink" />
-            ))}
-          </g>
-        ))}
-      {n === 3 && (
-        <>
-          <rect x="10" y="22" width="88" height="6" className="sa-ink" />
-          <rect x="10" y="36" width="70" height="6" className="sa-ink" />
-          <rect x="84" y="31" width="14" height="14" className="sa-olive" />
-          <line x1="98" y1="38" x2="128" y2="38" className="sa-line" />
-          <rect x="128" y="24" width="22" height="28" className="sa-box" />
-          <path d="M133 38l4 4 8-9" className="sa-tick" />
-        </>
-      )}
-    </svg>
   );
 }
 
