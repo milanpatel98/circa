@@ -101,7 +101,7 @@ class Engine:
         out = []
         cs = set(codes) if codes is not None else None
         for r in chart["records"]:
-            if r["type"] != rtype:
+            if r["type"] != rtype or r.get("noresult"):
                 continue
             if cs is not None and r["code"] not in cs:
                 continue

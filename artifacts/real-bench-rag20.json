@@ -1,110 +1,110 @@
 {
  "total": {
-  "n": 3358,
-  "correct": 2254,
-  "accuracy": 0.6712,
+  "n": 3362,
+  "correct": 2268,
+  "accuracy": 0.6746,
   "ci": [
-   0.6552,
-   0.6869
+   0.6586,
+   0.6902
   ],
   "unverified": 0,
-  "wrong_answers": 977
+  "wrong_answers": 950
  },
  "by_split": {
   "dev": {
-   "n": 1679,
-   "correct": 1149,
-   "accuracy": 0.6843,
+   "n": 1681,
+   "correct": 1157,
+   "accuracy": 0.6883,
    "ci": [
-    0.6617,
-    0.7061
+    0.6657,
+    0.71
    ],
    "unverified": 0,
-   "wrong_answers": 487
+   "wrong_answers": 469
   },
   "heldout": {
-   "n": 1679,
-   "correct": 1105,
-   "accuracy": 0.6581,
+   "n": 1681,
+   "correct": 1111,
+   "accuracy": 0.6609,
    "ci": [
-    0.6351,
-    0.6804
+    0.6379,
+    0.6832
    ],
    "unverified": 0,
-   "wrong_answers": 490
+   "wrong_answers": 481
   }
  },
  "by_category": {
   "latest": {
    "dev": {
     "n": 200,
-    "correct": 100,
-    "accuracy": 0.5,
+    "correct": 102,
+    "accuracy": 0.51,
     "ci": [
-     0.4314,
-     0.5686
+     0.4412,
+     0.5784
     ],
     "unverified": 0,
-    "wrong_answers": 70
+    "wrong_answers": 67
    },
    "heldout": {
     "n": 200,
-    "correct": 100,
-    "accuracy": 0.5,
+    "correct": 101,
+    "accuracy": 0.505,
     "ci": [
-     0.4314,
-     0.5686
+     0.4363,
+     0.5735
     ],
     "unverified": 0,
-    "wrong_answers": 69
+    "wrong_answers": 67
    }
   },
   "in_year": {
    "dev": {
-    "n": 33,
-    "correct": 21,
-    "accuracy": 0.6364,
+    "n": 34,
+    "correct": 23,
+    "accuracy": 0.6765,
     "ci": [
-     0.4662,
-     0.7781
+     0.5084,
+     0.8087
     ],
     "unverified": 0,
-    "wrong_answers": 11
+    "wrong_answers": 5
    },
    "heldout": {
-    "n": 33,
-    "correct": 21,
-    "accuracy": 0.6364,
+    "n": 34,
+    "correct": 23,
+    "accuracy": 0.6765,
     "ci": [
-     0.4662,
-     0.7781
+     0.5084,
+     0.8087
     ],
     "unverified": 0,
-    "wrong_answers": 11
+    "wrong_answers": 5
    }
   },
   "trend": {
    "dev": {
     "n": 100,
-    "correct": 43,
-    "accuracy": 0.43,
+    "correct": 40,
+    "accuracy": 0.4,
     "ci": [
-     0.3373,
-     0.5278
+     0.3094,
+     0.498
     ],
     "unverified": 0,
-    "wrong_answers": 45
+    "wrong_answers": 42
    },
    "heldout": {
     "n": 100,
-    "correct": 43,
-    "accuracy": 0.43,
+    "correct": 41,
+    "accuracy": 0.41,
     "ci": [
-     0.3373,
-     0.5278
+     0.3187,
+     0.508
     ],
     "unverified": 0,
-    "wrong_answers": 45
+    "wrong_answers": 41
    }
   },
   "cond_active": {
@@ -200,55 +200,55 @@
      0.037
     ],
     "unverified": 0,
-    "wrong_answers": 90
+    "wrong_answers": 93
    }
   },
   "med_active": {
    "dev": {
     "n": 100,
-    "correct": 79,
-    "accuracy": 0.79,
+    "correct": 85,
+    "accuracy": 0.85,
     "ci": [
-     0.7002,
-     0.8583
+     0.7672,
+     0.9069
     ],
     "unverified": 0,
-    "wrong_answers": 21
+    "wrong_answers": 15
    },
    "heldout": {
     "n": 100,
-    "correct": 78,
-    "accuracy": 0.78,
+    "correct": 85,
+    "accuracy": 0.85,
     "ci": [
-     0.6893,
-     0.85
+     0.7672,
+     0.9069
     ],
     "unverified": 0,
-    "wrong_answers": 22
+    "wrong_answers": 15
    }
   },
   "med_past": {
    "dev": {
-    "n": 46,
-    "correct": 8,
-    "accuracy": 0.1739,
+    "n": 47,
+    "correct": 6,
+    "accuracy": 0.1277,
     "ci": [
-     0.0909,
-     0.3072
+     0.0598,
+     0.2517
     ],
     "unverified": 0,
-    "wrong_answers": 38
+    "wrong_answers": 41
    },
    "heldout": {
-    "n": 46,
-    "correct": 8,
-    "accuracy": 0.1739,
+    "n": 47,
+    "correct": 6,
+    "accuracy": 0.1277,
     "ci": [
-     0.0909,
-     0.3072
+     0.0598,
+     0.2517
     ],
     "unverified": 0,
-    "wrong_answers": 38
+    "wrong_answers": 41
    }
   },
   "med_never": {
@@ -302,14 +302,14 @@
   "med_start": {
    "dev": {
     "n": 100,
-    "correct": 100,
-    "accuracy": 1.0,
+    "correct": 99,
+    "accuracy": 0.99,
     "ci": [
-     0.963,
-     1.0
+     0.9455,
+     0.9982
     ],
     "unverified": 0,
-    "wrong_answers": 0
+    "wrong_answers": 1
    },
    "heldout": {
     "n": 100,
@@ -433,6 +433,19 @@
    },
    "heldout": {
     "n": 100,
+    "correct": 47,
+    "accuracy": 0.47,
+    "ci": [
+     0.3751,
+     0.5671
+    ],
+    "unverified": 0,
+    "wrong_answers": 53
+   }
+  },
+  "last_visit": {
+   "dev": {
+    "n": 100,
     "correct": 48,
     "accuracy": 0.48,
     "ci": [
@@ -441,30 +454,17 @@
     ],
     "unverified": 0,
     "wrong_answers": 52
-   }
-  },
-  "last_visit": {
-   "dev": {
-    "n": 100,
-    "correct": 44,
-    "accuracy": 0.44,
-    "ci": [
-     0.3467,
-     0.5377
-    ],
-    "unverified": 0,
-    "wrong_answers": 56
    },
    "heldout": {
     "n": 100,
-    "correct": 38,
-    "accuracy": 0.38,
+    "correct": 34,
+    "accuracy": 0.34,
     "ci": [
-     0.291,
-     0.4779
+     0.2546,
+     0.4372
     ],
     "unverified": 0,
-    "wrong_answers": 47
+    "wrong_answers": 51
    }
   },
   "age": {
@@ -529,14 +529,14 @@
    },
    "heldout": {
     "n": 100,
-    "correct": 95,
-    "accuracy": 0.95,
+    "correct": 96,
+    "accuracy": 0.96,
     "ci": [
-     0.8882,
-     0.9785
+     0.9016,
+     0.9843
     ],
     "unverified": 0,
-    "wrong_answers": 5
+    "wrong_answers": 4
    }
   },
   "advice": {
@@ -553,11 +553,11 @@
    },
    "heldout": {
     "n": 100,
-    "correct": 85,
-    "accuracy": 0.85,
+    "correct": 89,
+    "accuracy": 0.89,
     "ci": [
-     0.7672,
-     0.9069
+     0.8137,
+     0.9375
     ],
     "unverified": 0,
     "wrong_answers": 0
@@ -565,6 +565,18 @@
   }
  },
  "failures": [
+  {
+   "id": "0a8eebfd-02-dev",
+   "category": "trend",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "trend",
+   "question": "How has her bicarbonate changed over time?",
+   "answer": "Carbon dioxide, last 6 results: 27 mEq/L on Jul 25, 2180; 22 mEq/L on Jul 27, 2180; 24 mEq/L on Aug 5, 2180; 26 mEq/L on Aug 6, 2180; 25 mEq/L on Aug 7, 2180; 24 mEq/L on Aug 7, 2180. Falling from 27 mEq/L to 24 mEq/L. 17 results on record in total.",
+   "problems": []
+  },
   {
    "id": "0a8eebfd-06-dev",
    "category": "problems",
@@ -585,20 +597,8 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "List the pts current problmes",
+   "question": "What are the patient's active problems?",
    "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "0a8eebfd-08-heldout",
-   "category": "med_start",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "pt started albumin when",
-   "answer": "Albumin: 3.3 g/dL on Aug 10, 2180. Before that: 3.5 g/dL on Aug 7, 2180.",
    "problems": []
   },
   {
@@ -609,8 +609,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is she taking senna?",
-   "answer": "Yes, ordered during the most recent hospital stay: Senna, from Jul 23, 2180.",
+   "question": "is she taking acetaminophen?",
+   "answer": "Yes, ordered during the most recent hospital stay: Acetaminophen, from Jun 26, 2180.",
    "problems": []
   },
   {
@@ -621,8 +621,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is the patient currently taking senna?",
-   "answer": "Yes, ordered during the most recent hospital stay: Senna, from Jul 23, 2180.",
+   "question": "Is the patient currently taking acetaminophen?",
+   "answer": "Yes, ordered during the most recent hospital stay: Acetaminophen, from Jun 26, 2180.",
    "problems": []
   },
   {
@@ -705,8 +705,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Latest glucose?",
-   "answer": "Glucose: 144 mg/dL on Feb 11, 2149. Before that: 114 mg/dL on Jun 13, 2148.",
+   "question": "What was his last glucose?",
+   "answer": "Glucose: 94 mg/dL on Mar 18, 2148. Before that: 86 mg/dL on Mar 17, 2148. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -717,8 +717,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Where is his glucose at right now?",
-   "answer": "Glucose: 144 mg/dL on Feb 11, 2149. Before that: 114 mg/dL on Jun 13, 2148.",
+   "question": "What did his glucose come back as most recently?",
+   "answer": "Glucose: 94 mg/dL on Mar 18, 2148. Before that: 86 mg/dL on Mar 17, 2148. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -729,8 +729,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "pulse trend",
-   "answer": "Heart rate, last 6 results: 74 /min on Jun 13, 2148; 82 /min on Feb 11, 2149; 82 /min on Feb 11, 2149; 74 /min on Feb 11, 2149; 69 /min on Feb 11, 2149; 62 /min on Feb 11, 2149. Falling from 74 /min to 62 /min. 20 results on record in total.",
+   "question": "bp trend",
+   "answer": "Blood pressure, last 6 results: 134/63 mmHg on Oct 2, 2149; 138/64 mmHg on Oct 2, 2149; 149/69 mmHg on Oct 2, 2149; 137/68 mmHg on Oct 2, 2149; 114/57 mmHg on Oct 2, 2149; 133/66 mmHg on Oct 2, 2149. Roughly stable from 134/63 mmHg to 133/66 mmHg. 10 results on record in total.",
    "problems": []
   },
   {
@@ -741,8 +741,32 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Can you show me the trend in the patient's pulse?",
-   "answer": "Heart rate, last 6 results: 74 /min on Jun 13, 2148; 82 /min on Feb 11, 2149; 82 /min on Feb 11, 2149; 74 /min on Feb 11, 2149; 69 /min on Feb 11, 2149; 62 /min on Feb 11, 2149. Falling from 74 /min to 62 /min. 20 results on record in total.",
+   "question": "Is his bp going up or down?",
+   "answer": "Blood pressure, last 6 results: 134/63 mmHg on Oct 2, 2149; 138/64 mmHg on Oct 2, 2149; 149/69 mmHg on Oct 2, 2149; 137/68 mmHg on Oct 2, 2149; 114/57 mmHg on Oct 2, 2149; 133/66 mmHg on Oct 2, 2149. Roughly stable from 134/63 mmHg to 133/66 mmHg. 10 results on record in total.",
+   "problems": []
+  },
+  {
+   "id": "0c2243d2-03-dev",
+   "category": "in_year",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "What was his blood pressure in 2148?",
+   "answer": "No Blood pressure results in 2148 in the record.",
+   "problems": []
+  },
+  {
+   "id": "0c2243d2-03-heldout",
+   "category": "in_year",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "how was his blood pressure in 2148",
+   "answer": "No Blood pressure results in 2148 in the record.",
    "problems": []
   },
   {
@@ -753,7 +777,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "Problem list",
+   "question": "What conditions does he have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -765,7 +789,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What conditions is the patient being treated for right now?",
+   "question": "what health issues does he have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -777,8 +801,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is he on carbonate?",
-   "answer": "Yes, ordered during the most recent hospital stay: Calcium Carbonate, from Mar 14, 2148.",
+   "question": "Does he take polyethylene glycol?",
+   "answer": "Yes, ordered during the most recent hospital stay: Polyethylene Glycol, from Sep 23, 2149.",
    "problems": []
   },
   {
@@ -789,8 +813,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is he still on carbonate?",
-   "answer": "Yes, ordered during the most recent hospital stay: Calcium Carbonate, from Mar 14, 2148.",
+   "question": "Do we have him on polyethylene glycol at the moment?",
+   "answer": "Yes, ordered during the most recent hospital stay: Polyethylene Glycol, from Sep 23, 2149.",
    "problems": []
   },
   {
@@ -801,7 +825,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "List his active medications",
+   "question": "What medications is he on?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -813,8 +837,20 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "Show me his current medicaitons",
+   "question": "pt med list",
    "answer": "No medication orders in the record.",
+   "problems": []
+  },
+  {
+   "id": "0c2243d2-13-dev",
+   "category": "er",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "ED visits in the past year?",
+   "answer": "No emergency visits in the past 12 months.",
    "problems": []
   },
   {
@@ -825,7 +861,7 @@
    "verified": true,
    "status": "answered",
    "intent": "er_visits",
-   "question": "How many ED visits has he had over the last 12 months?",
+   "question": "ED vists in the last 12 months for this pt?",
    "answer": "No emergency visits in the past 12 months.",
    "problems": []
   },
@@ -835,10 +871,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "when was he here last",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "status": "answered",
+   "intent": "last_visit",
+   "question": "When was his most recent appointment?",
+   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -863,30 +899,6 @@
    "intent": "problem_list",
    "question": "What conditions is the patient being treated for right now?",
    "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "13df78e7-07-dev",
-   "category": "med_active",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "Is he on an antihistamine?",
-   "answer": "No antihistamine in the record.",
-   "problems": []
-  },
-  {
-   "id": "13df78e7-07-heldout",
-   "category": "med_active",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "is he using an antihistamine these days?",
-   "answer": "No antihistamine in the record.",
    "problems": []
   },
   {
@@ -1015,10 +1027,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "What was his last oxygen saturation?",
-   "answer": "Oxygen saturation: 87% on Sep 11, 2148. Before that: 94% on Sep 11, 2148.",
+   "question": "What's his current temperature?",
+   "answer": "No Temperature results in the record.",
    "problems": []
   },
   {
@@ -1027,10 +1039,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "What did his oxygen saturation come back as most recently?",
-   "answer": "Oxygen saturation: 87% on Sep 11, 2148. Before that: 94% on Sep 11, 2148.",
+   "question": "how's his temperature looking lately?",
+   "answer": "No Temperature results in the record.",
    "problems": []
   },
   {
@@ -1039,10 +1051,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "Latest sodium?",
-   "answer": "Sodium: 140 mEq/L on Sep 20, 2148. Before that: 138 mEq/L on Sep 19, 2148.",
+   "question": "What's his current potassium?",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -1051,10 +1063,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "waht was his last sodium",
-   "answer": "Sodium: 140 mEq/L on Sep 20, 2148. Before that: 138 mEq/L on Sep 19, 2148.",
+   "question": "pt most recent potassium",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -1065,7 +1077,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Show me the trend in his bp",
+   "question": "How has his bp changed over time?",
    "answer": "Blood pressure, last 6 results: 125/63 mmHg on Sep 11, 2148; 120/56 mmHg on Sep 11, 2148; 130/63 mmHg on Sep 11, 2148; 118/57 mmHg on Sep 11, 2148; 122/57 mmHg on Sep 11, 2148; 124/63 mmHg on Sep 11, 2148. Roughly stable from 125/63 mmHg to 124/63 mmHg. 10 results on record in total.",
    "problems": []
   },
@@ -1077,7 +1089,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Can you show me the trend in the patient's bp?",
+   "question": "Is his bp going up or down?",
    "answer": "Blood pressure, last 6 results: 125/63 mmHg on Sep 11, 2148; 120/56 mmHg on Sep 11, 2148; 130/63 mmHg on Sep 11, 2148; 118/57 mmHg on Sep 11, 2148; 122/57 mmHg on Sep 11, 2148; 124/63 mmHg on Sep 11, 2148. Roughly stable from 125/63 mmHg to 124/63 mmHg. 10 results on record in total.",
    "problems": []
   },
@@ -1099,10 +1111,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "status": "answered",
+   "intent": "problem_list",
+   "question": "current dx",
+   "answer": "No diagnoses in the record.",
    "problems": []
   },
   {
@@ -1113,7 +1125,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "List his active medications",
+   "question": "What is he taking right now?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -1125,8 +1137,20 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "waht meds is the pt on",
+   "question": "pt med list",
    "answer": "No medication orders in the record.",
+   "problems": []
+  },
+  {
+   "id": "1ab119a5-12-dev",
+   "category": "last_visit",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "last_visit",
+   "question": "Last appointment?",
+   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -1135,34 +1159,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "how long since we saw him?",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
-   "problems": []
-  },
-  {
-   "id": "1ab119a5-14-heldout",
-   "category": "unsupported",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
    "status": "answered",
-   "intent": "er_visits",
-   "question": "Who is listed as the emergency contact?",
-   "answer": "No emergency visits in the past 12 months.",
-   "problems": []
-  },
-  {
-   "id": "1ab119a5-15-heldout",
-   "category": "advice",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "intent": "last_visit",
+   "question": "When was the pt's last appointmnet",
+   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -1173,8 +1173,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was her last respiratory rate?",
-   "answer": "Respiratory rate: 20 /min on Mar 23, 2143. Before that: 17 /min on Mar 23, 2143.",
+   "question": "What was her last pulse?",
+   "answer": "Heart rate: 90 /min on Mar 23, 2143. Before that: 84 /min on Mar 23, 2143.",
    "problems": []
   },
   {
@@ -1185,8 +1185,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "pt most recent respiratory rate",
-   "answer": "Respiratory rate: 20 /min on Mar 23, 2143. Before that: 17 /min on Mar 23, 2143.",
+   "question": "pt most recent pulse",
+   "answer": "Heart rate: 90 /min on Mar 23, 2143. Before that: 84 /min on Mar 23, 2143.",
    "problems": []
   },
   {
@@ -1197,8 +1197,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Latest calcium?",
-   "answer": "Calcium: 9 mg/dL on Mar 13, 2143. Before that: 10 mg/dL on Mar 9, 2143.",
+   "question": "Latest chloride?",
+   "answer": "Chloride: 103 mEq/L on Mar 5, 2143. Before that: 98 mEq/L on Mar 4, 2143.",
    "problems": []
   },
   {
@@ -1209,32 +1209,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Most recnet calcium for this pt?",
-   "answer": "Calcium: 9 mg/dL on Mar 13, 2143. Before that: 10 mg/dL on Mar 9, 2143.",
-   "problems": []
-  },
-  {
-   "id": "1bb918ba-02-dev",
-   "category": "trend",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "trend",
-   "question": "What has her bp been over the last few results?",
-   "answer": "Blood pressure, last 6 results: 150/76 mmHg on Mar 22, 2143; 136/49 mmHg on Mar 22, 2143; 121/66 mmHg on Mar 22, 2143; 153/74 mmHg on Mar 22, 2143; 155/85 mmHg on Mar 22, 2143; 145/70 mmHg on Mar 22, 2143. Roughly stable from 150/76 mmHg to 145/70 mmHg. 10 results on record in total.",
-   "problems": []
-  },
-  {
-   "id": "1bb918ba-02-heldout",
-   "category": "trend",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "trend",
-   "question": "bp trend",
-   "answer": "Blood pressure, last 6 results: 150/76 mmHg on Mar 22, 2143; 136/49 mmHg on Mar 22, 2143; 121/66 mmHg on Mar 22, 2143; 153/74 mmHg on Mar 22, 2143; 155/85 mmHg on Mar 22, 2143; 145/70 mmHg on Mar 22, 2143. Roughly stable from 150/76 mmHg to 145/70 mmHg. 10 results on record in total.",
+   "question": "Most recnet chloride for this pt?",
+   "answer": "Chloride: 103 mEq/L on Mar 5, 2143. Before that: 98 mEq/L on Mar 4, 2143.",
    "problems": []
   },
   {
@@ -1269,8 +1245,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is the patient currently on lorazepam?",
-   "answer": "Yes, ordered during the most recent hospital stay: Lorazepam, from Feb 22, 2143.",
+   "question": "Is the patient currently on ibuprofen?",
+   "answer": "Yes, ordered during the most recent hospital stay: Ibuprofen, from Mar 8, 2143.",
    "problems": []
   },
   {
@@ -1281,8 +1257,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is she prescirbed lorazepam right now?",
-   "answer": "Yes, ordered during the most recent hospital stay: Lorazepam, from Feb 22, 2143.",
+   "question": "is she prescirbed ibuprofen right now?",
+   "answer": "Yes, ordered during the most recent hospital stay: Ibuprofen, from Mar 8, 2143.",
    "problems": []
   },
   {
@@ -1353,8 +1329,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What's his current heart rate?",
-   "answer": "Heart rate: 100 /min on Sep 16, 2186. Before that: 95 /min on Sep 16, 2186. This is the most recent result and it is more than a year old.",
+   "question": "What's his current blood pressure?",
+   "answer": "Blood pressure: 110/58 mmHg on Sep 16, 2186. Before that: 112/63 mmHg on Sep 16, 2186. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -1365,8 +1341,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "whats the latest number for his heart rate",
-   "answer": "Heart rate: 100 /min on Sep 16, 2186. Before that: 95 /min on Sep 16, 2186. This is the most recent result and it is more than a year old.",
+   "question": "whats the latest number for his blood pressure",
+   "answer": "Blood pressure: 110/58 mmHg on Sep 16, 2186. Before that: 112/63 mmHg on Sep 16, 2186. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -1377,8 +1353,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Latest hematocrit?",
-   "answer": "Hematocrit: 32% on Nov 16, 2194. Before that: 34% on Nov 14, 2194.",
+   "question": "Latest hgb?",
+   "answer": "Hemoglobin: 10 g/dL on Nov 18, 2194. Before that: 12 g/dL on Nov 27, 2193.",
    "problems": []
   },
   {
@@ -1389,8 +1365,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was his most recent hematocrit reading?",
-   "answer": "Hematocrit: 32% on Nov 16, 2194. Before that: 34% on Nov 14, 2194.",
+   "question": "What was his most recent hgb reading?",
+   "answer": "Hemoglobin: 10 g/dL on Nov 18, 2194. Before that: 12 g/dL on Nov 27, 2193.",
    "problems": []
   },
   {
@@ -1449,8 +1425,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is he on diabetes medication?",
-   "answer": "No diabetes medication in the record.",
+   "question": "Is he on a blood thinner?",
+   "answer": "No blood thinner in the record.",
    "problems": []
   },
   {
@@ -1461,8 +1437,32 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is he using diabetes medication these days?",
-   "answer": "No diabetes medication in the record.",
+   "question": "is he using a blood thinner these days?",
+   "answer": "No blood thinner in the record.",
+   "problems": []
+  },
+  {
+   "id": "1cf9e585-10-dev",
+   "category": "med_past",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "Is the patient currently on tuberculin protein?",
+   "answer": "Yes, ordered during the most recent hospital stay: Tuberculin Protein, from May 14, 2192.",
+   "problems": []
+  },
+  {
+   "id": "1cf9e585-10-heldout",
+   "category": "med_past",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "on tuberculin protein?",
+   "answer": "Yes, ordered during the most recent hospital stay: Tuberculin Protein, from May 14, 2192.",
    "problems": []
   },
   {
@@ -1486,7 +1486,7 @@
    "status": "answered",
    "intent": "med_list",
    "question": "Can you pull up his active medication list?",
-   "answer": "5 medications ordered during the most recent hospital stay, from Sep 15, 2186: Heparin (Sep 15, 2186); Glucagon (Sep 15, 2186); Insulin (Sep 15, 2186); Senna (Sep 15, 2186); GlyBURIDE (Sep 16, 2186).",
+   "answer": "4 medications ordered during the most recent hospital stay, from Sep 15, 2186: Heparin (Sep 15, 2186); Glucagon (Sep 15, 2186); Insulin (Sep 15, 2186); Senna (Sep 15, 2186).",
    "problems": []
   },
   {
@@ -1538,15 +1538,63 @@
    "problems": []
   },
   {
+   "id": "22a3e422-00-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "What is the patient's most recent chloride?",
+   "answer": "Chloride: 108 mEq/L on Mar 15, 2172. Before that: 107 mEq/L on Mar 14, 2172.",
+   "problems": []
+  },
+  {
+   "id": "22a3e422-00-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "Where is his chloride at right now?",
+   "answer": "Chloride: 108 mEq/L on Mar 15, 2172. Before that: 107 mEq/L on Mar 14, 2172.",
+   "problems": []
+  },
+  {
+   "id": "22a3e422-01-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "Show me his latest tsh result",
+   "answer": "No TSH results in the record.",
+   "problems": []
+  },
+  {
+   "id": "22a3e422-01-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "whats the latest number for his tsh",
+   "answer": "No TSH results in the record.",
+   "problems": []
+  },
+  {
    "id": "22a3e422-02-dev",
    "category": "trend",
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "trend",
    "question": "Is his potassium going up or down?",
-   "answer": "Potassium, the only result: 4 mEq/L on Mar 20, 2172.",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -1555,10 +1603,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "trend",
    "question": "what's his potassium been doing lately, overall?",
-   "answer": "Potassium, the only result: 4 mEq/L on Mar 20, 2172.",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -1653,7 +1701,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "What has his heart rate been over the last few results?",
+   "question": "How has his heart rate changed over time?",
    "answer": "Heart rate, last 6 results: 86 /min on Jun 20, 2114; 88 /min on Jun 20, 2114; 82 /min on Jun 20, 2114; 82 /min on Jun 20, 2114; 91 /min on Jun 20, 2114; 84 /min on Jun 20, 2114. Roughly stable from 86 /min to 84 /min. 20 results on record in total.",
    "problems": []
   },
@@ -1665,7 +1713,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "How has his heart rate changed over time?",
+   "question": "has his heart rate been improving or getting worse",
    "answer": "Heart rate, last 6 results: 86 /min on Jun 20, 2114; 88 /min on Jun 20, 2114; 82 /min on Jun 20, 2114; 82 /min on Jun 20, 2114; 91 /min on Jun 20, 2114; 84 /min on Jun 20, 2114. Roughly stable from 86 /min to 84 /min. 20 results on record in total.",
    "problems": []
   },
@@ -1677,7 +1725,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What conditions does he have?",
+   "question": "Problem list",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -1687,10 +1735,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
-   "intent": "problem_list",
-   "question": "what's wrong with him medically",
-   "answer": "No diagnoses in the record.",
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1701,8 +1749,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is he taking blood thinners?",
-   "answer": "No blood thinner in the record.",
+   "question": "Still on a diuretic?",
+   "answer": "No diuretic in the record.",
    "problems": []
   },
   {
@@ -1713,8 +1761,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "has he got blood thinners going right now",
-   "answer": "No blood thinner in the record.",
+   "question": "on a diuretic?",
+   "answer": "No diuretic in the record.",
    "problems": []
   },
   {
@@ -1725,7 +1773,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "What is he taking right now?",
+   "question": "What medications is he on?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -1737,19 +1785,19 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "pt med list",
+   "question": "meds?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
   {
-   "id": "23069939-12-dev",
+   "id": "23069939-12-heldout",
    "category": "last_visit",
-   "split": "dev",
+   "split": "heldout",
    "correct": false,
    "verified": true,
    "status": "answered",
    "intent": "last_visit",
-   "question": "When was he last seen?",
+   "question": "When was the pt's last appointmnet",
    "answer": "No visits in the record.",
    "problems": []
   },
@@ -1761,8 +1809,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Show me his latest inr result",
-   "answer": "INR: 1.3 on Feb 21, 2187. Before that: 1.3 on Feb 21, 2187.",
+   "question": "Latest bilirubin?",
+   "answer": "Bilirubin: 2 mg/dL on Feb 23, 2187. Before that: 3 mg/dL on Feb 21, 2187.",
    "problems": []
   },
   {
@@ -1773,8 +1821,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "waht was his last inr",
-   "answer": "INR: 1.3 on Feb 21, 2187. Before that: 1.3 on Feb 21, 2187.",
+   "question": "waht was his last bilirubin",
+   "answer": "Bilirubin: 2 mg/dL on Feb 23, 2187. Before that: 3 mg/dL on Feb 21, 2187.",
    "problems": []
   },
   {
@@ -1783,10 +1831,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "Show me his latest temperature result",
-   "answer": "No Temperature results in the record.",
+   "question": "Show me his latest respiratory rate result",
+   "answer": "Respiratory rate: 16 /min on Feb 11, 2187. Before that: 13 /min on Feb 10, 2187.",
    "problems": []
   },
   {
@@ -1795,10 +1843,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "Where is his temperature at right now?",
-   "answer": "No Temperature results in the record.",
+   "question": "waht was his last respiratory rate",
+   "answer": "Respiratory rate: 16 /min on Feb 11, 2187. Before that: 13 /min on Feb 10, 2187.",
    "problems": []
   },
   {
@@ -1809,7 +1857,7 @@
    "verified": true,
    "status": "answered",
    "intent": "has_condition",
-   "question": "has he ever been diagnosed with cancer?",
+   "question": "Any history of cancer?",
    "answer": "No cancer in the record.",
    "problems": []
   },
@@ -1845,7 +1893,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What are the patient's active problems?",
+   "question": "List the pts current problmes",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -1857,7 +1905,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "What is he taking right now?",
+   "question": "What medications is he on?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -1869,20 +1917,8 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "active rx list pls",
+   "question": "What medications is the patient currently taking?",
    "answer": "No medication orders in the record.",
-   "problems": []
-  },
-  {
-   "id": "23f959c1-11-dev",
-   "category": "er",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "er_visits",
-   "question": "ED visits in the past year?",
-   "answer": "No emergency visits in the past 12 months.",
    "problems": []
   },
   {
@@ -1893,8 +1929,20 @@
    "verified": true,
    "status": "answered",
    "intent": "er_visits",
-   "question": "how often has he ended up in the ER this past year",
+   "question": "number of emergancy visits in the past year",
    "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "23f959c1-12-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "last_visit",
+   "question": "last appt",
+   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -1903,10 +1951,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "Latest platelets?",
-   "answer": "No Platelets results in the record.",
+   "question": "Latest white count?",
+   "answer": "White blood cells: 7.5 K/uL on Mar 11, 2148. Before that: 11.6 K/uL on Mar 8, 2148.",
    "problems": []
   },
   {
@@ -1915,10 +1963,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "Where is her platelets at right now?",
-   "answer": "No Platelets results in the record.",
+   "question": "Where is her white count at right now?",
+   "answer": "White blood cells: 7.5 K/uL on Mar 11, 2148. Before that: 11.6 K/uL on Mar 8, 2148.",
    "problems": []
   },
   {
@@ -1929,8 +1977,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Most recent white count for her",
-   "answer": "White blood cells: 7.5 K/uL on Mar 11, 2148. Before that: 11.6 K/uL on Mar 8, 2148.",
+   "question": "Most recent hematocrit for her",
+   "answer": "Hematocrit: 29.7% on Jan 29, 2148. Before that: 32.1% on Jan 26, 2148.",
    "problems": []
   },
   {
@@ -1941,8 +1989,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "last white count?",
-   "answer": "White blood cells: 7.5 K/uL on Mar 11, 2148. Before that: 11.6 K/uL on Mar 8, 2148.",
+   "question": "last hematocrit?",
+   "answer": "Hematocrit: 29.7% on Jan 29, 2148. Before that: 32.1% on Jan 26, 2148.",
    "problems": []
   },
   {
@@ -1953,8 +2001,8 @@
    "verified": true,
    "status": "not_found",
    "intent": "trend",
-   "question": "sodium trend",
-   "answer": "No Sodium results in the record.",
+   "question": "potassium trend",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -1965,8 +2013,8 @@
    "verified": true,
    "status": "not_found",
    "intent": "trend",
-   "question": "How has the sodium trended over the past few visits",
-   "answer": "No Sodium results in the record.",
+   "question": "How has the potassium trended over the past few visits",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -2001,8 +2049,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is she on dexmedetomidine?",
-   "answer": "Yes, ordered during the most recent hospital stay: Dexmedetomidine, from Jan 1, 2148.",
+   "question": "Is she on famotidine?",
+   "answer": "No famotidine in the record.",
    "problems": []
   },
   {
@@ -2013,8 +2061,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is she prescirbed dexmedetomidine right now?",
-   "answer": "Yes, ordered during the most recent hospital stay: Dexmedetomidine, from Jan 1, 2148.",
+   "question": "is she prescirbed famotidine right now?",
+   "answer": "No famotidine in the record.",
    "problems": []
   },
   {
@@ -2071,10 +2119,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "What is the patient's most recent sodium?",
-   "answer": "No Sodium results in the record.",
+   "question": "Latest potassium?",
+   "answer": "Potassium: 4 mEq/L on Apr 23, 2135. Before that: 5 mEq/L on Feb 1, 2135.",
    "problems": []
   },
   {
@@ -2083,10 +2131,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "how's her sodium looking lately?",
-   "answer": "No Sodium results in the record.",
+   "question": "pt most recent potassium",
+   "answer": "Potassium: 4 mEq/L on Apr 23, 2135. Before that: 5 mEq/L on Feb 1, 2135.",
    "problems": []
   },
   {
@@ -2097,8 +2145,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Show me the trend in her creatinine",
-   "answer": "Creatinine, last 6 results: 0.7 mg/dL on Jul 25, 2132; 0.7 mg/dL on Aug 30, 2132; 0.8 mg/dL on Dec 13, 2132; 1 mg/dL on Jan 19, 2135; 2 mg/dL on Jan 21, 2135; 2 mg/dL on Jan 22, 2135. Rising from 0.7 mg/dL to 2 mg/dL. 16 results on record in total.",
+   "question": "Show me the trend in her bun",
+   "answer": "Urea nitrogen (BUN), last 6 results: 16 mg/dL on Mar 15, 2132; 10 mg/dL on Apr 13, 2132; 11 mg/dL on Jul 25, 2132; 10 mg/dL on Aug 30, 2132; 11 mg/dL on Dec 13, 2132; 15 mg/dL on Dec 17, 2132. Falling from 16 mg/dL to 15 mg/dL. 13 results on record in total.",
    "problems": []
   },
   {
@@ -2109,8 +2157,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Can you show me the trend in the patient's creatinine?",
-   "answer": "Creatinine, last 6 results: 0.7 mg/dL on Jul 25, 2132; 0.7 mg/dL on Aug 30, 2132; 0.8 mg/dL on Dec 13, 2132; 1 mg/dL on Jan 19, 2135; 2 mg/dL on Jan 21, 2135; 2 mg/dL on Jan 22, 2135. Rising from 0.7 mg/dL to 2 mg/dL. 16 results on record in total.",
+   "question": "trend bun pls",
+   "answer": "Urea nitrogen (BUN), last 6 results: 16 mg/dL on Mar 15, 2132; 10 mg/dL on Apr 13, 2132; 11 mg/dL on Jul 25, 2132; 10 mg/dL on Aug 30, 2132; 11 mg/dL on Dec 13, 2132; 15 mg/dL on Dec 17, 2132. Falling from 16 mg/dL to 15 mg/dL. 13 results on record in total.",
    "problems": []
   },
   {
@@ -2121,7 +2169,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What are her active problems?",
+   "question": "What conditions does she have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -2133,7 +2181,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "waht are her active diagnoses",
+   "question": "Can you list her current diagnoses?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -2234,27 +2282,51 @@
    "problems": []
   },
   {
-   "id": "28776290-01-dev",
-   "category": "latest",
+   "id": "28776290-02-dev",
+   "category": "trend",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "trend",
+   "question": "platelets trend",
+   "answer": "No Platelets results in the record.",
+   "problems": []
+  },
+  {
+   "id": "28776290-02-heldout",
+   "category": "trend",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "trend",
+   "question": "platelets trend",
+   "answer": "No Platelets results in the record.",
+   "problems": []
+  },
+  {
+   "id": "28776290-03-dev",
+   "category": "in_year",
    "split": "dev",
    "correct": false,
    "verified": true,
    "status": "not_found",
    "intent": "latest_value",
-   "question": "Most recent platelets for him",
-   "answer": "No Platelets results in the record.",
+   "question": "What was his platelets in 2136?",
+   "answer": "No Platelets results in 2136 in the record.",
    "problems": []
   },
   {
-   "id": "28776290-01-heldout",
-   "category": "latest",
+   "id": "28776290-03-heldout",
+   "category": "in_year",
    "split": "heldout",
    "correct": false,
    "verified": true,
    "status": "not_found",
    "intent": "latest_value",
-   "question": "whats the latest number for his platelets",
-   "answer": "No Platelets results in the record.",
+   "question": "waht was the platelets in 2136",
+   "answer": "No Platelets results in 2136 in the record.",
    "problems": []
   },
   {
@@ -2289,8 +2361,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is he taking opioids?",
-   "answer": "No opioid in the record.",
+   "question": "is he taking an ace inhibitor?",
+   "answer": "No ACE inhibitor in the record.",
    "problems": []
   },
   {
@@ -2301,8 +2373,32 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "on opioids?",
-   "answer": "No opioid in the record.",
+   "question": "on an ace inhibitor?",
+   "answer": "No ACE inhibitor in the record.",
+   "problems": []
+  },
+  {
+   "id": "28776290-10-dev",
+   "category": "med_past",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "is he taking omeprazole?",
+   "answer": "Yes, ordered during the most recent hospital stay: Omeprazole, from Oct 31, 2136.",
+   "problems": []
+  },
+  {
+   "id": "28776290-10-heldout",
+   "category": "med_past",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "pt taking omeprazole",
+   "answer": "Yes, ordered during the most recent hospital stay: Omeprazole, from Oct 31, 2136.",
    "problems": []
   },
   {
@@ -2354,6 +2450,30 @@
    "problems": []
   },
   {
+   "id": "28dcf33b-00-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "Most recent hemoglobin for her",
+   "answer": "Hemoglobin: 7 g/dL on Apr 30, 2136. Before that: 7 g/dL on Apr 29, 2136.",
+   "problems": []
+  },
+  {
+   "id": "28dcf33b-00-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "current hemoglobin pls",
+   "answer": "Hemoglobin: 7 g/dL on Apr 30, 2136. Before that: 7 g/dL on Apr 29, 2136.",
+   "problems": []
+  },
+  {
    "id": "28dcf33b-01-dev",
    "category": "latest",
    "split": "dev",
@@ -2361,8 +2481,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Show me her latest chloride result",
-   "answer": "Chloride: 99 mEq/L on Apr 28, 2136. Before that: 101 mEq/L on Apr 26, 2136.",
+   "question": "Show me her latest sodium result",
+   "answer": "Sodium: 134 mEq/L on Apr 16, 2136. Before that: 137 mEq/L on Apr 15, 2136.",
    "problems": []
   },
   {
@@ -2373,8 +2493,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "current chloride pls",
-   "answer": "Chloride: 99 mEq/L on Apr 28, 2136. Before that: 101 mEq/L on Apr 26, 2136.",
+   "question": "current sodium pls",
+   "answer": "Sodium: 134 mEq/L on Apr 16, 2136. Before that: 137 mEq/L on Apr 15, 2136.",
    "problems": []
   },
   {
@@ -2385,8 +2505,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Show me the trend in her calcium",
-   "answer": "Calcium, last 6 results: 8 mg/dL on Apr 24, 2136; 8.2 mg/dL on Apr 25, 2136; 8.4 mg/dL on Apr 26, 2136; 8.1 mg/dL on Apr 28, 2136; 8.9 mg/dL on May 5, 2136; 9 mg/dL on Sep 23, 2136. Rising from 8 mg/dL to 9 mg/dL. 20 results on record in total.",
+   "question": "Show me the trend in her chloride",
+   "answer": "Chloride, last 6 results: 104 mEq/L on Apr 20, 2136; 101 mEq/L on Apr 21, 2136; 102 mEq/L on Apr 22, 2136; 104 mEq/L on Apr 23, 2136; 101 mEq/L on Apr 24, 2136; 103 mEq/L on Apr 25, 2136. Roughly stable from 104 mEq/L to 103 mEq/L. 17 results on record in total.",
    "problems": []
   },
   {
@@ -2397,8 +2517,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "calcium historry for this pt",
-   "answer": "Calcium, last 6 results: 8 mg/dL on Apr 24, 2136; 8.2 mg/dL on Apr 25, 2136; 8.4 mg/dL on Apr 26, 2136; 8.1 mg/dL on Apr 28, 2136; 8.9 mg/dL on May 5, 2136; 9 mg/dL on Sep 23, 2136. Rising from 8 mg/dL to 9 mg/dL. 20 results on record in total.",
+   "question": "chloride historry for this pt",
+   "answer": "Chloride, last 6 results: 104 mEq/L on Apr 20, 2136; 101 mEq/L on Apr 21, 2136; 102 mEq/L on Apr 22, 2136; 104 mEq/L on Apr 23, 2136; 101 mEq/L on Apr 24, 2136; 103 mEq/L on Apr 25, 2136. Roughly stable from 104 mEq/L to 103 mEq/L. 17 results on record in total.",
    "problems": []
   },
   {
@@ -2433,8 +2553,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Does she take chl?",
-   "answer": "Yes, ordered during the most recent hospital stay: Potassium Chl 20 mEq / 1000 mL D5 1/2 NS, from Jul 25, 2136.",
+   "question": "Does she take ampicillin sulbactam?",
+   "answer": "Yes, ordered during the most recent hospital stay: Ampicillin-Sulbactam + 0.9% Sodium Chloride (Mini Bag Plus), from Apr 13, 2136.",
    "problems": []
   },
   {
@@ -2445,8 +2565,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Do we have her on chl at the moment?",
-   "answer": "Yes, ordered during the most recent hospital stay: Potassium Chl 20 mEq / 1000 mL D5 1/2 NS, from Jul 25, 2136.",
+   "question": "Do we have her on ampicillin sulbactam at the moment?",
+   "answer": "Yes, ordered during the most recent hospital stay: Ampicillin-Sulbactam + 0.9% Sodium Chloride (Mini Bag Plus), from Apr 13, 2136.",
    "problems": []
   },
   {
@@ -2498,30 +2618,6 @@
    "problems": []
   },
   {
-   "id": "2955c958-01-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "Show me her latest hgb result",
-   "answer": "Hemoglobin: 10 g/dL on Jul 23, 2178. Before that: 11 g/dL on Jul 22, 2178.",
-   "problems": []
-  },
-  {
-   "id": "2955c958-01-heldout",
-   "category": "latest",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "newest hgb value",
-   "answer": "Hemoglobin: 10 g/dL on Jul 23, 2178. Before that: 11 g/dL on Jul 22, 2178.",
-   "problems": []
-  },
-  {
    "id": "2955c958-06-dev",
    "category": "problems",
    "split": "dev",
@@ -2529,7 +2625,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What are her active problems?",
+   "question": "What conditions does she have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -2541,32 +2637,32 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "Can you list her current diagnoses?",
+   "question": "what health issues does she have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
   {
-   "id": "2955c958-07-dev",
-   "category": "med_active",
+   "id": "2955c958-09-dev",
+   "category": "med_past",
    "split": "dev",
    "correct": false,
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is she taking a blood thinner?",
-   "answer": "No blood thinner in the record.",
+   "question": "Is she on acetylcysteine?",
+   "answer": "Yes, ordered during the most recent hospital stay: Acetylcysteine 20%, from Jul 14, 2178.",
    "problems": []
   },
   {
-   "id": "2955c958-07-heldout",
-   "category": "med_active",
+   "id": "2955c958-09-heldout",
+   "category": "med_past",
    "split": "heldout",
    "correct": false,
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "pt taking a blood thinner",
-   "answer": "No blood thinner in the record.",
+   "question": "is she still on acetylcysteine?",
+   "answer": "Yes, ordered during the most recent hospital stay: Acetylcysteine 20%, from Jul 14, 2178.",
    "problems": []
   },
   {
@@ -2589,7 +2685,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "waht meds is the pt on",
+   "question": "Show me her current medicaitons",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -2601,20 +2697,8 @@
    "verified": true,
    "status": "answered",
    "intent": "er_visits",
-   "question": "ER visits past 12 mo?",
+   "question": "number of emergancy visits in the past year",
    "answer": "No emergency visits in the past 12 months.",
-   "problems": []
-  },
-  {
-   "id": "2955c958-13-heldout",
-   "category": "last_visit",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "last_visit",
-   "question": "When was the patient last seen?",
-   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -2625,8 +2709,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was his last pulse?",
-   "answer": "Heart rate: 107 /min on Apr 28, 2161. Before that: 112 /min on Apr 28, 2161.",
+   "question": "What was his last bp?",
+   "answer": "Blood pressure: 108/52 mmHg on Apr 27, 2161. Before that: 117/56 mmHg on Apr 27, 2161.",
    "problems": []
   },
   {
@@ -2637,8 +2721,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was his most recent pulse reading?",
-   "answer": "Heart rate: 107 /min on Apr 28, 2161. Before that: 112 /min on Apr 28, 2161.",
+   "question": "pt most recent bp",
+   "answer": "Blood pressure: 108/52 mmHg on Apr 27, 2161. Before that: 117/56 mmHg on Apr 27, 2161.",
    "problems": []
   },
   {
@@ -2661,7 +2745,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Is his oxygen saturation going up or down?",
+   "question": "How has the oxygen saturation trended over the past few visits",
    "answer": "Oxygen saturation, last 6 results: 99% on Apr 27, 2161; 97% on Apr 28, 2161; 99% on Apr 28, 2161; 94% on Apr 28, 2161; 96% on Apr 28, 2161; 94% on Apr 28, 2161. Falling from 99% to 94%. 19 results on record in total.",
    "problems": []
   },
@@ -2726,6 +2810,54 @@
    "problems": []
   },
   {
+   "id": "3886cafb-01-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "Show me his latest chloride result",
+   "answer": "No Chloride results in the record.",
+   "problems": []
+  },
+  {
+   "id": "3886cafb-01-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "last chloride?",
+   "answer": "No Chloride results in the record.",
+   "problems": []
+  },
+  {
+   "id": "3886cafb-02-dev",
+   "category": "trend",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "trend",
+   "question": "How has his oxygen saturation changed over time?",
+   "answer": "Oxygen saturation, last 6 results: 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130. Roughly stable from 100% to 100%. 15 results on record in total.",
+   "problems": []
+  },
+  {
+   "id": "3886cafb-02-heldout",
+   "category": "trend",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "trend",
+   "question": "oxygen saturation historry for this pt",
+   "answer": "Oxygen saturation, last 6 results: 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130; 100% on Oct 27, 2130. Roughly stable from 100% to 100%. 15 results on record in total.",
+   "problems": []
+  },
+  {
    "id": "3886cafb-06-dev",
    "category": "problems",
    "split": "dev",
@@ -2733,7 +2865,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What are his active problems?",
+   "question": "What conditions does he have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -2745,32 +2877,8 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "waht are his active diagnoses",
+   "question": "Can you list his current diagnoses?",
    "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "3886cafb-07-dev",
-   "category": "med_active",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "is he taking an opioid?",
-   "answer": "No opioid in the record.",
-   "problems": []
-  },
-  {
-   "id": "3886cafb-07-heldout",
-   "category": "med_active",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "is he using an opioid these days?",
-   "answer": "No opioid in the record.",
    "problems": []
   },
   {
@@ -2781,8 +2889,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Still on lidocaine jelly?",
-   "answer": "Yes, ordered during the most recent hospital stay: Lidocaine Jelly 2% (Urojet), from Sep 6, 2128.",
+   "question": "Still on trazodone?",
+   "answer": "Yes, ordered during the most recent hospital stay: TraZODone, from May 22, 2129.",
    "problems": []
   },
   {
@@ -2793,8 +2901,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is the pt curently on lidocaine jelly",
-   "answer": "Yes, ordered during the most recent hospital stay: Lidocaine Jelly 2% (Urojet), from Sep 6, 2128.",
+   "question": "is he prescirbed trazodone right now?",
+   "answer": "Yes, ordered during the most recent hospital stay: TraZODone, from May 22, 2129.",
    "problems": []
   },
   {
@@ -2805,7 +2913,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "What is he taking right now?",
+   "question": "Current meds?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -2817,8 +2925,32 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "list everything he is taking",
+   "question": "what does he take every day?",
    "answer": "No medication orders in the record.",
+   "problems": []
+  },
+  {
+   "id": "3886cafb-13-dev",
+   "category": "last_visit",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "last_visit",
+   "question": "When was he last seen?",
+   "answer": "No visits in the record.",
+   "problems": []
+  },
+  {
+   "id": "3886cafb-13-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "last_visit",
+   "question": "When was the patient last seen?",
+   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -2829,8 +2961,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What's her current hgb?",
-   "answer": "Hemoglobin: 10 g/dL on Oct 20, 2137. Before that: 10 g/dL on Oct 19, 2137.",
+   "question": "What was her last bicarbonate?",
+   "answer": "Carbon dioxide: 29 mEq/L on Oct 23, 2137. Before that: 29 mEq/L on Oct 22, 2137.",
    "problems": []
   },
   {
@@ -2841,8 +2973,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "last hgb?",
-   "answer": "Hemoglobin: 10 g/dL on Oct 20, 2137. Before that: 10 g/dL on Oct 19, 2137.",
+   "question": "how's her bicarbonate looking lately?",
+   "answer": "Carbon dioxide: 29 mEq/L on Oct 23, 2137. Before that: 29 mEq/L on Oct 22, 2137.",
    "problems": []
   },
   {
@@ -2853,8 +2985,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was her last respiratory rate?",
-   "answer": "Respiratory rate: 14 /min on Oct 13, 2137. Before that: 20 /min on Oct 13, 2137.",
+   "question": "What is the patient's most recent pulse?",
+   "answer": "Heart rate: 83 /min on Oct 13, 2137. Before that: 85 /min on Oct 13, 2137.",
    "problems": []
   },
   {
@@ -2865,8 +2997,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What did her respiratory rate come back as most recently?",
-   "answer": "Respiratory rate: 14 /min on Oct 13, 2137. Before that: 20 /min on Oct 13, 2137.",
+   "question": "Can you tell me the last pulse we have on file for the patient?",
+   "answer": "Heart rate: 83 /min on Oct 13, 2137. Before that: 85 /min on Oct 13, 2137.",
    "problems": []
   },
   {
@@ -2875,10 +3007,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "trend",
-   "question": "Show me the trend in her sodium",
-   "answer": "No Sodium results in the record.",
+   "question": "potassium trend",
+   "answer": "Potassium, last 5 results: 4 mEq/L on Oct 13, 2137; 4 mEq/L on Oct 13, 2137; 4 mEq/L on Oct 13, 2137; 4 mEq/L on Oct 14, 2137; 4 mEq/L on Oct 17, 2137. Roughly stable from 4 mEq/L to 4 mEq/L.",
    "problems": []
   },
   {
@@ -2887,10 +3019,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "trend",
-   "question": "pt sodium over time?",
-   "answer": "No Sodium results in the record.",
+   "question": "pt potassium over time?",
+   "answer": "Potassium, last 5 results: 4 mEq/L on Oct 13, 2137; 4 mEq/L on Oct 13, 2137; 4 mEq/L on Oct 13, 2137; 4 mEq/L on Oct 14, 2137; 4 mEq/L on Oct 17, 2137. Roughly stable from 4 mEq/L to 4 mEq/L.",
    "problems": []
   },
   {
@@ -2901,7 +3033,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "Problem list",
+   "question": "What are her active problems?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -2913,32 +3045,8 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What are the patient's active problems?",
+   "question": "problem list",
    "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "3bbb6aec-07-dev",
-   "category": "med_active",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "Still on a blood thinner?",
-   "answer": "No blood thinner in the record.",
-   "problems": []
-  },
-  {
-   "id": "3bbb6aec-07-heldout",
-   "category": "med_active",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "is she prescirbed a blood thinner right now?",
-   "answer": "No blood thinner in the record.",
    "problems": []
   },
   {
@@ -3026,6 +3134,30 @@
    "problems": []
   },
   {
+   "id": "42f0ed8f-07-dev",
+   "category": "med_active",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "Does he take diabetes medication?",
+   "answer": "Yes, ordered during the most recent hospital stay: Insulin, from Nov 8, 2160.",
+   "problems": []
+  },
+  {
+   "id": "42f0ed8f-07-heldout",
+   "category": "med_active",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "Is the patient currently taking diabetes medication?",
+   "answer": "Yes, ordered during the most recent hospital stay: Insulin, from Nov 8, 2160.",
+   "problems": []
+  },
+  {
    "id": "42f0ed8f-10-dev",
    "category": "meds",
    "split": "dev",
@@ -3074,15 +3206,63 @@
    "problems": []
   },
   {
+   "id": "4365e125-00-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "Show me his latest bnp result",
+   "answer": "No NT-proBNP results in the record.",
+   "problems": []
+  },
+  {
+   "id": "4365e125-00-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "not_found",
+   "intent": "latest_value",
+   "question": "newest bnp value",
+   "answer": "No NT-proBNP results in the record.",
+   "problems": []
+  },
+  {
+   "id": "4365e125-01-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "Show me his latest inr result",
+   "answer": "INR: 2 on Mar 8, 2117.",
+   "problems": []
+  },
+  {
+   "id": "4365e125-01-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "newest inr value",
+   "answer": "INR: 2 on Mar 8, 2117.",
+   "problems": []
+  },
+  {
    "id": "4365e125-02-dev",
    "category": "trend",
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "trend",
-   "question": "Show me the trend in his sodium",
-   "answer": "Sodium, last 6 results: 136 mEq/L on Dec 3, 2116; 139 mEq/L on Dec 3, 2116; 136 mEq/L on Dec 3, 2116; 135 mEq/L on Dec 3, 2116; 139 mEq/L on Dec 3, 2116; 138 mEq/L on Dec 3, 2116. Roughly stable from 136 mEq/L to 138 mEq/L.",
+   "question": "Show me the trend in his potassium",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -3091,10 +3271,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "trend",
-   "question": "graph of his sodium history",
-   "answer": "Sodium, last 6 results: 136 mEq/L on Dec 3, 2116; 139 mEq/L on Dec 3, 2116; 136 mEq/L on Dec 3, 2116; 135 mEq/L on Dec 3, 2116; 139 mEq/L on Dec 3, 2116; 138 mEq/L on Dec 3, 2116. Roughly stable from 136 mEq/L to 138 mEq/L.",
+   "question": "graph of his potassium history",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -3103,10 +3283,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "Any sodium results from 2116?",
-   "answer": "Sodium in 2116: 138 mEq/L on Dec 3, 2116. Before that: 139 mEq/L on Dec 3, 2116.",
+   "question": "Any potassium results from 2116?",
+   "answer": "No Potassium results in 2116 in the record.",
    "problems": []
   },
   {
@@ -3115,10 +3295,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "any sodium checked in 2116?",
-   "answer": "Sodium in 2116: 138 mEq/L on Dec 3, 2116. Before that: 139 mEq/L on Dec 3, 2116.",
+   "question": "any potassium checked in 2116?",
+   "answer": "No Potassium results in 2116 in the record.",
    "problems": []
   },
   {
@@ -3249,7 +3429,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "What has his calcium been over the last few results?",
+   "question": "Is his calcium going up or down?",
    "answer": "Calcium, last 2 results: 8.9 mg/dL on Jan 16, 2111; 9.2 mg/dL on Jan 17, 2111. Roughly stable from 8.9 mg/dL to 9.2 mg/dL.",
    "problems": []
   },
@@ -3297,7 +3477,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "Current meds?",
+   "question": "What is he taking right now?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -3309,8 +3489,32 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "list everything he is taking",
+   "question": "current meds",
    "answer": "No medication orders in the record.",
+   "problems": []
+  },
+  {
+   "id": "4c48ec6f-12-dev",
+   "category": "last_visit",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "last_visit",
+   "question": "When was he last seen?",
+   "answer": "No visits in the record.",
+   "problems": []
+  },
+  {
+   "id": "4c48ec6f-12-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -3321,8 +3525,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was her last pulse?",
-   "answer": "Heart rate: 86 /min on Apr 12, 2110. Before that: 76 /min on Apr 12, 2110. This is the most recent result and it is more than a year old.",
+   "question": "What was her last bp?",
+   "answer": "Blood pressure: 88/51 mmHg on Apr 12, 2110. Before that: 105/56 mmHg on Apr 11, 2110. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -3333,8 +3537,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "waht was her last pulse",
-   "answer": "Heart rate: 86 /min on Apr 12, 2110. Before that: 76 /min on Apr 12, 2110. This is the most recent result and it is more than a year old.",
+   "question": "waht was her last bp",
+   "answer": "Blood pressure: 88/51 mmHg on Apr 12, 2110. Before that: 105/56 mmHg on Apr 11, 2110. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -3405,8 +3609,8 @@
    "verified": true,
    "status": "not_found",
    "intent": "latest_value",
-   "question": "Show me his latest bun result",
-   "answer": "No Urea nitrogen (BUN) results in the record.",
+   "question": "What is the patient's most recent potassium?",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -3417,8 +3621,32 @@
    "verified": true,
    "status": "not_found",
    "intent": "latest_value",
-   "question": "waht was his last bun",
-   "answer": "No Urea nitrogen (BUN) results in the record.",
+   "question": "current potassium pls",
+   "answer": "No Potassium results in the record.",
+   "problems": []
+  },
+  {
+   "id": "4f773083-01-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "Show me his latest albumin result",
+   "answer": "Albumin: 2 g/dL on Mar 4, 2116. Before that: 2 g/dL on Mar 1, 2116.",
+   "problems": []
+  },
+  {
+   "id": "4f773083-01-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "waht was his last albumin",
+   "answer": "Albumin: 2 g/dL on Mar 4, 2116. Before that: 2 g/dL on Mar 1, 2116.",
    "problems": []
   },
   {
@@ -3429,8 +3657,8 @@
    "verified": true,
    "status": "not_found",
    "intent": "trend",
-   "question": "sodium trend",
-   "answer": "No Sodium results in the record.",
+   "question": "How has his potassium changed over time?",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -3441,8 +3669,8 @@
    "verified": true,
    "status": "not_found",
    "intent": "trend",
-   "question": "pt sodium over time?",
-   "answer": "No Sodium results in the record.",
+   "question": "potassium historry for this pt",
+   "answer": "No Potassium results in the record.",
    "problems": []
   },
   {
@@ -3453,8 +3681,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "sodium in 2113",
-   "answer": "Sodium in 2113: 143 mEq/L on Apr 5, 2113. Before that: 138 mEq/L on Mar 22, 2113.",
+   "question": "potassium in 2113",
+   "answer": "Potassium in 2113: 5 mEq/L on May 6, 2113. Before that: 4.7 mEq/L on Mar 22, 2113.",
    "problems": []
   },
   {
@@ -3465,8 +3693,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was his sodium in 2113?",
-   "answer": "Sodium in 2113: 143 mEq/L on Apr 5, 2113. Before that: 138 mEq/L on Mar 22, 2113.",
+   "question": "2113 potassium value",
+   "answer": "Potassium in 2113: 5 mEq/L on May 6, 2113. Before that: 4.7 mEq/L on Mar 22, 2113.",
    "problems": []
   },
   {
@@ -3487,10 +3715,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "status": "answered",
+   "intent": "problem_list",
+   "question": "What conditions is the patient being treated for right now?",
+   "answer": "1 diagnosis at the most recent hospital stay, Feb 27, 2116: Fever presenting with conditions classified elsewhere.",
    "problems": []
   },
   {
@@ -3501,8 +3729,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is the patient currently on diphenhydramine?",
-   "answer": "Yes, ordered during the most recent hospital stay: DiphenhydrAMINE, from Dec 4, 2112.",
+   "question": "Is the patient currently on tramadol ultram?",
+   "answer": "Yes, ordered during the most recent hospital stay: TraMADOL (Ultram), from Dec 4, 2112.",
    "problems": []
   },
   {
@@ -3513,8 +3741,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "pt taking diphenhydramine",
-   "answer": "Yes, ordered during the most recent hospital stay: DiphenhydrAMINE, from Dec 4, 2112.",
+   "question": "is he still on tramadol ultram?",
+   "answer": "Yes, ordered during the most recent hospital stay: TraMADOL (Ultram), from Dec 4, 2112.",
    "problems": []
   },
   {
@@ -3525,7 +3753,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "Current meds?",
+   "question": "List his active medications",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -3537,7 +3765,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "what pills is he on",
+   "question": "what does he take every day?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -3549,44 +3777,8 @@
    "verified": true,
    "status": "answered",
    "intent": "er_visits",
-   "question": "pt ED encounters past 12 months",
+   "question": "how often has he ended up in the ER this past year",
    "answer": "No emergency visits in the past 12 months.",
-   "problems": []
-  },
-  {
-   "id": "4f773083-17-heldout",
-   "category": "advice",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "Is he a good candidate for an SGLT2 inhibitor?",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
-   "problems": []
-  },
-  {
-   "id": "51d2190c-00-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "Show me his latest calcium result",
-   "answer": "Calcium: 7.5 mg/dL on Sep 20, 2153.",
-   "problems": []
-  },
-  {
-   "id": "51d2190c-00-heldout",
-   "category": "latest",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "whats the latest number for his calcium",
-   "answer": "Calcium: 7.5 mg/dL on Sep 20, 2153.",
    "problems": []
   },
   {
@@ -3597,7 +3789,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "How has his hematocrit changed over time?",
+   "question": "What has his hematocrit been over the last few results?",
    "answer": "Hematocrit, last 6 results: 26.9% on Sep 20, 2153; 26.6% on Sep 21, 2153; 24.1% on Sep 22, 2153; 23.7% on Sep 22, 2153; 27.3% on Sep 22, 2153; 25.8% on Sep 23, 2153. Roughly stable from 26.9% to 25.8%. 14 results on record in total.",
    "problems": []
   },
@@ -3609,7 +3801,7 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "has his hematocrit been improving or getting worse",
+   "question": "graph of his hematocrit history",
    "answer": "Hematocrit, last 6 results: 26.9% on Sep 20, 2153; 26.6% on Sep 21, 2153; 24.1% on Sep 22, 2153; 23.7% on Sep 22, 2153; 27.3% on Sep 22, 2153; 25.8% on Sep 23, 2153. Roughly stable from 26.9% to 25.8%. 14 results on record in total.",
    "problems": []
   },
@@ -3633,7 +3825,7 @@
    "verified": true,
    "status": "answered",
    "intent": "has_condition",
-   "question": "pt w/ heart disease?",
+   "question": "any hisotry of heart disease?",
    "answer": "Yes. Coronary atherosclerosis of native coronary artery, recorded at the hospital stay of Sep 17, 2153.",
    "problems": []
   },
@@ -3657,32 +3849,8 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "List the pts current problmes",
+   "question": "waht are his active diagnoses",
    "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "51d2190c-07-dev",
-   "category": "med_active",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "Is he on a blood thinner?",
-   "answer": "No blood thinner in the record.",
-   "problems": []
-  },
-  {
-   "id": "51d2190c-07-heldout",
-   "category": "med_active",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "is he using a blood thinner these days?",
-   "answer": "No blood thinner in the record.",
    "problems": []
   },
   {
@@ -3693,7 +3861,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "What is he taking right now?",
+   "question": "Current meds?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -3707,18 +3875,6 @@
    "intent": "med_list",
    "question": "active rx list pls",
    "answer": "No medication orders in the record.",
-   "problems": []
-  },
-  {
-   "id": "51d2190c-12-dev",
-   "category": "last_visit",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "last_visit",
-   "question": "Last appointment?",
-   "answer": "No visits in the record.",
    "problems": []
   },
   {
@@ -3739,10 +3895,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "What is the patient's most recent oxygen saturation?",
-   "answer": "Oxygen saturation: 100% on May 19, 2187. Before that: 100% on May 19, 2187.",
+   "question": "What is the patient's most recent temperature?",
+   "answer": "No Temperature results in the record.",
    "problems": []
   },
   {
@@ -3751,10 +3907,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
+   "status": "not_found",
    "intent": "latest_value",
-   "question": "waht was his last oxygen saturation",
-   "answer": "Oxygen saturation: 100% on May 19, 2187. Before that: 100% on May 19, 2187.",
+   "question": "waht was his last temperature",
+   "answer": "No Temperature results in the record.",
    "problems": []
   },
   {
@@ -3842,27 +3998,27 @@
    "problems": []
   },
   {
-   "id": "53b0f2d8-00-dev",
-   "category": "latest",
+   "id": "53b0f2d8-02-dev",
+   "category": "trend",
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "What is the patient's most recent blood pressure?",
-   "answer": "Blood pressure: 158/63 mmHg on Aug 10, 2137. Before that: 142/57 mmHg on Aug 10, 2137.",
+   "status": "not_found",
+   "intent": "trend",
+   "question": "Is her egfr going up or down?",
+   "answer": "No eGFR results in the record.",
    "problems": []
   },
   {
-   "id": "53b0f2d8-00-heldout",
-   "category": "latest",
+   "id": "53b0f2d8-02-heldout",
+   "category": "trend",
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "pt most recent blood pressure",
-   "answer": "Blood pressure: 158/63 mmHg on Aug 10, 2137. Before that: 142/57 mmHg on Aug 10, 2137.",
+   "status": "not_found",
+   "intent": "trend",
+   "question": "egfr historry for this pt",
+   "answer": "No eGFR results in the record.",
    "problems": []
   },
   {
@@ -3950,39 +4106,15 @@
    "problems": []
   },
   {
-   "id": "568cb149-00-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "not_found",
-   "intent": "latest_value",
-   "question": "Latest platelets?",
-   "answer": "No Platelets results in the record.",
-   "problems": []
-  },
-  {
-   "id": "568cb149-00-heldout",
-   "category": "latest",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "not_found",
-   "intent": "latest_value",
-   "question": "What was his most recent platelets reading?",
-   "answer": "No Platelets results in the record.",
-   "problems": []
-  },
-  {
    "id": "568cb149-01-dev",
    "category": "latest",
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "What's his current temperature?",
-   "answer": "No Temperature results in the record.",
+   "question": "Latest respiratory rate?",
+   "answer": "Respiratory rate: 19 /min on Feb 25, 2196. Before that: 14 /min on Feb 25, 2196.",
    "problems": []
   },
   {
@@ -3991,10 +4123,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "Can you tell me the last temperature we have on file for the patient?",
-   "answer": "No Temperature results in the record.",
+   "question": "What was his most recent respiratory rate reading?",
+   "answer": "Respiratory rate: 19 /min on Feb 25, 2196. Before that: 14 /min on Feb 25, 2196.",
    "problems": []
   },
   {
@@ -4005,8 +4137,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Show me the trend in his respiratory rate",
-   "answer": "Respiratory rate, last 6 results: 17 /min on Feb 25, 2196; 18 /min on Feb 25, 2196; 16 /min on Feb 25, 2196; 18 /min on Feb 25, 2196; 14 /min on Feb 25, 2196; 19 /min on Feb 25, 2196. Rising from 17 /min to 19 /min. 20 results on record in total.",
+   "question": "What has his heart rate been over the last few results?",
+   "answer": "Heart rate, last 6 results: 114 /min on Feb 25, 2196; 111 /min on Feb 25, 2196; 117 /min on Feb 25, 2196; 118 /min on Feb 25, 2196; 122 /min on Feb 25, 2196; 123 /min on Feb 25, 2196. Rising from 114 /min to 123 /min. 20 results on record in total.",
    "problems": []
   },
   {
@@ -4017,8 +4149,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "trend respiratory rate pls",
-   "answer": "Respiratory rate, last 6 results: 17 /min on Feb 25, 2196; 18 /min on Feb 25, 2196; 16 /min on Feb 25, 2196; 18 /min on Feb 25, 2196; 14 /min on Feb 25, 2196; 19 /min on Feb 25, 2196. Rising from 17 /min to 19 /min. 20 results on record in total.",
+   "question": "Can you show me the trend in the patient's heart rate?",
+   "answer": "Heart rate, last 6 results: 114 /min on Feb 25, 2196; 111 /min on Feb 25, 2196; 117 /min on Feb 25, 2196; 118 /min on Feb 25, 2196; 122 /min on Feb 25, 2196; 123 /min on Feb 25, 2196. Rising from 114 /min to 123 /min. 20 results on record in total.",
    "problems": []
   },
   {
@@ -4029,7 +4161,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "Current diagnoses?",
+   "question": "What are his active problems?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -4039,10 +4171,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "status": "answered",
+   "intent": "problem_list",
+   "question": "problem list",
+   "answer": "No diagnoses in the record.",
    "problems": []
   },
   {
@@ -4053,8 +4185,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is he on chl?",
-   "answer": "Yes, ordered during the most recent hospital stay: Potassium Chl 20 mEq / 1000 mL D5 1/2 NS, from Jun 15, 2196.",
+   "question": "Is he on verapamil?",
+   "answer": "Yes, ordered during the most recent hospital stay: Verapamil, from Feb 29, 2196.",
    "problems": []
   },
   {
@@ -4065,8 +4197,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Is the patient currently taking chl?",
-   "answer": "Yes, ordered during the most recent hospital stay: Potassium Chl 20 mEq / 1000 mL D5 1/2 NS, from Jun 15, 2196.",
+   "question": "pt taking verapamil",
+   "answer": "Yes, ordered during the most recent hospital stay: Verapamil, from Feb 29, 2196.",
    "problems": []
   },
   {
@@ -4077,7 +4209,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "What medications is he on?",
+   "question": "Current meds?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -4089,56 +4221,44 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "Show me his current medicaitons",
+   "question": "what pills is he on",
    "answer": "No medication orders in the record.",
    "problems": []
   },
   {
-   "id": "568cb149-13-dev",
-   "category": "last_visit",
+   "id": "568cb149-12-dev",
+   "category": "er",
    "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "How many ER visits in the past year?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "568cb149-12-heldout",
+   "category": "er",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "ED vists in the last 12 months for this pt?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "568cb149-13-heldout",
+   "category": "last_visit",
+   "split": "heldout",
    "correct": false,
    "verified": true,
    "status": "answered",
    "intent": "last_visit",
-   "question": "When was he last seen?",
+   "question": "When was the patient last seen?",
    "answer": "No visits in the record.",
-   "problems": []
-  },
-  {
-   "id": "568cb149-16-heldout",
-   "category": "advice",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
-   "problems": []
-  },
-  {
-   "id": "5d0fc1da-02-dev",
-   "category": "trend",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "trend",
-   "question": "Is his sodium going up or down?",
-   "answer": "Sodium, last 6 results: 135 mEq/L on Mar 19, 2114; 136 mEq/L on Mar 21, 2114; 137 mEq/L on Mar 22, 2114; 137 mEq/L on Mar 23, 2114; 148 mEq/L on Jun 26, 2116; 149 mEq/L on Jun 27, 2116. Rising from 135 mEq/L to 149 mEq/L.",
-   "problems": []
-  },
-  {
-   "id": "5d0fc1da-02-heldout",
-   "category": "trend",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "trend",
-   "question": "pt sodium over time?",
-   "answer": "Sodium, last 4 results: 135 mEq/L on Mar 19, 2114; 136 mEq/L on Mar 21, 2114; 137 mEq/L on Mar 22, 2114; 137 mEq/L on Mar 23, 2114. Roughly stable from 135 mEq/L to 137 mEq/L.",
    "problems": []
   },
   {
@@ -4173,8 +4293,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "Still on aspirin?",
-   "answer": "Yes, ordered during the most recent hospital stay: Aspirin, from Mar 19, 2114.",
+   "question": "Still on levetiracetam?",
+   "answer": "Yes, ordered during the most recent hospital stay: LeVETiracetam + 0.9% Sodium Chloride, from Mar 21, 2114.",
    "problems": []
   },
   {
@@ -4185,8 +4305,8 @@
    "verified": true,
    "status": "answered",
    "intent": "on_med",
-   "question": "is he still on aspirin?",
-   "answer": "Yes, ordered during the most recent hospital stay: Aspirin, from Mar 19, 2114.",
+   "question": "is he still on levetiracetam?",
+   "answer": "Yes, ordered during the most recent hospital stay: LeVETiracetam + 0.9% Sodium Chloride, from Mar 21, 2114.",
    "problems": []
   },
   {
@@ -4269,8 +4389,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What is the patient's most recent pulse?",
-   "answer": "Heart rate: 85 /min on Sep 29, 2145. Before that: 93 /min on Sep 29, 2145.",
+   "question": "Show me her latest bp result",
+   "answer": "Blood pressure: 119/57 mmHg on Sep 29, 2145. Before that: 121/57 mmHg on Sep 29, 2145.",
    "problems": []
   },
   {
@@ -4281,8 +4401,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "how's her pulse looking lately?",
-   "answer": "Heart rate: 85 /min on Sep 29, 2145. Before that: 93 /min on Sep 29, 2145.",
+   "question": "last bp?",
+   "answer": "Blood pressure: 119/57 mmHg on Sep 29, 2145. Before that: 121/57 mmHg on Sep 29, 2145.",
    "problems": []
   },
   {
@@ -4293,7 +4413,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "Current diagnoses?",
+   "question": "What conditions does she have?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -4305,7 +4425,7 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "pt dx list?",
+   "question": "What are the patient's active problems?",
    "answer": "No diagnoses in the record.",
    "problems": []
   },
@@ -4341,8 +4461,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Show me his latest heart rate result",
-   "answer": "Heart rate: 115 /min on May 23, 2131. Before that: 112 /min on May 23, 2131. This is the most recent result and it is more than a year old.",
+   "question": "What is the patient's most recent blood pressure?",
+   "answer": "Blood pressure: 99/65 mmHg on May 23, 2131. Before that: 102/63 mmHg on May 23, 2131. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -4353,31 +4473,7 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "newest heart rate value",
-   "answer": "Heart rate: 115 /min on May 23, 2131. Before that: 112 /min on May 23, 2131. This is the most recent result and it is more than a year old.",
-   "problems": []
-  },
-  {
-   "id": "5f3dcdb5-01-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "What was his last blood pressure?",
-   "answer": "Blood pressure: 99/65 mmHg on May 23, 2131. Before that: 102/63 mmHg on May 23, 2131. This is the most recent result and it is more than a year old.",
-   "problems": []
-  },
-  {
-   "id": "5f3dcdb5-01-heldout",
-   "category": "latest",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "What was his most recent blood pressure reading?",
+   "question": "Most recnet blood pressure for this pt?",
    "answer": "Blood pressure: 99/65 mmHg on May 23, 2131. Before that: 102/63 mmHg on May 23, 2131. This is the most recent result and it is more than a year old.",
    "problems": []
   },
@@ -4389,8 +4485,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "Show me the trend in his heart rate",
-   "answer": "Heart rate, last 6 results: 109 /min on May 23, 2131; 101 /min on May 23, 2131; 115 /min on May 23, 2131; 112 /min on May 23, 2131; 112 /min on May 23, 2131; 115 /min on May 23, 2131. Rising from 109 /min to 115 /min. 20 results on record in total.",
+   "question": "How has his blood pressure changed over time?",
+   "answer": "Blood pressure, last 6 results: 131/83 mmHg on May 22, 2131; 118/67 mmHg on May 22, 2131; 93/60 mmHg on May 23, 2131; 107/64 mmHg on May 23, 2131; 102/63 mmHg on May 23, 2131; 99/65 mmHg on May 23, 2131. Falling from 131/83 mmHg to 99/65 mmHg.",
    "problems": []
   },
   {
@@ -4401,8 +4497,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "pt heart rate over time?",
-   "answer": "Heart rate, last 6 results: 109 /min on May 23, 2131; 101 /min on May 23, 2131; 115 /min on May 23, 2131; 112 /min on May 23, 2131; 112 /min on May 23, 2131; 115 /min on May 23, 2131. Rising from 109 /min to 115 /min. 20 results on record in total.",
+   "question": "trend blood pressure pls",
+   "answer": "Blood pressure, last 6 results: 131/83 mmHg on May 22, 2131; 118/67 mmHg on May 22, 2131; 93/60 mmHg on May 23, 2131; 107/64 mmHg on May 23, 2131; 102/63 mmHg on May 23, 2131; 99/65 mmHg on May 23, 2131. Falling from 131/83 mmHg to 99/65 mmHg.",
    "problems": []
   },
   {
@@ -4413,8 +4509,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What was his pulse in 2131?",
-   "answer": "Heart rate in 2131: 109 /min on May 23, 2131. Before that: 116 /min on May 23, 2131.",
+   "question": "Any bp results from 2131?",
+   "answer": "Blood pressure in 2131: 99/65 mmHg on May 23, 2131. Before that: 102/63 mmHg on May 23, 2131.",
    "problems": []
   },
   {
@@ -4425,8 +4521,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "pt pulse during 2131",
-   "answer": "Heart rate in 2131: 109 /min on May 23, 2131. Before that: 116 /min on May 23, 2131.",
+   "question": "Do we have a bp result for the patient from 2131?",
+   "answer": "Blood pressure in 2131: 99/65 mmHg on May 23, 2131. Before that: 102/63 mmHg on May 23, 2131.",
    "problems": []
   },
   {
@@ -4437,8 +4533,8 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "What conditions does he have?",
-   "answer": "1 diagnosis at the most recent hospital stay, May 22, 2131: Pleural effusion in other conditions classified elsewhere.",
+   "question": "What are his active problems?",
+   "answer": "No diagnoses in the record.",
    "problems": []
   },
   {
@@ -4449,8 +4545,32 @@
    "verified": true,
    "status": "answered",
    "intent": "problem_list",
-   "question": "pt dx list?",
+   "question": "what health issues does he have?",
    "answer": "No diagnoses in the record.",
+   "problems": []
+  },
+  {
+   "id": "5f3dcdb5-10-dev",
+   "category": "med_past",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "Still on colchicine?",
+   "answer": "Yes, ordered during the most recent hospital stay: Colchicine, from May 29, 2131.",
+   "problems": []
+  },
+  {
+   "id": "5f3dcdb5-10-heldout",
+   "category": "med_past",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "on colchicine?",
+   "answer": "Yes, ordered during the most recent hospital stay: Colchicine, from May 29, 2131.",
    "problems": []
   },
   {
@@ -4461,7 +4581,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "List his active medications",
+   "question": "What is he taking right now?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -4473,7 +4593,7 @@
    "verified": true,
    "status": "answered",
    "intent": "med_list",
-   "question": "What is he prescribed right now?",
+   "question": "What medications is the patient currently taking?",
    "answer": "No medication orders in the record.",
    "problems": []
   },
@@ -4485,7 +4605,19 @@
    "verified": true,
    "status": "answered",
    "intent": "er_visits",
-   "question": "How many ER visits in the past year?",
+   "question": "ED visits in the past year?",
+   "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "5f3dcdb5-13-heldout",
+   "category": "er",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Has he been to the ER at all in the past year?",
    "answer": "No emergency visits in the past 12 months.",
    "problems": []
   },
@@ -4497,7 +4629,7 @@
    "verified": true,
    "status": "answered",
    "intent": "last_visit",
-   "question": "Last appointment?",
+   "question": "When was he last seen?",
    "answer": "No visits in the record.",
    "problems": []
   },
@@ -4507,10 +4639,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "answered",
-   "intent": "last_visit",
-   "question": "last appt",
-   "answer": "No visits in the record.",
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "how long since we saw him?",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -4521,8 +4653,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Latest temperature?",
-   "answer": "Temperature: 97.5 °F on Jun 12, 2137.",
+   "question": "Latest respiratory rate?",
+   "answer": "Respiratory rate: 20 /min on Jun 13, 2137. Before that: 33 /min on Jun 13, 2137.",
    "problems": []
   },
   {
@@ -4533,8 +4665,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Most recnet temperature for this pt?",
-   "answer": "Temperature: 97.5 °F on Jun 12, 2137.",
+   "question": "Most recnet respiratory rate for this pt?",
+   "answer": "Respiratory rate: 20 /min on Jun 13, 2137. Before that: 33 /min on Jun 13, 2137.",
    "problems": []
   },
   {
@@ -4583,6 +4715,30 @@
    "intent": "problem_list",
    "question": "What are the patient's active problems?",
    "answer": "No diagnoses in the record.",
+   "problems": []
+  },
+  {
+   "id": "5f74c4bf-07-dev",
+   "category": "med_active",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "Still on heparin?",
+   "answer": "Yes, ordered during the most recent hospital stay: Heparin, from Jun 12, 2137.",
+   "problems": []
+  },
+  {
+   "id": "5f74c4bf-07-heldout",
+   "category": "med_active",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "on_med",
+   "question": "is she still on heparin?",
+   "answer": "Yes, ordered during the most recent hospital stay: Heparin, from Jun 12, 2137.",
    "problems": []
   },
   {
@@ -4723,10 +4879,10 @@
    "split": "dev",
    "correct": false,
    "verified": true,
-   "status": "not_found",
+   "status": "answered",
    "intent": "latest_value",
-   "question": "What is the patient's most recent chloride?",
-   "answer": "No Chloride results in the record.",
+   "question": "What is the patient's most recent sodium?",
+   "answer": "Sodium: 137 mEq/L on Apr 17, 2154. Before that: 136 mEq/L on Feb 9, 2154.",
    "problems": []
   },
   {
@@ -4735,34 +4891,10 @@
    "split": "heldout",
    "correct": false,
    "verified": true,
-   "status": "not_found",
-   "intent": "latest_value",
-   "question": "waht was her last chloride",
-   "answer": "No Chloride results in the record.",
-   "problems": []
-  },
-  {
-   "id": "71a27b6b-01-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Latest bun?",
-   "answer": "Urea nitrogen (BUN): 9 mg/dL on Apr 24, 2154. Before that: 11 mg/dL on Apr 17, 2154.",
-   "problems": []
-  },
-  {
-   "id": "71a27b6b-01-heldout",
-   "category": "latest",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "waht was her last bun",
-   "answer": "Urea nitrogen (BUN): 9 mg/dL on Apr 24, 2154. Before that: 11 mg/dL on Apr 17, 2154.",
+   "question": "waht was her last sodium",
+   "answer": "Sodium: 137 mEq/L on Apr 17, 2154. Before that: 136 mEq/L on Feb 9, 2154.",
    "problems": []
   },
   {
@@ -4773,8 +4905,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "How has her sodium changed over time?",
-   "answer": "Sodium, last 6 results: 138 mEq/L on Feb 8, 2154; 136 mEq/L on Feb 9, 2154; 137 mEq/L on Apr 17, 2154; 140 mEq/L on Apr 24, 2154; 139 mEq/L on Apr 25, 2154; 136 mEq/L on Apr 26, 2154. Roughly stable from 138 mEq/L to 136 mEq/L. 10 results on record in total.",
+   "question": "How has her potassium changed over time?",
+   "answer": "Potassium, the only result: 4 mEq/L on Apr 17, 2154.",
    "problems": []
   },
   {
@@ -4785,8 +4917,8 @@
    "verified": true,
    "status": "answered",
    "intent": "trend",
-   "question": "all sodium values",
-   "answer": "Sodium, last 6 results: 138 mEq/L on Feb 8, 2154; 136 mEq/L on Feb 9, 2154; 137 mEq/L on Apr 17, 2154; 140 mEq/L on Apr 24, 2154; 139 mEq/L on Apr 25, 2154; 136 mEq/L on Apr 26, 2154. Roughly stable from 138 mEq/L to 136 mEq/L. 10 results on record in total.",
+   "question": "all potassium values",
+   "answer": "Potassium, the only result: 4 mEq/L on Apr 17, 2154.",
    "problems": []
   },
   {
@@ -4811,54 +4943,6 @@
    "intent": "problem_list",
    "question": "waht are her active diagnoses",
    "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "71a27b6b-07-dev",
-   "category": "med_active",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "Is she on a diuretic?",
-   "answer": "No diuretic in the record.",
-   "problems": []
-  },
-  {
-   "id": "71a27b6b-07-heldout",
-   "category": "med_active",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "pt taking a diuretic",
-   "answer": "No diuretic in the record.",
-   "problems": []
-  },
-  {
-   "id": "71a27b6b-09-dev",
-   "category": "med_past",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "Does she take dronabinol?",
-   "answer": "Yes, ordered during the most recent hospital stay: Dronabinol, from Feb 7, 2154.",
-   "problems": []
-  },
-  {
-   "id": "71a27b6b-09-heldout",
-   "category": "med_past",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "does she take dronabinol",
-   "answer": "Yes, ordered during the most recent hospital stay: Dronabinol, from Feb 7, 2154.",
    "problems": []
   },
   {
@@ -4934,27 +5018,15 @@
    "problems": []
   },
   {
-   "id": "72d56b49-00-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "not_found",
-   "intent": "latest_value",
-   "question": "What is the patient's most recent platelets?",
-   "answer": "No Platelets results in the record.",
-   "problems": []
-  },
-  {
-   "id": "72d56b49-00-heldout",
+   "id": "72d56b49-01-heldout",
    "category": "latest",
    "split": "heldout",
    "correct": false,
    "verified": true,
    "status": "not_found",
    "intent": "latest_value",
-   "question": "pt most recent platelets",
-   "answer": "No Platelets results in the record.",
+   "question": "Where is his kidney function at right now?",
+   "answer": "No eGFR results in the record.",
    "problems": []
   },
   {
@@ -5078,30 +5150,6 @@
    "problems": []
   },
   {
-   "id": "735c5ea5-00-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "not_found",
-   "intent": "latest_value",
-   "question": "Most recent bnp for him",
-   "answer": "No NT-proBNP results in the record.",
-   "problems": []
-  },
-  {
-   "id": "735c5ea5-00-heldout",
-   "category": "latest",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "not_found",
-   "intent": "latest_value",
-   "question": "pt most recent bnp",
-   "answer": "No NT-proBNP results in the record.",
-   "problems": []
-  },
-  {
    "id": "735c5ea5-01-dev",
    "category": "latest",
    "split": "dev",
@@ -5109,8 +5157,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "What's his current respiratory rate?",
-   "answer": "Respiratory rate: 21 /min on May 26, 2174. Before that: 23 /min on May 26, 2174.",
+   "question": "What's his current heart rate?",
+   "answer": "Heart rate: 85 /min on May 26, 2174. Before that: 76 /min on May 26, 2174.",
    "problems": []
   },
   {
@@ -5121,8 +5169,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "newest respiratory rate value",
-   "answer": "Respiratory rate: 21 /min on May 26, 2174. Before that: 23 /min on May 26, 2174.",
+   "question": "newest heart rate value",
+   "answer": "Heart rate: 85 /min on May 26, 2174. Before that: 76 /min on May 26, 2174.",
    "problems": []
   },
   {
@@ -5217,8 +5265,8 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "Most recent hgb for her",
-   "answer": "Hemoglobin: 16 g/dL on Dec 13, 2145. Before that: 10 g/dL on Sep 5, 2142.",
+   "question": "Most recent bicarbonate for her",
+   "answer": "Carbon dioxide: 27 mEq/L on Aug 30, 2142. Before that: 25 mEq/L on Aug 29, 2142. This is the most recent result and it is more than a year old.",
    "problems": []
   },
   {
@@ -5229,8 +5277,56 @@
    "verified": true,
    "status": "answered",
    "intent": "latest_value",
-   "question": "pt most recent hgb",
-   "answer": "Hemoglobin: 16 g/dL on Dec 13, 2145. Before that: 10 g/dL on Sep 5, 2142.",
+   "question": "pt most recent bicarbonate",
+   "answer": "Carbon dioxide: 27 mEq/L on Aug 30, 2142. Before that: 25 mEq/L on Aug 29, 2142. This is the most recent result and it is more than a year old.",
+   "problems": []
+  },
+  {
+   "id": "73eac996-01-dev",
+   "category": "latest",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "Most recent oxygen saturation for her",
+   "answer": "Oxygen saturation: 98% on Jul 31, 2142. Before that: 97% on Jul 31, 2142. This is the most recent result and it is more than a year old.",
+   "problems": []
+  },
+  {
+   "id": "73eac996-01-heldout",
+   "category": "latest",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "latest_value",
+   "question": "current oxygen saturation pls",
+   "answer": "Oxygen saturation: 98% on Jul 31, 2142. Before that: 97% on Jul 31, 2142. This is the most recent result and it is more than a year old.",
+   "problems": []
+  },
+  {
+   "id": "73eac996-02-dev",
+   "category": "trend",
+   "split": "dev",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "trend",
+   "question": "How has her pulse changed over time?",
+   "answer": "Heart rate, last 6 results: 106 /min on Jul 31, 2142; 110 /min on Jul 31, 2142; 112 /min on Jul 31, 2142; 105 /min on Jul 31, 2142; 101 /min on Jul 31, 2142; 100 /min on Jul 31, 2142. Falling from 106 /min to 100 /min. 20 results on record in total.",
+   "problems": []
+  },
+  {
+   "id": "73eac996-02-heldout",
+   "category": "trend",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "trend",
+   "question": "has her pulse been improving or getting worse",
+   "answer": "Heart rate, last 6 results: 106 /min on Jul 31, 2142; 110 /min on Jul 31, 2142; 112 /min on Jul 31, 2142; 105 /min on Jul 31, 2142; 101 /min on Jul 31, 2142; 100 /min on Jul 31, 2142. Falling from 106 /min to 100 /min. 20 results on record in total.",
    "problems": []
   },
   {
@@ -5268,104 +5364,8 @@
    "question": "Current diagnoses?",
    "answer": "No diagnoses in the record.",
    "problems": []
-  },
-  {
-   "id": "73eac996-06-heldout",
-   "category": "problems",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "problem_list",
-   "question": "active problems pls",
-   "answer": "No diagnoses in the record.",
-   "problems": []
-  },
-  {
-   "id": "73eac996-09-dev",
-   "category": "med_past",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "is she taking docusate?",
-   "answer": "Yes, ordered during the most recent hospital stay: Docusate Sodium, from Aug 27, 2142.",
-   "problems": []
-  },
-  {
-   "id": "73eac996-09-heldout",
-   "category": "med_past",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "on_med",
-   "question": "pt taking docusate",
-   "answer": "Yes, ordered during the most recent hospital stay: Docusate Sodium, from Aug 27, 2142.",
-   "problems": []
-  },
-  {
-   "id": "73eac996-11-dev",
-   "category": "meds",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "med_list",
-   "question": "Current meds?",
-   "answer": "No medication orders in the record.",
-   "problems": []
-  },
-  {
-   "id": "73eac996-11-heldout",
-   "category": "meds",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "med_list",
-   "question": "What is she prescribed right now?",
-   "answer": "No medication orders in the record.",
-   "problems": []
-  },
-  {
-   "id": "73eac996-13-dev",
-   "category": "last_visit",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "last_visit",
-   "question": "When was she last seen?",
-   "answer": "No visits in the record.",
-   "problems": []
-  },
-  {
-   "id": "73eac996-13-heldout",
-   "category": "last_visit",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "last_visit",
-   "question": "When was the patient last seen?",
-   "answer": "No visits in the record.",
-   "problems": []
-  },
-  {
-   "id": "73fb53d8-00-dev",
-   "category": "latest",
-   "split": "dev",
-   "correct": false,
-   "verified": true,
-   "status": "answered",
-   "intent": "latest_value",
-   "question": "Latest oxygen saturation?",
-   "answer": "Oxygen saturation: 98% on Jun 22, 2146. Before that: 100% on Jun 22, 2146.",
-   "problems": []
   }
  ],
  "answerer": "rag20",
- "seconds": 26.6
+ "seconds": 28.5
 }

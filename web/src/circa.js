@@ -292,7 +292,7 @@ export class Engine {
 
   _of(chart, type, codes = null, window = null) {
     const cs = codes ? new Set(codes) : null;
-    return chart.records.filter((r) => r.type === type && (!cs || cs.has(r.code)) && (!window || (window.start <= r.date && r.date <= window.end)));
+    return chart.records.filter((r) => r.type === type && !r.noresult && (!cs || cs.has(r.code)) && (!window || (window.start <= r.date && r.date <= window.end)));
   }
 
   _answered(claims, result) { return { status: "answered", claims, result }; }

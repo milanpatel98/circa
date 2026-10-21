@@ -22,7 +22,7 @@ from pathlib import Path
 
 from .fhir import UNITS, clean, coding, utc
 
-KEEP_LAB_STRINGS = {"50852", "51003"}  # A1c and troponin sometimes arrive as text ('<0.01')
+NO_RESULT = {"___", "UNABLE TO REPORT.", "ERROR"}  # redacted or failed results: kept in the record, never given as an answer
 
 # ICU blood pressure arrives as separate systolic and diastolic items charted at the same minute; they are paired
 # into one reading (cited by the systolic resource's id; the raw view shows both resources).
@@ -98,13 +98,37 @@ def ingest(folder: Path) -> tuple[list[dict], dict[str, dict]]:
 
     # medication orders, named by the hospital formulary
     med_name: dict[str, str] = {}
+    formulary: dict[str, str] = {}  # hospital formulary code -> medicine name
     for m in _read(folder, "MimicMedication"):
-        n = next((i["value"] for i in m.get("identifier", []) if i.get("system", "").endswith("medication-name")), None)
+        ids = {i.get("system", "").rsplit("/", 1)[-1]: i["value"] for i in m.get("identifier", [])}
+        n = ids.get("mimic-medication-name")
         if n:
             med_name[m["id"]] = n
+            if ids.get("mimic-medication-formulary-drug-cd"):
+                formulary.setdefault(ids["mimic-medication-formulary-drug-cd"], n)
+    for m in _read(folder, "MimicMedicationMix"):  # an IV mix is named by its ingredients
+        parts = [med_name.get(_ref(i, "itemReference") or "") for i in m.get("ingredient", [])]
+        if parts and all(parts):
+            med_name[m["id"]] = " + ".join(parts)
+    def med_label(cc: dict | None) -> str | None:
+        cc = cc or {}
+        if cc.get("text"):
+            return cc["text"]
+        for c in cc.get("coding", []):
+            if c.get("display"):
+                return c["display"]
+            if c.get("system", "").endswith("medication-name"):
+                return c["code"]
+            if c.get("system", "").endswith("formulary-drug-cd") and c["code"] in formulary:
+                return formulary[c["code"]]
+        for c in cc.get("coding", []):  # order-entry categories such as "IV therapy" or "TPN"
+            if c.get("system", "").endswith("poe-iv") and c.get("code"):
+                return c["code"]
+        return None
+
     req: dict[str, tuple[str, str]] = {}  # request id -> (name, authoredOn)
     for r in _read(folder, "MimicMedicationRequest"):
-        name = med_name.get(_ref(r, "medicationReference") or "") or (r.get("medicationCodeableConcept") or {}).get("text")
+        name = med_name.get(_ref(r, "medicationReference") or "") or med_label(r.get("medicationCodeableConcept"))
         if not name or not r.get("authoredOn"):
             continue
         req[r["id"]] = (name, r["authoredOn"])
@@ -121,8 +145,10 @@ def ingest(folder: Path) -> tuple[list[dict], dict[str, dict]]:
         rec = {"id": o["id"], "type": "Observation", "cat": "lab", "system": "mimic-lab", "code": code, "name": display, "at": utc(ts), "date": ts[:10]}
         if "valueQuantity" in o and "value" in o["valueQuantity"]:
             rec["value"], rec["unit"] = _qty(o["valueQuantity"])
-        elif code in KEEP_LAB_STRINGS and o.get("valueString"):
-            rec["text"] = o["valueString"]
+        elif o.get("valueString"):
+            rec["text"] = " ".join(o["valueString"].split())
+            if rec["text"] in NO_RESULT:
+                rec["noresult"] = True
         else:
             continue
         add(_ref(o, "subject"), rec, o)
@@ -144,17 +170,6 @@ def ingest(folder: Path) -> tuple[list[dict], dict[str, dict]]:
         add(_ref(o, "subject"), rec, o)
 
     # medicines given, handed out, or reported as taken at home
-    def med_label(cc: dict | None) -> str | None:
-        cc = cc or {}
-        if cc.get("text"):
-            return cc["text"]
-        for c in cc.get("coding", []):
-            if c.get("display"):
-                return c["display"]
-            if c.get("system", "").endswith("medication-name"):
-                return c["code"]
-        return None
-
     for name in ("MimicMedicationAdministration", "MimicMedicationAdministrationICU"):
         for m in _read(folder, name):
             ts = m.get("effectiveDateTime") or (m.get("effectivePeriod") or {}).get("start")
@@ -255,7 +270,8 @@ def ingest(folder: Path) -> tuple[list[dict], dict[str, dict]]:
             owner[o["id"]] = pid
             if not ts or not display:
                 continue
-            value = o.get("valueString") or coding(o.get("valueCodeableConcept"))[2] or ("organism grown" if name.endswith("Org") else "")
+            value = (o.get("valueString") or coding(o.get("valueCodeableConcept"))[2]
+                     or ("organism grown" if name.endswith("Org") else "organisms reported" if o.get("hasMember") else ""))
             if not value:
                 continue
             kind = {"MimicObservationMicroTest": "Culture or test", "MimicObservationMicroOrg": "Organism", "MimicObservationMicroSusc": "Antibiotic"}[name]

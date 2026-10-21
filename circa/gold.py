@@ -19,7 +19,7 @@ def _rank_key(codes):
 def observations(chart, codes, start=None, end=None):
     out = []
     for r in chart["records"]:
-        if r["type"] == "Observation" and r["code"] in codes:
+        if r["type"] == "Observation" and r["code"] in codes and not r.get("noresult"):
             if start and r["date"] < start:
                 continue
             if end and r["date"] > end:

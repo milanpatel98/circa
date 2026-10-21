@@ -128,7 +128,7 @@ def build(charts: list[dict], lexicon: dict, heldout: dict, seed: int = 7) -> li
         rng = random.Random(f"{seed}:{chart['id']}")
         p = pronouns(chart["sex"])
         items: list[tuple[str, str, dict, dict]] = []  # (category, intent, slots, gold)
-        recs = chart["records"]
+        recs = [r for r in chart["records"] if not r.get("noresult")]
         obs_codes = {r["code"] for r in recs if r["type"] == "Observation"}
 
         def obs_present(min_n=1):
