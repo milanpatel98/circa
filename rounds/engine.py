@@ -216,7 +216,7 @@ class Engine:
                     continue
                 seen.append(r["code"])
                 first = next(x for x in rs if x["code"] == r["code"])
-                claims.append({"text": f"{r['name']}, active, first prescribed {fmt_date(first['date'])}.", "cites": [r["id"], first["id"]]})
+                claims.append({"text": f"{r['name']}, active, first prescribed {fmt_date(first['date'])}.", "cites": list(dict.fromkeys([r["id"], first["id"]]))})
             return self._answered(claims, {"state": "active", "codes": sorted(seen)})
         last = rs[-1]
         claims = [{"text": f"Not currently. {last['name']} was last prescribed on {fmt_date(last['date'])} and that order is {last['status']}.",
@@ -237,7 +237,7 @@ class Engine:
             cur = [r for r in active if r["code"] == code][-1]
             first = next(x for x in rs if x["code"] == code)
             reason = f", for {lc(cur['reason'])}" if cur.get("reason") else ""
-            claims.append({"text": f"{cur['name']} (since {fmt_date(first['date'])}{reason});", "cites": [cur["id"], first["id"]]})
+            claims.append({"text": f"{cur['name']} (since {fmt_date(first['date'])}{reason});", "cites": list(dict.fromkeys([cur["id"], first["id"]]))})
         claims[-1]["text"] = claims[-1]["text"][:-1] + "."
         return self._answered(claims, {"codes": sorted(codes)})
 

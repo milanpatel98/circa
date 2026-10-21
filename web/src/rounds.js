@@ -381,7 +381,7 @@ export class Engine {
         if (seen.includes(r.code)) continue;
         seen.push(r.code);
         const first = rs.find((x) => x.code === r.code);
-        claims.push({ text: `${r.name}, active, first prescribed ${fmtDate(first.date)}.`, cites: [r.id, first.id] });
+        claims.push({ text: `${r.name}, active, first prescribed ${fmtDate(first.date)}.`, cites: [...new Set([r.id, first.id])] });
       }
       return this._answered(claims, { state: "active", codes: [...seen].sort() });
     }
@@ -401,7 +401,7 @@ export class Engine {
       const cur = active.filter((r) => r.code === code).pop();
       const first = rs.find((x) => x.code === code);
       const reason = cur.reason ? `, for ${lc(cur.reason)}` : "";
-      claims.push({ text: `${cur.name} (since ${fmtDate(first.date)}${reason});`, cites: [cur.id, first.id] });
+      claims.push({ text: `${cur.name} (since ${fmtDate(first.date)}${reason});`, cites: [...new Set([cur.id, first.id])] });
     }
     claims[claims.length - 1].text = claims[claims.length - 1].text.slice(0, -1) + ".";
     return this._answered(claims, { codes: [...codes].sort() });
