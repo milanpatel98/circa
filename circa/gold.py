@@ -119,7 +119,7 @@ def er_count(chart, start, end):
 
 
 def last_visit(chart):
-    rs = sorted((r["at"], r["id"]) for r in chart["records"] if r["type"] == "Encounter" and r["date"] <= chart["asOf"])
+    rs = sorted((r["at"], r["id"]) for r in chart["records"] if r["type"] == "Encounter" and r["date"] <= chart["asOf"] and r["cls"] != "ICU")
     return rs[-1][1] if rs else None
 
 

@@ -28,6 +28,12 @@ def render(r: dict) -> str:
         return f"{r['date']} allergy {r['name']} {r.get('category', '')} {' '.join(r.get('reactions', []))}"
     if t == "Immunization":
         return f"{r['date']} immunization vaccine {r['name']}"
+    if t == "MedicationAdministration":
+        return f"{r['date']} medication given {r['name']}"
+    if t == "MedicationDispense":
+        return f"{r['date']} medication dispensed {r['name']}"
+    if t == "MedicationStatement":
+        return f"{r['date']} home medication reported {r['name']}"
     if t == "Encounter":
         return f"{r['date']} encounter visit {r['cls']} {'emergency' if r['cls'] == 'EMER' else ''} {r['name']}" + (f" for {r['reason']}" if r.get("reason") else "")
     return f"{r['date']} procedure {r['name']}"

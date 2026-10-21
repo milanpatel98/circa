@@ -12,16 +12,16 @@ Clinicians ask a patient's chart the same questions every day. "What was her las
 
 Two cohorts, both FHIR R4:
 
-- **Real:** 100 de-identified patients from the [MIMIC-IV Clinical Database Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (Beth Israel Deaconess Medical Center), 118,869 records: admissions, ED visits, diagnoses, medication orders, labs and vitals.
+- **Real:** 100 de-identified patients from the [MIMIC-IV Clinical Database Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (Beth Israel Deaconess Medical Center), every clinical record in the release: 872,006 of them. Admissions, ED visits and ICU stays; diagnoses; medication orders, doses given, dispenses and home medications; procedures; labs and microbiology; ICU charting (vitals, assessments, outputs).
 - **Synthetic:** 130 [Synthea](https://github.com/synthetichealth/synthea) patients, which add allergies, vaccines and outpatient visits that the hospital data does not have.
 
 Every question has an answer key computed from the record by separate code (`gold.py`). Each is asked twice: in the wording written while the parser was built, and in **held-out wording** written separately by someone who never saw the parser (`bench/heldout.json`). Held-out scores:
 
 | Answerer | Real patients (1,679 questions) | Wrong answers | Synthetic (2,917) | Wrong answers |
 | --- | --- | --- | --- | --- |
-| **Circa** | **97.3%** (95% CI 96.4–98.0) | **6** | **96.2%** (95.4–96.8) | **40** |
-| Search, top 20 records | 70.3% | 430 | 79.4% | 492 |
-| Search, top 5 records | 61.8% | 558 | 65.6% | 875 |
+| **Circa** | **97.2%** (95% CI 96.3–97.9) | **7** | **96.2%** (95.4–96.8) | **40** |
+| Search, top 20 records | 65.8% | 490 | 79.4% | 492 |
+| Search, top 5 records | 58.8% | 560 | 65.6% | 875 |
 
 "Search" is the usual retrieval-augmented approach: index each record as text, retrieve the records most similar to the question with BM25, and answer from those. To make the comparison about evidence and nothing else, the search baseline uses Circa's own vocabulary for query expansion and Circa's own answer logic. The only difference is that it reads k retrieved records instead of querying the whole chart.
 
@@ -29,16 +29,16 @@ Where retrieval breaks, on real patients:
 
 | Question type | Circa | Search, top 20 | Search, top 5 |
 | --- | --- | --- | --- |
-| Latest result ("last A1c") | 100% | 73% | 35% |
-| Trend | 100% | 68% | 18% |
-| Current medication ("still on heparin?") | 99% | 79% | 74% |
-| Stopped medication | 100% | 13% | 13% |
+| Latest result ("last A1c") | 100% | 50% | 27% |
+| Trend | 100% | 43% | 6% |
+| Current medication ("still on heparin?") | 99% | 78% | 73% |
+| Stopped medication | 100% | 17% | 0% |
 | Medication list | 100% | 0% | 0% |
-| Problem list | 91% | 0% | 0% |
+| Problem list | 90% | 0% | 0% |
 | ER visits in a period | 100% | 48% | 48% |
-| Last visit | 86% | 40% | 36% |
+| Last visit | 85% | 38% | 33% |
 
-Similar is not the same as newest, and the top k records are not the whole list. A real hospital stay can carry 40 medication orders and 30 diagnoses; 20 retrieved records cannot list them.
+Similar is not the same as newest, and the top k records are not the whole list. A real hospital stay can carry 40 medication orders and 30 diagnoses; 20 retrieved records cannot list them. More data makes search worse, not better: one ICU patient has 50,306 records, and adding the ICU charting dropped search from 70.3% to 65.8% while Circa held steady.
 
 **Hospital records mean different things.** MIMIC diagnoses are billing codes attached to a stay, with no onset or resolved date, so Circa says "recorded at the hospital stay of …" rather than "active". Every medication order is completed by discharge, so "current medications" means those ordered during the most recent stay, and the answer says so. Dates are shifted into the 2100s for privacy; each patient's "today" is their latest record.
 
@@ -46,6 +46,7 @@ Similar is not the same as newest, and the top k records are not the whole list.
 
 - *Synthetic:* the first held-out run scored **95.9%**. It exposed one vocabulary bug: packaging words in RxNorm names ("Auto-Injector", "28 Day Pack") were read as medicine names. Fixing only that gives 96.2%. `artifacts/heldout-first-run.json` keeps the first run.
 - *Real:* the first held-out run scored **95.3%** (40 wrong answers). Two parser gaps caused most misses: years in the shifted 2100s were not read as years, and "currently on glucose" was read as the glucose lab rather than the medicine. Fixing those gives 97.3%. Both fixes came after the synthetic held-out set had been opened; they leave its score unchanged.
+- *All records:* adding the ICU, medication-administration, procedure and microbiology records (from 118,869 to 872,006 records) changed which lab and vital questions get asked, so the benchmark was regenerated. Its first run scored 97.2% with no parser change; ICU blood pressure, heart rate, temperature and weight questions were added to the vocabulary before the run.
 
 No held-out phrasing was edited after it was opened.
 
@@ -64,7 +65,7 @@ No held-out phrasing was edited after it was opened.
    answer, sentence by sentence, each with the ids it rests on  ──►  checker
 ```
 
-**Real record format.** Real patients come from MIMIC-IV's FHIR export (`circa/mimic.py` reads the NDJSON files: Patient, Encounter, Condition, MedicationRequest, lab and vital-sign Observations). Synthetic patients come from [Synthea](https://github.com/synthetichealth/synthea), pinned to v3.3.0 with fixed seeds, exported as FHIR R4. Ingest keeps Observations (labs, vitals, smoking status), Conditions, MedicationRequests, AllergyIntolerances, Immunizations, Encounters and Procedures. It drops billing (Claim, ExplanationOfBenefit), and keeps social-circumstance findings (employment, education, housing) out of the problem list. Regenerating from scratch gives byte-identical charts.
+**Real record format.** Real patients come from MIMIC-IV's FHIR export. `circa/mimic.py` reads every clinical file in it: Encounter (hospital, ED, ICU), Condition, MedicationRequest, MedicationAdministration, MedicationDispense, MedicationStatement, Procedure, and Observations for labs, microbiology, ED vitals and ICU charting. ICU blood pressure arrives as separate systolic and diastolic items; readings charted at the same minute are paired, and the citation shows both original resources. Only reference data (Location, Organization, Specimen) is left out. Synthetic patients come from [Synthea](https://github.com/synthetichealth/synthea), pinned to v3.3.0 with fixed seeds, exported as FHIR R4. Ingest keeps Observations (labs, vitals, smoking status), Conditions, MedicationRequests, AllergyIntolerances, Immunizations, Encounters and Procedures. It drops billing (Claim, ExplanationOfBenefit), and keeps social-circumstance findings (employment, education, housing) out of the problem list. Regenerating from scratch gives byte-identical charts.
 
 **Vocabulary.** Labs and vitals map to LOINC (and MIMIC's lab item ids) by hand ("A1c", "kidney function" to eGFR, "bp"). Conditions, medications, vaccines and allergens are read from the records' own SNOMED, RxNorm and CVX codes, then grouped the way clinicians talk: "high blood pressure", "a statin", "blood thinner", "flu shot". The same vocabulary file drives Python and the browser.
 
@@ -106,7 +107,7 @@ circa --data real bench          # the same on the 100 real patients
 cd web && npm install && npm run dev    # http://localhost:5181
 ```
 
-The 100 real charts are committed in processed form (`data/real/`). To rebuild them from source, download the [MIMIC-IV Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (open access, about 50 MB), unzip its `fhir/` folder into `mimic/fhir/`, then `circa --data real ingest mimic/fhir && circa --data real questions`.
+The MIMIC-IV demo release is included as published in `mimic/fhir/` (about 50 MB, ODbL). Build the 100 real charts with `circa --data real ingest mimic/fhir` (about a minute) before running the real-patient tests or `circa export`.
 
 To regenerate the synthetic patients from scratch (Java 17+, about two minutes): `./scripts/generate.sh && circa ingest && circa questions`.
 
@@ -124,13 +125,14 @@ circa/llm.py       Claude as the answerer, through tools
 circa/gold.py      answer key, written separately from the engine
 circa/bench.py     question generation, grading, Wilson intervals
 bench/heldout.json  held-out phrasings
-data/               130 synthetic charts, data/real/ the 100 real ones, and their vocabularies
+data/               130 synthetic charts and both vocabularies (real charts are built from mimic/)
+mimic/fhir/         the MIMIC-IV Demo on FHIR release, unchanged
 web/                the site, with a JavaScript port of the engine
 ```
 
 ## Limitations
 
-- The real cohort is 100 patients from one hospital, and only its hospital stays: no outpatient visits, allergies or vaccines. Those question types are tested on synthetic data only.
+- The real cohort is 100 patients from one hospital, and only its hospital stays: no outpatient visits, allergies or vaccines. "Current medications" means orders from the most recent stay; doses given are shown in the record but not yet asked about. Those question types are tested on synthetic data only.
 - Structured data only. Clinical notes are not read, and they are where much of a real chart lives.
 - The parser covers the question types in the benchmark. Questions outside them are refused, not answered.
 - Medication status comes from the order's status. Real records also need dispense and administration data to know what a patient actually takes.
@@ -138,4 +140,4 @@ web/                the site, with a JavaScript port of the engine
 
 ## License
 
-Code: MIT. Real patient data: MIMIC-IV Clinical Database Demo on FHIR v2.1.0 (PhysioNet), Open Database License v1.0; `data/real/` is a derived database under the same license. Synthea is Apache 2.0.
+Code: MIT. Real patient data: MIMIC-IV Clinical Database Demo on FHIR v2.1.0 (PhysioNet), Open Database License v1.0; the charts built from it are a derived database under the same license. Synthea is Apache 2.0.

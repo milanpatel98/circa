@@ -8,8 +8,28 @@ const KIND = { Observation: "Lab or vital", Condition: "Condition", MedicationRe
   Immunization: "Vaccine", Encounter: "Visit", Procedure: "Procedure" };
 const STATUS = { answered: "Answered", not_found: "Not in record", unsupported: "Outside record", advice: "Declined" };
 const LISTS = new Set(["med_list", "problem_list", "allergy_list", "vaccine_list"]);
-const LANES = [["Visits", "Encounter"], ["Labs", "Observation"], ["Conditions", "Condition"], ["Medications", "MedicationRequest"], ["Vaccines", "Immunization"]];
-const HOSPITAL_LANES = [["Visits", "Encounter"], ["Labs", "Observation"], ["Diagnoses", "Condition"], ["Medications", "MedicationRequest"]];
+const is = (...types) => (r) => types.includes(r.type);
+const LANES = [["Visits", is("Encounter")], ["Labs", is("Observation")], ["Conditions", is("Condition")], ["Medications", is("MedicationRequest")],
+  ["Vaccines", is("Immunization")]];
+const MED_TYPES = ["MedicationRequest", "MedicationAdministration", "MedicationDispense", "MedicationStatement"];
+const HOSPITAL_LANES = [["Visits", is("Encounter")], ["Labs", (r) => r.type === "Observation" && (r.cat === "lab" || r.cat === "micro")],
+  ["Vitals, ICU", (r) => r.type === "Observation" && r.cat !== "lab" && r.cat !== "micro"], ["Diagnoses", is("Condition")],
+  ["Medications", is(...MED_TYPES)], ["Procedures", is("Procedure")]];
+
+// a hospital chart can hold 50,000 records; draw one mark per pixel column per lane, keeping cited records findable
+function laneMarks(records, lanes, from, x) {
+  const out = [], seen = new Set();
+  lanes.forEach(([, match], i) => {
+    for (const r of records) {
+      if (r.date < from || !match(r)) continue;
+      const key = `${i}:${Math.round(x(r.date))}:${r.type === "Condition" ? (r.end || "") : ""}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({ r, i });
+    }
+  });
+  return out;
+}
 const YEARS = 12;
 const pct = (k, n) => `${(Math.round((k / n) * 1000) / 10).toFixed(1)}%`;
 const brand = (s) => s.replace(/\bCirca\b/g, NAME);
@@ -161,17 +181,13 @@ function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, call
   const end = Date.parse(asOf), start = end - YEARS * 365.25 * 864e5;
   const x = (d) => left + ((Date.parse(d) - start) / (end - start)) * (W - left - 8);
   const citedSet = new Set(cited);
-  const marks = useMemo(() => {
+  const from = new Date(start).toISOString().slice(0, 10);
+  const marks = useMemo(() => laneMarks(chart.records, lanes, from, x), [chart, lanes, compact]); // eslint-disable-line react-hooks/exhaustive-deps
+  const hits = useMemo(() => {
     const out = [];
-    lanes.forEach(([, type], i) => {
-      for (const r of chart.records) {
-        if (r.type !== type || r.date < new Date(start).toISOString().slice(0, 10)) continue;
-        out.push({ r, i });
-      }
-    });
+    lanes.forEach(([, match], i) => chart.records.forEach((r) => citedSet.has(r.id) && r.date >= from && match(r) && out.push({ r, i })));
     return out;
-  }, [chart, lanes]); // eslint-disable-line react-hooks/exhaustive-deps
-  const hits = marks.filter((m) => citedSet.has(m.r.id));
+  }, [chart, lanes, cited]); // eslint-disable-line react-hooks/exhaustive-deps
   const y0 = new Date(start).getUTCFullYear() + 1;
   const first = hits[0];
   return (
@@ -204,6 +220,14 @@ function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, call
       ))}
     </svg>
   );
+}
+
+// patient files are stored gzipped; the browser unpacks them unless the server already did
+async function loadPatient(id, folder = "p") {
+  const buf = new Uint8Array(await (await fetch(`data/${folder}/${id}.json.gz?v=${__BUILD__}`)).arrayBuffer());
+  if (buf[0] !== 0x1f || buf[1] !== 0x8b) return JSON.parse(new TextDecoder().decode(buf));
+  const text = await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).text();
+  return JSON.parse(text);
 }
 
 function Spark({ counts }) {
@@ -307,6 +331,7 @@ function Patients({ meta }) {
 
 function Patient({ meta, patient, engine }) {
   const [file, setFile] = useState(null);
+  const [raw, setRaw] = useState(null);
   const [cat, setCat] = useState("Labs");
   const [q, setQ] = useState("");
   const [answer, setAnswer] = useState(null);
@@ -317,8 +342,13 @@ function Patient({ meta, patient, engine }) {
   const first = patient.name.split(" ")[0];
 
   useEffect(() => {
-    fetch(`data/p/${patient.id}.json?v=${__BUILD__}`).then((r) => r.json()).then(setFile);
+    setFile(null);
+    setRaw(null);
+    loadPatient(patient.id).then(setFile);
   }, [patient.id]);
+  useEffect(() => {
+    if (sheet && !raw) loadPatient(patient.id, "r").then(setRaw);
+  }, [sheet, raw, patient.id]);
   useEffect(() => {
     const esc = (e) => e.key === "Escape" && setSheet(null);
     addEventListener("keydown", esc);
@@ -419,7 +449,7 @@ function Patient({ meta, patient, engine }) {
         )}
       </section>
 
-      {sheet && file && <Sheet ids={sources} focus={sheet === "all" ? null : sheet} records={records} raw={file.raw} chart={file.chart} onClose={() => setSheet(null)} />}
+      {sheet && file && <Sheet ids={sources} focus={sheet === "all" ? null : sheet} records={records} raw={raw} chart={file.chart} onClose={() => setSheet(null)} />}
     </>
   );
 }
@@ -456,7 +486,7 @@ function Sheet({ ids, focus, records, raw, chart, onClose }) {
                 {isOpen && (
                   <pre className="fhir">
                     {isPatient ? JSON.stringify({ resourceType: "Patient", id, gender: chart.sex, birthDate: chart.birthDate }, null, 2)
-                      : raw?.[id] ? JSON.stringify(raw[id], null, 2) : "Not included in this demo."}
+                      : !raw ? "Loading the original record…" : raw[id] ? JSON.stringify(raw[id], null, 2) : "Not in the source release."}
                   </pre>
                 )}
               </li>

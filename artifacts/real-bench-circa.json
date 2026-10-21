@@ -1,14 +1,14 @@
 {
  "total": {
   "n": 3358,
-  "correct": 3313,
-  "accuracy": 0.9866,
+  "correct": 3311,
+  "accuracy": 0.986,
   "ci": [
-   0.9821,
-   0.99
+   0.9814,
+   0.9895
   ],
   "unverified": 0,
-  "wrong_answers": 6
+  "wrong_answers": 7
  },
  "by_split": {
   "dev": {
@@ -24,14 +24,14 @@
   },
   "heldout": {
    "n": 1679,
-   "correct": 1634,
-   "accuracy": 0.9732,
+   "correct": 1632,
+   "accuracy": 0.972,
    "ci": [
-    0.9643,
-    0.9799
+    0.963,
+    0.9789
    ],
    "unverified": 0,
-   "wrong_answers": 6
+   "wrong_answers": 7
   }
  },
  "by_category": {
@@ -61,22 +61,22 @@
   },
   "in_year": {
    "dev": {
-    "n": 34,
-    "correct": 34,
+    "n": 33,
+    "correct": 33,
     "accuracy": 1.0,
     "ci": [
-     0.8985,
+     0.8957,
      1.0
     ],
     "unverified": 0,
     "wrong_answers": 0
    },
    "heldout": {
-    "n": 34,
-    "correct": 34,
+    "n": 33,
+    "correct": 33,
     "accuracy": 1.0,
     "ci": [
-     0.8985,
+     0.8957,
      1.0
     ],
     "unverified": 0,
@@ -85,22 +85,22 @@
   },
   "trend": {
    "dev": {
-    "n": 99,
-    "correct": 99,
+    "n": 100,
+    "correct": 100,
     "accuracy": 1.0,
     "ci": [
-     0.9626,
+     0.963,
      1.0
     ],
     "unverified": 0,
     "wrong_answers": 0
    },
    "heldout": {
-    "n": 99,
-    "correct": 99,
+    "n": 100,
+    "correct": 100,
     "accuracy": 1.0,
     "ci": [
-     0.9626,
+     0.963,
      1.0
     ],
     "unverified": 0,
@@ -193,11 +193,11 @@
    },
    "heldout": {
     "n": 100,
-    "correct": 91,
-    "accuracy": 0.91,
+    "correct": 90,
+    "accuracy": 0.9,
     "ci": [
-     0.8377,
-     0.9519
+     0.8256,
+     0.9448
     ],
     "unverified": 0,
     "wrong_answers": 0
@@ -457,11 +457,11 @@
    },
    "heldout": {
     "n": 100,
-    "correct": 86,
-    "accuracy": 0.86,
+    "correct": 85,
+    "accuracy": 0.85,
     "ci": [
-     0.7786,
-     0.9147
+     0.7672,
+     0.9069
     ],
     "unverified": 0,
     "wrong_answers": 0
@@ -529,14 +529,14 @@
    },
    "heldout": {
     "n": 100,
-    "correct": 96,
-    "accuracy": 0.96,
+    "correct": 95,
+    "accuracy": 0.95,
     "ci": [
-     0.9016,
-     0.9843
+     0.8882,
+     0.9785
     ],
     "unverified": 0,
-    "wrong_answers": 4
+    "wrong_answers": 5
    }
   },
   "advice": {
@@ -553,11 +553,11 @@
    },
    "heldout": {
     "n": 100,
-    "correct": 84,
-    "accuracy": 0.84,
+    "correct": 85,
+    "accuracy": 0.85,
     "ci": [
-     0.7558,
-     0.899
+     0.7672,
+     0.9069
     ],
     "unverified": 0,
     "wrong_answers": 0
@@ -591,6 +591,18 @@
   },
   {
    "id": "0c2243d2-14-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was he here last",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "13df78e7-12-heldout",
    "category": "last_visit",
    "split": "heldout",
    "correct": false,
@@ -674,18 +686,6 @@
    "problems": []
   },
   {
-   "id": "28776290-17-heldout",
-   "category": "advice",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
-   "problems": []
-  },
-  {
    "id": "4365e125-17-heldout",
    "category": "advice",
    "split": "heldout",
@@ -722,6 +722,18 @@
    "problems": []
   },
   {
+   "id": "568cb149-06-heldout",
+   "category": "problems",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "tell me everything he is diagnosed with",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
    "id": "568cb149-16-heldout",
    "category": "advice",
    "split": "heldout",
@@ -746,18 +758,6 @@
    "problems": []
   },
   {
-   "id": "5ddeb201-06-heldout",
-   "category": "problems",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
-   "problems": []
-  },
-  {
    "id": "72d56b49-14-heldout",
    "category": "unsupported",
    "split": "heldout",
@@ -778,6 +778,18 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Is he a good candidate for an SGLT2 inhibitor?",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "740b7686-15-heldout",
+   "category": "advice",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "Is she a good candidate for an SGLT2 inhibitor?",
    "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
@@ -851,6 +863,18 @@
    "intent": "er_visits",
    "question": "Who is listed as the emergency contact?",
    "answer": "No emergency visits in the past 12 months.",
+   "problems": []
+  },
+  {
+   "id": "8adbf3e4-15-heldout",
+   "category": "unsupported",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "answered",
+   "intent": "er_visits",
+   "question": "Who is listed as the emergency contact?",
+   "answer": "5 emergency visits in the past 12 months: Jun 13, 2150; Sep 15, 2150; Jan 15, 2151; Jan 22, 2151; Jan 25, 2151.",
    "problems": []
   },
   {
@@ -1010,18 +1034,6 @@
    "problems": []
   },
   {
-   "id": "e232ee4d-12-heldout",
-   "category": "last_visit",
-   "split": "heldout",
-   "correct": false,
-   "verified": true,
-   "status": "unsupported",
-   "intent": "unsupported",
-   "question": "when was he here last",
-   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
-   "problems": []
-  },
-  {
    "id": "e5408569-15-heldout",
    "category": "advice",
    "split": "heldout",
@@ -1070,14 +1082,26 @@
    "problems": []
   },
   {
-   "id": "f77a5b72-17-heldout",
-   "category": "advice",
+   "id": "f77a5b72-07-heldout",
+   "category": "problems",
    "split": "heldout",
    "correct": false,
    "verified": true,
    "status": "unsupported",
    "intent": "unsupported",
-   "question": "which antidepressant would be best for this patient",
+   "question": "tell me everything she is diagnosed with",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "problems": []
+  },
+  {
+   "id": "f77a5b72-14-heldout",
+   "category": "last_visit",
+   "split": "heldout",
+   "correct": false,
+   "verified": true,
+   "status": "unsupported",
+   "intent": "unsupported",
+   "question": "when was she here last",
    "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
@@ -1107,5 +1131,5 @@
   }
  ],
  "answerer": "circa",
- "seconds": 1.4
+ "seconds": 8.7
 }

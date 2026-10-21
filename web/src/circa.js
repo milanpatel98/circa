@@ -530,7 +530,7 @@ export class Engine {
   }
 
   _last_visit(chart) {
-    const rs = this._of(chart, "Encounter").filter((r) => r.date <= chart.asOf);
+    const rs = this._of(chart, "Encounter").filter((r) => r.date <= chart.asOf && r.cls !== "ICU"); // an ICU stay is part of an admission
     if (!rs.length) return this._answered([{ text: "No visits in the record.", cites: [] }], { id: null });
     const last = [...rs].sort(byAtId).pop();
     const why = last.reason ? ` for ${lc(last.reason)}` : "";

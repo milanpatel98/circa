@@ -7,4 +7,9 @@ web/dist/
 .DS_Store
 synthea/
 tools/
-mimic/
+mimic/**/__pycache__/
+# built from mimic/ by `circa --data real ingest` and `circa export`
+data/real/charts.jsonl.gz
+web/public/data/p/
+web/public/data/r/
+web/test/expected.json

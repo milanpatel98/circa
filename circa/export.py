@@ -3,6 +3,7 @@ the benchmark results on real and synthetic patients, and the expected answers t
 
 from __future__ import annotations
 
+import gzip
 import json
 from pathlib import Path
 
@@ -11,7 +12,7 @@ from .engine import Engine
 
 WEB = store.ROOT / "web"
 OUT = WEB / "public" / "data"
-MIMIC = store.ROOT / "mimic" / "fhir"  # not committed; see README for where to get it
+MIMIC = store.ROOT / "mimic" / "fhir"  # the MIMIC-IV demo release as published (ODbL), read for the original resources
 DEMO = ["27980ad8", "4c9069e4", "bc2a74ce", "3886cafb", "c4c29979", "b410dd44"]
 
 SUGGEST = ["What was {poss} last A1c?", "How has {poss} blood pressure changed?", "What medications is {subj} on?", "Does {subj} have diabetes?",
@@ -42,19 +43,19 @@ def export() -> None:
     demo = [next(c for c in charts if c["id"].startswith(p)) for p in DEMO]
     everyone = demo + [c for c in charts if c not in demo]  # the six shown first, then the rest of the cohort
 
-    raw_all: dict[str, dict] = {}
-    if MIMIC.exists():
-        from .mimic import ingest
-        _, raw_all = ingest(MIMIC)
+    from .mimic import ingest
+    _, raw_all = ingest(MIMIC)
+    for old in (OUT / "p").glob("*.json"):
+        old.unlink()
+    (OUT / "r").mkdir(exist_ok=True)
 
     listing = []
     for c in everyone:
-        path = OUT / "p" / f"{c['id']}.json"
-        ids = {r["id"] for r in c["records"]}
-        raw = {k: v for k, v in raw_all.items() if k in ids} if raw_all else None
-        if raw is None and path.exists():
-            raw = json.loads(path.read_text(encoding="utf-8"))["raw"]
-        store.save_json({"chart": c, "raw": raw or {}}, path)
+        raw = {r["id"]: raw_all[r["id"]] for r in c["records"] if r["id"] in raw_all}
+        # the chart opens the page; the original FHIR resources are fetched only when someone opens the records
+        for folder, obj in (("p", {"chart": c}), ("r", raw)):
+            body = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            (OUT / folder / f"{c['id']}.json.gz").write_bytes(gzip.compress(body, compresslevel=9, mtime=0))
         p = bench.pronouns(c["sex"])
         y0 = int(c["asOf"][:4]) - 11
         spark = [sum(1 for r in c["records"] if int(r["date"][:4]) == y) for y in range(y0, y0 + 12)]
@@ -76,7 +77,7 @@ def export() -> None:
     # what the JavaScript engine must reproduce, question by question
     qs = bench.load_questions(bench.BENCH / "real-questions.jsonl")
     expected = []
-    for c in demo:
+    for c in everyone:
         asks = [q["question"] for q in qs if q["patient"] == c["id"]] + [bench.fill(t, bench.pronouns(c["sex"])) for t in SUGGEST]
         for q in asks:
             a = engine.ask(c, q)

@@ -388,7 +388,7 @@ class Engine:
         return self._answered(claims, {"count": len(rs)})
 
     def _last_visit(self, chart, concept, window):
-        rs = [r for r in self._of(chart, "Encounter") if r["date"] <= chart["asOf"]]
+        rs = [r for r in self._of(chart, "Encounter") if r["date"] <= chart["asOf"] and r["cls"] != "ICU"]  # an ICU stay is part of an admission
         if not rs:
             return self._answered([{"text": "No visits in the record.", "cites": []}], {"id": None})
         last = max(rs, key=lambda r: (r["at"], r["id"]))

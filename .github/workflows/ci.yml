@@ -17,6 +17,8 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: pip install -e ".[dev]"
+      - name: Build the 100 real charts from the MIMIC-IV release
+        run: circa --data real ingest mimic/fhir
       - run: pytest -q
       - name: Held-out score must stay at 95% or better, and well ahead of retrieval
         run: |
@@ -41,6 +43,6 @@ jobs:
           node-version: 22
       - run: pip install -e .
       - name: Rebuild the expected answers from Python, then check JavaScript matches
-        run: circa export
+        run: circa --data real ingest mimic/fhir && circa export
       - run: npm ci && npm test && npm run build
         working-directory: web

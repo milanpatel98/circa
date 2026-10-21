@@ -2,6 +2,10 @@
 
 import pytest
 
+from circa import store as _store
+
+pytestmark = pytest.mark.skipif(not _store.REAL_CHARTS.exists(), reason="run `circa --data real ingest mimic/fhir` first")
+
 from circa import bench, gold, store
 from circa.engine import Engine
 from circa.verify import check
@@ -61,3 +65,28 @@ def test_diagnoses_are_recorded_not_active(charts, engine):
     chart = next(c for c in charts if any(r["type"] == "Condition" and "hypertension" in r["name"].lower() for r in c["records"]))
     ans = engine.ask(chart, "does the patient have high blood pressure")
     assert ans["text"].startswith("Yes.") and "recorded at the hospital stay" in ans["text"]
+
+
+def test_every_kind_of_clinical_record_is_read(charts):
+    types = {r["type"] for c in charts for r in c["records"]}
+    assert types >= {"Encounter", "Condition", "Observation", "Procedure", "MedicationRequest",
+                     "MedicationAdministration", "MedicationDispense", "MedicationStatement"}
+    cats = {r.get("cat") for c in charts for r in c["records"] if r["type"] == "Observation"}
+    assert cats >= {"lab", "vital", "icu", "output", "micro", "ed"}
+    assert {r["cls"] for c in charts for r in c["records"] if r["type"] == "Encounter"} == {"IMP", "EMER", "ICU"}
+    assert sum(len(c["records"]) for c in charts) > 850_000
+
+
+def test_icu_blood_pressure_is_one_reading(charts, engine):
+    chart = next(c for c in charts if any(r["code"] == "220179" for r in c["records"]))
+    bp = [r for r in chart["records"] if r["code"] == "220179" and "parts" in r]
+    assert bp and all([p[0] for p in r["parts"]] == ["8480-6", "8462-4"] for r in bp)
+    ans = engine.ask(chart, "what was the last blood pressure")
+    assert ans["status"] == "answered" and "/" in ans["text"]
+
+
+def test_last_visit_is_an_admission_or_ed_visit_not_an_icu_transfer(charts, engine):
+    for chart in charts[:20]:
+        ans = engine.ask(chart, "when was the patient last seen")
+        rec = next(r for r in chart["records"] if r["id"] == ans["result"]["id"])
+        assert rec["cls"] != "ICU"
