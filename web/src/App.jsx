@@ -211,7 +211,7 @@ function Home({ meta }) {
       <Nav dark />
       <div className="home-center">
         <Drawing />
-        <h1>Ask a patient’s chart.<br />See where every answer came from.</h1>
+        <h1>Ask the chart. Get the proof.</h1>
         <a className="btn light big home-btn" href="#/patients"><Icon d={I.ask} />Ask a patient</a>
         <p className="home-note">{meta.patients.length} patients ready</p>
       </div>
