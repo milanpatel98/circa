@@ -175,7 +175,10 @@ const Logo = () => (
 function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, callout }) {
   const compact = useNarrow();
   const lanes = chart.source === "hospital" ? HOSPITAL_LANES : LANES;
-  const YEARS = compact ? 6 : 12;
+  // fit the window to the record: from the first record (a little before) to "today", at most 6 or 12 years
+  const firstAt = useMemo(() => chart.records.reduce((m, r) => (r.date < m ? r.date : m), asOf), [chart, asOf]);
+  const spanYears = (Date.parse(asOf) - Date.parse(firstAt)) / (365.25 * 864e5);
+  const YEARS = Math.min(compact ? 6 : 12, Math.max(1, Math.ceil(spanYears * 1.08 + 0.15)));
   const W = compact ? 560 : 1000, lane = compact ? 44 : 30, top = callout ? (compact ? 84 : 64) : 10, left = labels ? (compact ? 150 : 112) : 0;
   const H = top + lanes.length * lane + 34;
   const end = Date.parse(asOf), start = end - YEARS * 365.25 * 864e5;
@@ -215,7 +218,7 @@ function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, call
           </foreignObject>
         </g>
       )}
-      {Array.from({ length: YEARS / 2 }, (_, k) => y0 + k * 2 - (compact ? 1 : 0)).filter((y) => y >= y0).map((y) => (
+      {Array.from({ length: YEARS + 1 }, (_, k) => y0 + k).filter((y) => (y - y0) % (YEARS > (compact ? 3 : 6) ? 2 : 1) === 0 && Date.parse(`${y}-01-01`) < end).map((y) => (
         <text key={y} x={x(`${y}-01-01`)} y={H - 8} className="tl-year">{y}</text>
       ))}
     </svg>
