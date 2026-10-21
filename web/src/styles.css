@@ -1,16 +1,17 @@
-/* Rounds. Chart-paper white, dark ink, and ballpoint blue used only where the record is being pointed at.
-   One typeface. One thing on screen at a time; records slide in only when asked for. */
+/* Circa. White, black, a little olive. Square. One column, few words.
+   Categories sit in an index column at the left, like chart dividers; the answer and its records come after. */
 
 :root {
-  --paper: #fbfbfc;
-  --ink: #16181d;
-  --ink-2: #4a4f58;
-  --soft: #7b8089;
-  --rule: #e6e7ea;
-  --wash: #f2f3f5;
-  --pen: #1f3fbf;
-  --pen-wash: #e9edfb;
-  --font: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --bg: #ffffff;
+  --ink: #111111;
+  --ink-2: #4d4d4d;
+  --soft: #767676;
+  --rule: #e4e4e4;
+  --wash: #f5f5f5;
+  --olive: #4f5e2b;
+  --olive-pale: #eff1e7;
+  --font: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   color-scheme: light;
 }
 
@@ -22,9 +23,9 @@
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
-  font: 400 16px/1.6 var(--font);
+  font: 400 16px/1.5 var(--font);
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
@@ -32,7 +33,10 @@ body {
 
 h1,
 h2,
-p {
+p,
+ul,
+ol,
+pre {
   margin: 0;
 }
 
@@ -45,6 +49,7 @@ button,
 input {
   font: inherit;
   color: inherit;
+  border-radius: 0;
 }
 
 button {
@@ -54,17 +59,20 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: default;
+}
+
 :focus-visible {
-  outline: 2px solid var(--pen);
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
 }
 
 .soft {
   color: var(--soft);
 }
 
-/* ---- frame ----------------------------------------------------------------------------- */
+/* ---- frame ------------------------------------------------------------------------------- */
 
 .page {
   min-height: 100vh;
@@ -75,44 +83,56 @@ button {
 .top {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  padding: 26px clamp(20px, 5vw, 64px);
+  align-items: center;
+  width: 100%;
+  max-width: 752px;
+  margin: 0 auto;
+  padding: 28px 16px 0;
 }
 
 .brand {
   font-weight: 700;
-  font-size: 17px;
+  font-size: 20px;
   letter-spacing: -0.01em;
 }
 
-.top nav {
+.nav {
   display: flex;
-  gap: clamp(18px, 3vw, 32px);
+  gap: 24px;
   font-size: 15px;
   color: var(--soft);
 }
 
-.top nav a:hover,
-.top nav a.here {
+.nav a {
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
   color: var(--ink);
+}
+
+.nav a.on {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 main {
   flex: 1;
   width: 100%;
-  max-width: 680px;
+  max-width: 752px;
   margin: 0 auto;
-  padding: clamp(48px, 12vh, 120px) 20px 0;
+  padding: 72px 16px 0;
 }
 
 .foot {
-  padding: 64px 20px 28px;
+  padding: 80px 16px 28px;
   text-align: center;
   font-size: 13px;
   color: var(--soft);
 }
 
-/* ---- the patient -------------------------------------------------------------------------- */
+/* ---- patient ------------------------------------------------------------------------------ */
 
 .who {
   position: relative;
@@ -121,44 +141,47 @@ main {
 .who-name {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: clamp(30px, 4.6vw, 40px);
+  gap: 10px;
+  font-size: clamp(28px, 4.4vw, 36px);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   line-height: 1.15;
+  text-align: left;
 }
 
 .who-name svg {
+  flex: none;
   color: var(--soft);
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .who-sub {
-  margin-top: 6px;
+  margin-top: 4px;
   color: var(--soft);
 }
 
 .pick {
   position: absolute;
   z-index: 10;
-  top: 52px;
-  left: -12px;
-  width: min(340px, calc(100vw - 32px));
-  margin: 0;
-  padding: 6px;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(360px, calc(100vw - 32px));
+  padding: 0;
   list-style: none;
   background: #fff;
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  box-shadow: 0 18px 50px -20px rgba(22, 24, 29, 0.28);
+  border: 1px solid var(--ink);
+}
+
+.pick li + li {
+  border-top: 1px solid var(--rule);
 }
 
 .pick button {
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 12px 14px;
   text-align: left;
 }
 
@@ -167,73 +190,143 @@ main {
   background: var(--wash);
 }
 
-/* ---- the question ------------------------------------------------------------------------ */
+.pick button[aria-selected="true"] {
+  box-shadow: inset 3px 0 var(--olive);
+}
+
+/* ---- index: categories and their questions ------------------------------------------------ */
+
+.index {
+  margin-top: 48px;
+  border-top: 1px solid var(--ink);
+}
+
+.cats {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cats::-webkit-scrollbar {
+  display: none;
+}
+
+.cat {
+  flex: none;
+  margin-bottom: -1px;
+  padding: 12px 14px 11px;
+  border-bottom: 2px solid transparent;
+  font-size: 15px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.cat:first-child {
+  padding-left: 0;
+}
+
+.cat:hover {
+  color: var(--ink);
+}
+
+.cat.on {
+  color: var(--olive);
+  font-weight: 600;
+  border-bottom-color: var(--olive);
+}
+
+.qs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 0 0;
+}
+
+.qb {
+  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.qb:hover:not(:disabled) {
+  background: var(--ink);
+  color: #fff;
+}
+
+.qb:disabled {
+  border-color: var(--rule);
+  color: var(--soft);
+}
+
+/* ---- free text ---------------------------------------------------------------------------- */
 
 .q {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 44px;
-  border-bottom: 1.5px solid var(--ink);
+  gap: 8px;
+  margin-top: 28px;
 }
 
 .q input {
   flex: 1;
   min-width: 0;
-  padding: 12px 0 14px;
-  border: 0;
-  background: none;
-  font-size: 20px;
-  letter-spacing: -0.01em;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--ink);
+  background: #fff;
+  font-size: 16px;
 }
 
 .q input::placeholder {
-  color: #a7abb2;
+  color: #9a9a9a;
+}
+
+.q input:disabled {
+  border-color: var(--rule);
 }
 
 .q input:focus {
-  outline: none;
+  outline: 2px solid var(--olive);
+  outline-offset: -1px;
 }
 
-.q button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: var(--pen);
+.primary {
+  height: 46px;
+  padding: 0 22px;
+  background: var(--ink);
   color: #fff;
   font-weight: 600;
-  font-size: 15px;
 }
 
-.q button:disabled {
+.primary:disabled {
   background: var(--wash);
   color: var(--soft);
-  cursor: default;
 }
 
-.try {
-  margin-top: 16px;
-  font-size: 14.5px;
-  color: var(--soft);
-  line-height: 2;
-}
-
-.try button {
+.ghost {
+  padding: 7px 12px;
+  border: 1px solid var(--rule);
+  font-size: 14px;
   color: var(--ink-2);
 }
 
-.try button:hover {
-  color: var(--pen);
+.ghost:hover {
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
-.sep {
-  margin: 0 10px;
-  color: var(--rule);
-}
-
-/* ---- the answer -------------------------------------------------------------------------- */
+/* ---- answer ------------------------------------------------------------------------------- */
 
 .said {
-  margin-top: 64px;
+  margin-top: 56px;
+}
+
+.said-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .asked {
@@ -241,56 +334,85 @@ main {
   font-size: 15px;
 }
 
+.tag {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid var(--rule);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--wash);
+}
+
+.tag.answered {
+  border-color: var(--olive-pale);
+  background: var(--olive-pale);
+  color: var(--olive);
+}
+
 .text {
-  margin-top: 10px;
-  font-size: clamp(20px, 2.6vw, 24px);
+  margin-top: 12px;
+  font-size: clamp(19px, 2.4vw, 22px);
   line-height: 1.5;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.01em;
 }
 
 .cite {
-  position: relative;
-  top: -0.55em;
-  margin-left: 2px;
-  padding: 0 3px;
-  border-radius: 4px;
-  font-size: 12px;
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  margin-left: 4px;
+  border: 1px solid var(--olive);
+  vertical-align: 3px;
+  font-size: 11px;
   font-weight: 600;
   line-height: 1;
-  color: var(--pen);
+  color: var(--olive);
+  background: #fff;
 }
 
 .cite:hover,
 .cite.on {
-  background: var(--pen-wash);
+  background: var(--olive);
+  color: #fff;
 }
 
-.note {
-  margin-top: 14px;
-  color: var(--ink-2);
+.rows {
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
 }
 
-.records {
-  margin-top: 18px;
-  font-size: 14.5px;
-  color: var(--pen);
-  text-decoration: underline;
-  text-decoration-color: rgba(31, 63, 191, 0.3);
-  text-underline-offset: 4px;
+.rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
 }
 
-.records:hover {
-  text-decoration-color: var(--pen);
+.rows .cite {
+  flex: none;
+  margin: 0;
+  vertical-align: 0;
 }
 
-/* ---- the records sheet -------------------------------------------------------------------- */
+.said .ghost {
+  margin-top: 20px;
+}
+
+/* ---- records sheet ------------------------------------------------------------------------ */
 
 .scrim {
   position: fixed;
   inset: 0;
   z-index: 20;
-  background: rgba(22, 24, 29, 0.18);
-  animation: fade 0.18s ease-out;
+  background: rgba(17, 17, 17, 0.2);
+  animation: fade 0.16s ease-out;
 }
 
 .sheet {
@@ -299,12 +421,12 @@ main {
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(480px, 100vw);
+  width: min(460px, 100vw);
   overflow-y: auto;
-  padding: 24px 28px 32px;
+  padding: 20px 24px 32px;
   background: #fff;
-  border-left: 1px solid var(--rule);
-  animation: slide 0.22s cubic-bezier(0.2, 0.7, 0.2, 1);
+  border-left: 1px solid var(--ink);
+  animation: slide 0.2s ease-out;
 }
 
 .sheet:focus {
@@ -319,7 +441,7 @@ main {
 
 @keyframes slide {
   from {
-    transform: translateX(24px);
+    transform: translateX(16px);
     opacity: 0;
   }
 }
@@ -328,9 +450,9 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--rule);
-  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+  font-weight: 700;
 }
 
 .sheet-head button {
@@ -338,7 +460,6 @@ main {
   place-items: center;
   width: 32px;
   height: 32px;
-  border-radius: 8px;
   color: var(--soft);
 }
 
@@ -348,7 +469,6 @@ main {
 }
 
 .recs {
-  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -359,19 +479,16 @@ main {
 
 .rec {
   display: flex;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 12px;
   width: 100%;
-  padding: 16px 0;
+  padding: 14px 0;
   text-align: left;
 }
 
-.rec-n {
+.rec .cite {
   flex: none;
-  width: 20px;
-  color: var(--pen);
-  font-weight: 600;
-  font-size: 14px;
-  padding-top: 1px;
+  margin: 2px 0 0;
 }
 
 .rec-body {
@@ -389,89 +506,68 @@ main {
 }
 
 .fhir {
-  margin: 0 0 16px 34px;
-  max-height: 340px;
+  margin: 0 0 14px 30px;
+  max-height: 320px;
   overflow: auto;
-  padding: 14px;
-  border-radius: 8px;
+  padding: 12px;
   background: var(--wash);
-  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font: 12px/1.6 var(--mono);
   color: var(--ink-2);
 }
 
-.sheet-foot {
-  margin-top: 20px;
-  font-size: 13.5px;
-}
+/* ---- results ------------------------------------------------------------------------------ */
 
-/* ---- results and method ------------------------------------------------------------------- */
-
-.prose h1 {
-  font-size: clamp(28px, 4.2vw, 38px);
+.big {
+  font-size: clamp(64px, 12vw, 104px);
   font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.18;
+  letter-spacing: -0.04em;
+  line-height: 1;
 }
 
-.prose h2 {
-  margin-top: 56px;
+.caption {
+  margin-top: 8px;
   font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 600;
 }
 
-.prose p {
+.results .note {
   margin-top: 12px;
-  color: var(--ink-2);
-  max-width: 62ch;
-}
-
-.prose .lead {
-  margin-top: 18px;
-  font-size: 17px;
-}
-
-.small {
-  font-size: 14px;
+  max-width: 56ch;
+  font-size: 15px;
 }
 
 .bars {
   display: grid;
-  gap: 14px;
-  margin: 44px 0 6px;
+  gap: 12px;
+  margin-top: 48px;
 }
 
 .bar {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 64px;
-  grid-template-areas: "name v" "track track";
-  gap: 6px 12px;
-  align-items: baseline;
+  grid-template-columns: 128px 1fr 60px;
+  gap: 16px;
+  align-items: center;
+  font-size: 15px;
 }
 
 .bar-name {
-  grid-area: name;
   color: var(--ink-2);
 }
 
 .bar-v {
-  grid-area: v;
   text-align: right;
   font-weight: 600;
 }
 
 .bar-track {
-  grid-area: track;
-  height: 6px;
-  border-radius: 3px;
+  height: 10px;
   background: var(--wash);
-  overflow: hidden;
 }
 
 .bar-track span {
   display: block;
   height: 100%;
-  background: #c9ccd2;
+  background: #bdbdbd;
 }
 
 .bar.ours .bar-name {
@@ -480,70 +576,139 @@ main {
 }
 
 .bar.ours .bar-track span {
-  background: var(--pen);
+  background: var(--olive);
 }
 
 .t {
   width: 100%;
-  margin-top: 24px;
+  margin-top: 48px;
   border-collapse: collapse;
 }
 
 .t th {
   padding: 0 0 8px;
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--soft);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--ink);
 }
 
 .t td {
-  padding: 11px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--rule);
 }
 
 .t th:not(:first-child),
 .t td:not(:first-child) {
-  width: 96px;
+  width: 90px;
   text-align: right;
 }
 
-.link {
-  margin-top: 14px;
-  color: var(--pen);
-  font-size: 14.5px;
+.results .ghost {
+  margin-top: 16px;
 }
 
+/* ---- method ------------------------------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.cell {
+  padding: 22px 22px 26px;
+  background: #fff;
+}
+
+.cell h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cell h2::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  background: var(--olive);
+  vertical-align: 1px;
+}
+
+.cell p {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+/* ---- small screens ------------------------------------------------------------------------ */
+
 @media (max-width: 600px) {
-  .top nav a:last-child {
-    display: none;
+  .top {
+    padding-top: 20px;
+  }
+  main {
+    padding-top: 48px;
+  }
+  .cats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+  }
+  .cat,
+  .cat:first-child {
+    padding: 11px 0;
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .cat:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--rule);
+  }
+  .cat.on {
+    box-shadow: inset 0 -2px var(--olive);
   }
   .sheet {
     top: auto;
     width: 100vw;
     max-height: 82vh;
+    padding: 16px 16px 28px;
     border-left: 0;
-    border-top: 1px solid var(--rule);
-    border-radius: 16px 16px 0 0;
-    padding: 20px 20px 28px;
+    border-top: 1px solid var(--ink);
     animation-name: rise;
   }
   .fhir {
     margin-left: 0;
   }
-  .sep {
-    margin: 0 7px;
+  .bar {
+    grid-template-columns: 1fr 56px;
+    grid-template-areas: "name v" "track track";
+    gap: 6px 12px;
+  }
+  .bar-name {
+    grid-area: name;
+  }
+  .bar-v {
+    grid-area: v;
+  }
+  .bar-track {
+    grid-area: track;
   }
   .t th:not(:first-child),
   .t td:not(:first-child) {
-    width: 72px;
+    width: 68px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @keyframes rise {
   from {
-    transform: translateY(24px);
+    transform: translateY(16px);
     opacity: 0;
   }
 }
@@ -553,36 +718,4 @@ main {
   .sheet {
     animation: none;
   }
-}
-
-.try > span {
-  white-space: nowrap;
-}
-
-.items {
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--rule);
-}
-
-.items li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--rule);
-  font-size: 16px;
-}
-
-.items .cite {
-  top: 0;
-  flex: none;
-  font-size: 13px;
-  padding: 2px 6px;
-}
-
-.records {
-  text-align: left;
 }
