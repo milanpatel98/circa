@@ -37,12 +37,10 @@ def export() -> None:
     lex = store.load_json(store.REAL_LEXICON)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "p").mkdir(exist_ok=True)
-    for old in (OUT / "p").glob("*.json"):
-        if not any(old.name.startswith(d) for d in DEMO):
-            old.unlink()
     store.save_json(lex, OUT / "lexicon.json")
     engine = Engine(lex)
     demo = [next(c for c in charts if c["id"].startswith(p)) for p in DEMO]
+    everyone = demo + [c for c in charts if c not in demo]  # the six shown first, then the rest of the cohort
 
     raw_all: dict[str, dict] = {}
     if MIMIC.exists():
@@ -50,7 +48,7 @@ def export() -> None:
         _, raw_all = ingest(MIMIC)
 
     listing = []
-    for c in demo:
+    for c in everyone:
         path = OUT / "p" / f"{c['id']}.json"
         ids = {r["id"] for r in c["records"]}
         raw = {k: v for k, v in raw_all.items() if k in ids} if raw_all else None
@@ -64,7 +62,7 @@ def export() -> None:
                         "records": len(c["records"]), "spark": spark,
                         "conditions": len(gold.active_problems(c)), "meds": len(gold.active_meds(c)),
                         "stays": sum(1 for r in c["records"] if r["type"] == "Encounter" and r["cls"] == "IMP"),
-                        "suggest": [bench.fill(t, p) for t in SUGGEST]})
+                        "featured": c in demo})
     store.save_json({"source": "MIMIC-IV Clinical Database Demo on FHIR", "patients": listing, "cohort": len(charts),
                      "recordCount": sum(len(c["records"]) for c in charts)}, OUT / "patients.json")
 
@@ -79,10 +77,10 @@ def export() -> None:
     qs = bench.load_questions(bench.BENCH / "real-questions.jsonl")
     expected = []
     for c in demo:
-        asks = [q["question"] for q in qs if q["patient"] == c["id"]] + [l for p in listing if p["id"] == c["id"] for l in p["suggest"]]
+        asks = [q["question"] for q in qs if q["patient"] == c["id"]] + [bench.fill(t, bench.pronouns(c["sex"])) for t in SUGGEST]
         for q in asks:
             a = engine.ask(c, q)
             expected.append({"patient": c["id"], "question": q, "answer": {k: a[k] for k in ("status", "intent", "concept", "window", "claims", "result", "text")}})
     (WEB / "test").mkdir(parents=True, exist_ok=True)
     (WEB / "test" / "expected.json").write_text(json.dumps(expected, ensure_ascii=False), encoding="utf-8")
-    print(f"{len(demo)} real demo patients, {len(expected)} expected answers -> {OUT}")
+    print(f"{len(everyone)} real patients ({len(demo)} featured), {len(expected)} expected answers -> {OUT}")

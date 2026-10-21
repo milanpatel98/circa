@@ -258,7 +258,27 @@ function Drawing() {
   );
 }
 
+function PatientCard({ p }) {
+  return (
+    <a className="card" href={`#/p/${p.id}`}>
+      <span className="mono">{initials(p.name)}</span>
+      <span className="card-name">{p.name}</span>
+      <span className="soft">{yearsBetween(p.birthDate, p.asOf)}, {p.sex}</span>
+      <Spark counts={p.spark} />
+      <span className="card-stats">
+        <span><b>{p.stays}</b> {p.stays === 1 ? "hospital stay" : "hospital stays"}</span>
+        <span><b>{p.meds}</b> recent medications</span>
+      </span>
+      <span className="card-go">Open chart <Icon d={I.arrow} size={16} /></span>
+    </a>
+  );
+}
+
 function Patients({ meta }) {
+  const [find, setFind] = useState("");
+  const term = find.trim().toLowerCase();
+  const hits = term ? meta.patients.filter((p) => p.name.toLowerCase().includes(term) || p.sex === term) : null;
+  const shown = hits || meta.patients;
   return (
     <>
       <section className="hero slim">
@@ -268,21 +288,16 @@ function Patients({ meta }) {
         </div>
       </section>
       <section className="wrap block tight">
-        <div className="cards">
-          {meta.patients.map((p) => (
-            <a key={p.id} className="card" href={`#/p/${p.id}`}>
-              <span className="mono">{initials(p.name)}</span>
-              <span className="card-name">{p.name}</span>
-              <span className="soft">{yearsBetween(p.birthDate, p.asOf)}, {p.sex}</span>
-              <Spark counts={p.spark} />
-              <span className="card-stats">
-                <span><b>{p.stays}</b> {p.stays === 1 ? "hospital stay" : "hospital stays"}</span>
-                <span><b>{p.meds}</b> recent medications</span>
-              </span>
-              <span className="card-go">Open chart <Icon d={I.arrow} size={16} /></span>
-            </a>
-          ))}
+        <div className="find">
+          <input value={find} onChange={(e) => setFind(e.target.value)} placeholder={`Search ${meta.patients.length} patients by number`} aria-label="Search patients" inputMode="numeric" />
         </div>
+        {hits && !hits.length && <p className="soft">No patient number matches “{find}”.</p>}
+        <div className="cards">
+          {shown.map((p) => <PatientCard key={p.id} p={p} />)}
+        </div>
+        <p className="credit">
+          Real, de-identified patients from the <a href="https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/">MIMIC-IV Clinical Database Demo on FHIR</a> on PhysioNet, Open Database License.
+        </p>
       </section>
     </>
   );

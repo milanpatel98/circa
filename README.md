@@ -4,7 +4,7 @@
 
 Clinicians ask a patient's chart the same questions every day. "What was her last A1c?" "Is he still on the statin?" "Any ER visits this year?" Circa answers those questions from a patient's FHIR record and shows the exact resource behind each sentence. If the chart has no answer, it says so. If the question asks for a treatment decision, it declines.
 
-**[Try it in your browser](https://milanpatel98.github.io/circa/)**: six real (de-identified) hospital patients, the full engine running client-side, and the original FHIR resource for every citation.
+**[Try it in your browser](https://milanpatel98.github.io/circa/)**: all 100 real (de-identified) hospital patients, the full engine running client-side, and the original FHIR resource for every citation.
 
 ---
 

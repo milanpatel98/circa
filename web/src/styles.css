@@ -1405,3 +1405,30 @@ button.cite::after {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ---- patient search ---------------------------------------------------------------------------- */
+
+.find {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.find input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 16px;
+  font: inherit;
+  font-size: 16px;
+  border: 1px solid var(--ink);
+  background: #fff;
+}
+
+.find input:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .find { flex-direction: column; }
+}
