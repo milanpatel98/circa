@@ -29,6 +29,42 @@ const CATS = [
     ["Age", (p, s) => `How old is ${s}?`]]],
 ];
 
+function useNarrow() {
+  const q = "(max-width: 700px)";
+  const [n, setN] = useState(() => matchMedia(q).matches);
+  useEffect(() => {
+    const m = matchMedia(q);
+    const on = () => setN(m.matches);
+    m.addEventListener("change", on);
+    return () => m.removeEventListener("change", on);
+  }, []);
+  return n;
+}
+
+const Icon = ({ d, size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square">
+    {d}
+  </svg>
+);
+const I = {
+  ask: <><path d="M4 5h16v11H9l-5 4z" /><path d="M8.5 10.5h7" /></>,
+  chart: <><path d="M4 20V4" /><path d="M4 20h16" /><path d="M8 16v-5M12 16V8M16 16v-3" /></>,
+  home: <><path d="M4 11l8-6 8 6v9H4z" /><path d="M10 20v-5h4v5" /></>,
+  people: <><rect x="4" y="4" width="7" height="7" /><rect x="13" y="4" width="7" height="7" /><rect x="4" y="13" width="7" height="7" /><rect x="13" y="13" width="7" height="7" /></>,
+  arrow: <path d="M5 12h13M13 6l6 6-6 6" />,
+};
+
+function Dock({ page }) {
+  const items = [["home", "Home", "#", I.home], ["patients", "Patients", "#patients", I.people], ["results", "Results", "#/results", I.chart]];
+  return (
+    <nav className="dock" aria-label="Main">
+      {items.map(([k, label, href, icon]) => (
+        <a key={k} href={href} className={page === k ? "on" : ""}><Icon d={icon} />{label}</a>
+      ))}
+    </nav>
+  );
+}
+
 function useRoute() {
   const read = () => {
     const h = location.hash;
@@ -71,6 +107,7 @@ export default function App() {
       {route.page === "home" && <Home meta={meta} engine={engine} r={results} />}
       {route.page === "patient" && patient && <Patient key={patient.id} meta={meta} patient={patient} engine={engine} />}
       {route.page === "results" && <Results r={results} meta={meta} />}
+      <Dock page={route.page === "results" ? "results" : route.page === "patient" ? "patients" : route.anchor === "patients" ? "patients" : "home"} />
       <footer className="foot wrap">
         <span>© 2026 Milan Patel · MIT License</span>
         <a href={REPO}>GitHub</a>
@@ -102,7 +139,9 @@ const Logo = () => (
 /* ---- the record drawn as a timeline ------------------------------------------------------- */
 
 function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, callout }) {
-  const W = 1000, lane = 30, top = callout ? 64 : 10, left = labels ? 112 : 0;
+  const compact = useNarrow();
+  const YEARS = compact ? 6 : 12;
+  const W = compact ? 560 : 1000, lane = compact ? 44 : 30, top = callout ? (compact ? 84 : 64) : 10, left = labels ? (compact ? 150 : 112) : 0;
   const H = top + LANES.length * lane + 34;
   const end = Date.parse(asOf), start = end - YEARS * 365.25 * 864e5;
   const x = (d) => left + ((Date.parse(d) - start) / (end - start)) * (W - left - 8);
@@ -121,7 +160,7 @@ function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, call
   const y0 = new Date(start).getUTCFullYear() + 1;
   const first = hits[0];
   return (
-    <svg className={`tl ${tone}`} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${chart.name}'s record over ${YEARS} years`}>
+    <svg className={`tl ${tone} ${compact ? "compact" : ""}`} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${chart.name}'s record over ${YEARS} years`}>
       {LANES.map(([name], i) => (
         <g key={name}>
           <line x1={left} x2={W - 8} y1={top + i * lane + lane / 2} y2={top + i * lane + lane / 2} className="tl-rule" />
@@ -140,12 +179,12 @@ function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, call
       {callout && first && (
         <g className="tl-call">
           <line x1={x(first.r.date)} x2={x(first.r.date)} y1={top - 18} y2={top + first.i * lane + 5} />
-          <foreignObject x={Math.min(x(first.r.date) - 300, W - 430)} y={0} width={420} height={46}>
+          <foreignObject x={compact ? 0 : Math.min(x(first.r.date) - 300, W - 430)} y={0} width={compact ? W : 420} height={compact ? 70 : 46}>
             <div className="callout">{callout}</div>
           </foreignObject>
         </g>
       )}
-      {Array.from({ length: YEARS / 2 }, (_, k) => y0 + k * 2).map((y) => (
+      {Array.from({ length: YEARS / 2 }, (_, k) => y0 + k * 2 - (compact ? 1 : 0)).filter((y) => y >= y0).map((y) => (
         <text key={y} x={x(`${y}-01-01`)} y={H - 8} className="tl-year">{y}</text>
       ))}
     </svg>
@@ -183,14 +222,14 @@ function Home({ meta, engine, r }) {
             <h1>Ask a patient’s chart.<br />See exactly where the answer came from.</h1>
             <p>Every answer points to the record behind it. If the chart doesn’t say, neither does {NAME}.</p>
             <div className="actions">
-              <a className="btn light" href={`#/p/${lead.id}`}>Try it</a>
-              <a className="btn line" href="#/results">See the results</a>
+              <a className="btn light big" href={`#/p/${lead.id}`}><Icon d={I.ask} />Ask a patient</a>
+              <a className="btn line big" href="#/results"><Icon d={I.chart} />See the results</a>
             </div>
           </div>
           <figure className="hero-fig">
             <div className="fig-head">
               <span>{lead.name}</span>
-              <span>Last {YEARS} years</span>
+              <span>Full record</span>
             </div>
             {file && demo && (
               <Timeline chart={file.chart} asOf={meta.asOf} cited={demo.claims[0].cites} tone="dark"
@@ -216,7 +255,7 @@ function Home({ meta, engine, r }) {
                 <span><b>{p.conditions}</b> conditions</span>
                 <span><b>{p.meds}</b> medications</span>
               </span>
-              <span className="card-go">Open chart</span>
+              <span className="card-go">Open chart <Icon d={I.arrow} size={16} /></span>
             </a>
           ))}
         </div>
@@ -247,7 +286,7 @@ function Home({ meta, engine, r }) {
                 <span>{pct(H(k).correct, H(k).n)}</span>
               </div>
             ))}
-            <a className="btn dark" href="#/results">All results</a>
+            <a className="btn dark big" href="#/results"><Icon d={I.chart} />All results</a>
           </div>
         </div>
       </section>
@@ -310,6 +349,9 @@ function Patient({ meta, patient, engine }) {
   }, []);
 
   const records = useMemo(() => (file ? Object.fromEntries(file.chart.records.map((r) => [r.id, r])) : {}), [file]);
+  useEffect(() => {
+    if (answer && matchMedia("(max-width: 700px)").matches) document.querySelector(".said")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [answer]);
   function run(text) {
     if (!file || !text.trim()) return;
     setAnswer(engine.ask(file.chart, text));
