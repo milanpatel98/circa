@@ -163,10 +163,11 @@ function Nav({ dark }) {
   );
 }
 
+// the mark: "c." as circa is abbreviated; the full stop is a square, the one record that backs the answer
 const Logo = () => (
-  <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-    <circle cx="11" cy="11" r="8.5" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="40 13.4" transform="rotate(-50 11 11)" />
-    <rect x="9" y="9" width="4" height="4" fill="currentColor" />
+  <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M21.78 23.78A11 11 0 1 1 21.78 8.22" fill="none" stroke="currentColor" strokeWidth="4.2" />
+    <rect x="23.5" y="12.5" width="7" height="7" fill="currentColor" />
   </svg>
 );
 
