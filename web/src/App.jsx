@@ -59,7 +59,7 @@ function Dock({ page }) {
   return (
     <nav className="dock" aria-label="Main">
       {items.map(([k, label, href, icon]) => (
-        <a key={k} href={href} className={page === k ? "on" : ""}><Icon d={icon} />{label}</a>
+        <a key={k} href={href} className={page === k ? "on" : ""} aria-current={page === k ? "page" : undefined}><Icon d={icon} size={22} /><span>{label}</span></a>
       ))}
     </nav>
   );
@@ -195,7 +195,7 @@ function Timeline({ chart, asOf, cited = [], tone = "light", labels = true, call
 function Spark({ counts }) {
   const max = Math.max(...counts);
   return (
-    <svg className="spark" viewBox="0 0 120 28" aria-hidden="true">
+    <svg className="spark" viewBox="0 0 120 28" preserveAspectRatio="xMinYMid meet" aria-hidden="true">
       {counts.map((c, i) => (
         <rect key={i} x={i * 10 + 1} y={28 - Math.max(2, (c / max) * 26)} width={7} height={Math.max(2, (c / max) * 26)} />
       ))}
