@@ -1,6 +1,6 @@
 // Every benchmark question for the demo patients, answered in JavaScript, must match Python exactly.
 import { readFileSync } from "node:fs";
-import { Engine } from "../src/rounds.js";
+import { Engine } from "../src/circa.js";
 
 const read = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url), "utf8"));
 const lexicon = read("../public/data/lexicon.json");

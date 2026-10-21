@@ -610,7 +610,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -622,7 +622,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -634,7 +634,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -658,7 +658,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -670,7 +670,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -718,7 +718,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -730,7 +730,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -742,7 +742,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -754,7 +754,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Is she a good candidate for an SGLT2 inhibitor?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -766,7 +766,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does she react badly to sulfa?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -790,7 +790,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Is she a good candidate for an SGLT2 inhibitor?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -802,7 +802,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does she react badly to sulfa?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -814,7 +814,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -850,7 +850,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -862,7 +862,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does she react badly to shellfish?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -874,7 +874,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was she here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -886,7 +886,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -910,7 +910,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -922,7 +922,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -934,7 +934,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -946,7 +946,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw him?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -982,7 +982,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -994,7 +994,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1006,7 +1006,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Is she a good candidate for an SGLT2 inhibitor?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1018,7 +1018,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1054,7 +1054,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1102,7 +1102,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1126,7 +1126,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was she here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1138,7 +1138,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1150,7 +1150,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Any record of her reacting to shellfish?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1162,7 +1162,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was she here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1174,7 +1174,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1234,7 +1234,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1282,7 +1282,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1294,7 +1294,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1306,7 +1306,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1330,7 +1330,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1354,7 +1354,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw him?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1378,7 +1378,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1390,7 +1390,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw him?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1402,7 +1402,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw him?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1414,7 +1414,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1426,7 +1426,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Is he a good candidate for an SGLT2 inhibitor?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1438,7 +1438,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1462,7 +1462,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1486,7 +1486,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1498,7 +1498,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1510,7 +1510,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1522,7 +1522,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was she here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1534,7 +1534,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1546,7 +1546,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does she react badly to peanuts?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1558,7 +1558,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1570,7 +1570,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1594,7 +1594,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything he is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1606,7 +1606,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1630,7 +1630,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1642,7 +1642,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1654,7 +1654,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does she react badly to peanuts?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1666,7 +1666,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1678,7 +1678,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Is she a good candidate for an SGLT2 inhibitor?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1714,7 +1714,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Any record of her reacting to grass pollen?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1738,7 +1738,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1750,7 +1750,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "Any record of her reacting to shellfish?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1762,7 +1762,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1774,7 +1774,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "when was he here last",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1786,7 +1786,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1810,7 +1810,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "which antidepressant would be best for this patient",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1834,7 +1834,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does he react badly to dust mites?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1846,7 +1846,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "does he react badly to sulfa?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1870,7 +1870,7 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "tell me everything she is diagnosed with",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   },
   {
@@ -1894,10 +1894,10 @@
    "status": "unsupported",
    "intent": "unsupported",
    "question": "how long since we saw her?",
-   "answer": "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
+   "answer": "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.",
    "problems": []
   }
  ],
- "answerer": "rounds",
- "seconds": 3.0
+ "answerer": "circa",
+ "seconds": 3.2
 }

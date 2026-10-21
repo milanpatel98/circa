@@ -3,14 +3,14 @@ import json
 
 import pytest
 
-from rounds import bench, gold, store
-from rounds.engine import Engine
-from rounds.fhir import ingest_bundle
-from rounds.lexicon import build, ingredients
-from rounds.llm import ClaudeAnswerer
-from rounds.parse import Parser, minus_months
-from rounds.rag import RagAnswerer
-from rounds.verify import check
+from circa import bench, gold, store
+from circa.engine import Engine
+from circa.fhir import ingest_bundle
+from circa.lexicon import build, ingredients
+from circa.llm import ClaudeAnswerer
+from circa.parse import Parser, minus_months
+from circa.rag import RagAnswerer
+from circa.verify import check
 
 AS_OF = "2026-10-20"
 
@@ -156,7 +156,7 @@ def test_latest_means_newest_not_most_similar(charts, engine, lex):
     assert engine.ask(chart, "latest a1c")["result"]["id"] == want
 
 
-def test_rounds_beats_retrieval_by_a_wide_margin(charts, lex, engine, questions):
+def test_circa_beats_retrieval_by_a_wide_margin(charts, lex, engine, questions):
     sample = [q for q in questions if q["split"] == "dev"]
     ours = bench.evaluate(engine, charts, sample)["by_split"]["dev"]["accuracy"]
     rag = bench.evaluate(RagAnswerer(lex, 5), charts, sample)["by_split"]["dev"]["accuracy"]

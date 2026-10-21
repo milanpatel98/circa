@@ -1,10 +1,10 @@
-# Rounds
+# Circa
 
 **Ask a patient's chart a question. Every sentence in the answer cites the FHIR record it came from, and a checker confirms the numbers and dates match.**
 
-On hospital rounds, the senior doctor asks about a patient and the resident answers from the chart. "What was her last A1c?" "Is he still on the statin?" "Any ER visits this year?" Rounds answers those questions from a patient's FHIR record and shows the exact resource behind each sentence. If the chart has no answer, it says so. If the question asks for a treatment decision, it declines.
+Clinicians ask a patient's chart the same questions every day. "What was her last A1c?" "Is he still on the statin?" "Any ER visits this year?" Circa answers those questions from a patient's FHIR record and shows the exact resource behind each sentence. If the chart has no answer, it says so. If the question asks for a treatment decision, it declines.
 
-**[Try it in your browser](https://milanpatel98.github.io/rounds/)**: six synthetic patients, the full engine running client-side, and the original FHIR resource for every citation.
+**[Try it in your browser](https://milanpatel98.github.io/circa/)**: six synthetic patients, the full engine running client-side, and the original FHIR resource for every citation.
 
 ---
 
@@ -14,15 +14,15 @@ On hospital rounds, the senior doctor asks about a patient and the resident answ
 
 | Answerer | Held-out wording | Confident wrong answers |
 | --- | --- | --- |
-| **Rounds** | **96.2%** (95% CI 95.4–96.8) | 40 of 2,917 |
+| **Circa** | **96.2%** (95% CI 95.4–96.8) | 40 of 2,917 |
 | Search, top 20 records | 79.4% | 492 |
 | Search, top 5 records | 65.6% | 875 |
 
-"Search" is the usual retrieval-augmented approach: index each record as text, retrieve the records most similar to the question with BM25, and answer from those. To make the comparison about evidence and nothing else, the search baseline uses Rounds' own vocabulary for query expansion and Rounds' own answer logic. The only difference is that it reads k retrieved records instead of querying the whole chart.
+"Search" is the usual retrieval-augmented approach: index each record as text, retrieve the records most similar to the question with BM25, and answer from those. To make the comparison about evidence and nothing else, the search baseline uses Circa' own vocabulary for query expansion and Circa' own answer logic. The only difference is that it reads k retrieved records instead of querying the whole chart.
 
 Where retrieval breaks:
 
-| Question type | Rounds | Search, top 20 | Search, top 5 |
+| Question type | Circa | Search, top 20 | Search, top 5 |
 | --- | --- | --- | --- |
 | Latest result ("last A1c") | 100% | 79% | 26% |
 | Trend | 100% | 73% | 18% |
@@ -33,7 +33,7 @@ Where retrieval breaks:
 
 Similar is not the same as newest, and the top k records are not the whole list. A retriever returns the A1c results that best match the words, not the most recent one. It also returns an old lisinopril order marked `stopped`, without the active one, and states the patient is off it.
 
-**On honesty of the numbers:** with the wording it was built against, Rounds scores 100%, which says little. On the held-out wording, the first run scored **95.9%**. That run exposed one vocabulary bug: packaging words in RxNorm names ("Auto-Injector", "28 Day Pack") were read as medicine names. Fixing only that gives 96.2%. No wording rules changed after the held-out set was opened, and `artifacts/heldout-first-run.json` keeps the first run. Of the 111 held-out misses, 71 were refusals ("the record does not cover that") rather than wrong answers.
+**On honesty of the numbers:** with the wording it was built against, Circa scores 100%, which says little. On the held-out wording, the first run scored **95.9%**. That run exposed one vocabulary bug: packaging words in RxNorm names ("Auto-Injector", "28 Day Pack") were read as medicine names. Fixing only that gives 96.2%. No wording rules changed after the held-out set was opened, and `artifacts/heldout-first-run.json` keeps the first run. Of the 111 held-out misses, 71 were refusals ("the record does not cover that") rather than wrong answers.
 
 ## How it works
 
@@ -60,11 +60,11 @@ Similar is not the same as newest, and the top k records are not the whole list.
 
 **The checker** (`verify.py`) works on any answerer's output. Every cited id must exist in the patient's record, and every number and date in a sentence must appear in the records it cites. It catches a language model that writes 6.4 when the record says 6.1, or cites a real record for a date it does not contain.
 
-**Claude, optionally.** `rounds/llm.py` lets Claude answer the same benchmark. It reads the chart only through tools (`search`, `records`, `patient`) and must answer through a tool that requires citations. Then the same grader and checker score it:
+**Claude, optionally.** `circa/llm.py` lets Claude answer the same benchmark. It reads the chart only through tools (`search`, `records`, `patient`) and must answer through a tool that requires citations. Then the same grader and checker score it:
 
 ```bash
 export ANTHROPIC_API_KEY=...
-rounds bench --answerer claude --limit 10
+circa bench --answerer claude --limit 10
 ```
 
 The browser runs a JavaScript port of the parser and engine. A test asks every benchmark question for the demo patients in both languages and requires identical answers.
@@ -74,37 +74,37 @@ The browser runs a JavaScript port of the parser and engine. A test asks every b
 Requires Python 3.10+. The site needs Node 20+.
 
 ```bash
-git clone https://github.com/milanpatel98/rounds.git
-cd rounds
+git clone https://github.com/milanpatel98/circa.git
+cd circa
 pip install -e ".[dev]"
 pytest -q
 
-rounds patients
-rounds ask dane "what was his last a1c"
-rounds ask dane "is he on a blood thinner"
-rounds ask dane "should we increase his lisinopril"
+circa patients
+circa ask dane "what was his last a1c"
+circa ask dane "is he on a blood thinner"
+circa ask dane "should we increase his lisinopril"
 
-rounds bench                      # Rounds, both wordings
-rounds bench --answerer rag5      # the retrieval baseline
-rounds bench --answerer rag20
+circa bench                      # Circa, both wordings
+circa bench --answerer rag5      # the retrieval baseline
+circa bench --answerer rag20
 
 cd web && npm install && npm run dev    # http://localhost:5181
 ```
 
-To regenerate the patients from scratch (Java 17+, about two minutes): `./scripts/generate.sh && rounds ingest && rounds questions`.
+To regenerate the patients from scratch (Java 17+, about two minutes): `./scripts/generate.sh && circa ingest && circa questions`.
 
 ## Project layout
 
 ```
-rounds/fhir.py      FHIR bundle -> chart
-rounds/lexicon.py   how clinicians say it -> LOINC / SNOMED / RxNorm / CVX
-rounds/parse.py     question -> intent, concept, time frame
-rounds/engine.py    query + chart -> cited answer
-rounds/verify.py    checks any answer against the records it cites
-rounds/rag.py       the BM25 retrieval baseline
-rounds/llm.py       Claude as the answerer, through tools
-rounds/gold.py      answer key, written separately from the engine
-rounds/bench.py     question generation, grading, Wilson intervals
+circa/fhir.py      FHIR bundle -> chart
+circa/lexicon.py   how clinicians say it -> LOINC / SNOMED / RxNorm / CVX
+circa/parse.py     question -> intent, concept, time frame
+circa/engine.py    query + chart -> cited answer
+circa/verify.py    checks any answer against the records it cites
+circa/rag.py       the BM25 retrieval baseline
+circa/llm.py       Claude as the answerer, through tools
+circa/gold.py      answer key, written separately from the engine
+circa/bench.py     question generation, grading, Wilson intervals
 bench/heldout.json  held-out phrasings
 data/               130 ingested charts and the vocabulary
 web/                the site, with a JavaScript port of the engine

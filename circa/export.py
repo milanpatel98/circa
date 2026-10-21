@@ -59,7 +59,7 @@ def export(charts: list[dict], lex: dict, synthea: Path = store.ROOT / "synthea"
 
     # results for the page
     res = {}
-    for name in ("rounds", "rag5", "rag20"):
+    for name in ("circa", "rag5", "rag20"):
         f = store.ROOT / "artifacts" / f"bench-{name}.json"
         if f.exists():
             r = json.loads(f.read_text())

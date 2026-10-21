@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Engine, fmtDate, yearsBetween } from "./rounds.js";
+import { Engine, fmtDate, yearsBetween } from "./circa.js";
 
 const NAME = "Circa";
-const REPO = "https://github.com/milanpatel98/rounds";
+const REPO = "https://github.com/milanpatel98/circa";
 
 const KIND = { Observation: "Lab or vital", Condition: "Condition", MedicationRequest: "Medication", AllergyIntolerance: "Allergy",
   Immunization: "Vaccine", Encounter: "Visit", Procedure: "Procedure" };
@@ -11,7 +11,7 @@ const LISTS = new Set(["med_list", "problem_list", "allergy_list", "vaccine_list
 const LANES = [["Visits", "Encounter"], ["Labs", "Observation"], ["Conditions", "Condition"], ["Medications", "MedicationRequest"], ["Vaccines", "Immunization"]];
 const YEARS = 12;
 const pct = (k, n) => `${(Math.round((k / n) * 1000) / 10).toFixed(1)}%`;
-const brand = (s) => s.replace(/\bRounds\b/g, NAME);
+const brand = (s) => s.replace(/\bCirca\b/g, NAME);
 const pron = (sex) => (sex === "female" ? ["her", "she"] : ["his", "he"]);
 
 const CATS = [
@@ -443,15 +443,15 @@ function Sheet({ ids, focus, records, raw, chart, onClose }) {
 function Results({ r, meta }) {
   const [more, setMore] = useState(false);
   const H = (n) => r[n].by_split.heldout;
-  const keys = more ? r.categories.map(([k]) => k).filter((k) => r.rounds.by_category[k]) : ["latest", "trend", "med_active", "meds", "problems", "last_visit"];
+  const keys = more ? r.categories.map(([k]) => k).filter((k) => r.circa.by_category[k]) : ["latest", "trend", "med_active", "meds", "problems", "last_visit"];
   const label = Object.fromEntries(r.categories);
   return (
     <>
       <section className="hero slim">
         <Nav dark />
         <div className="wrap res-head">
-          <p className="res-big">{pct(H("rounds").correct, H("rounds").n)}</p>
-          <p>correct on {H("rounds").n.toLocaleString()} questions worded by someone who never saw how {NAME} reads them. {meta.cohort} patients.</p>
+          <p className="res-big">{pct(H("circa").correct, H("circa").n)}</p>
+          <p>correct on {H("circa").n.toLocaleString()} questions worded by someone who never saw how {NAME} reads them. {meta.cohort} patients.</p>
         </div>
       </section>
       <section className="wrap block">
@@ -460,8 +460,8 @@ function Results({ r, meta }) {
           <p>Search answers from the records that read most like the question. {NAME} reads the whole chart.</p>
         </div>
         <div className="mini-bars wide">
-          {[[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
-            <div key={k} className={`mb ${k === "rounds" ? "ours" : ""}`}>
+          {[[NAME, "circa"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
+            <div key={k} className={`mb ${k === "circa" ? "ours" : ""}`}>
               <span>{name}</span>
               <span className="mb-track"><span style={{ width: `${(H(k).correct / H(k).n) * 100}%` }} /></span>
               <span>{pct(H(k).correct, H(k).n)}</span>
@@ -469,8 +469,8 @@ function Results({ r, meta }) {
           ))}
         </div>
         <div className="wrongs">
-          {[[NAME, "rounds"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
-            <div key={k} className={k === "rounds" ? "ours" : ""}>
+          {[[NAME, "circa"], ["Search, top 20", "rag20"], ["Search, top 5", "rag5"]].map(([name, k]) => (
+            <div key={k} className={k === "circa" ? "ours" : ""}>
               <b>{H(k).wrong_answers}</b>
               <span>confident wrong answers, {name}</span>
             </div>
@@ -485,7 +485,7 @@ function Results({ r, meta }) {
             {keys.map((k) => (
               <tr key={k}>
                 <td>{label[k]}</td>
-                <td><b>{Math.round(r.rounds.by_category[k].heldout * 100)}%</b></td>
+                <td><b>{Math.round(r.circa.by_category[k].heldout * 100)}%</b></td>
                 <td className="soft">{Math.round(r.rag20.by_category[k].heldout * 100)}%</td>
               </tr>
             ))}

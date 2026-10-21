@@ -20,9 +20,9 @@ jobs:
       - run: pytest -q
       - name: Held-out score must stay at 95% or better, and well ahead of retrieval
         run: |
-          rounds bench
-          rounds bench --answerer rag20
-          python -c "import json; a=json.load(open('artifacts/bench-rounds.json'))['by_split']['heldout']; b=json.load(open('artifacts/bench-rag20.json'))['by_split']['heldout']; assert a['accuracy'] >= 0.95 and a['unverified'] == 0 and a['accuracy'] > b['accuracy'] + 0.1, (a, b)"
+          circa bench
+          circa bench --answerer rag20
+          python -c "import json; a=json.load(open('artifacts/bench-circa.json'))['by_split']['heldout']; b=json.load(open('artifacts/bench-rag20.json'))['by_split']['heldout']; assert a['accuracy'] >= 0.95 and a['unverified'] == 0 and a['accuracy'] > b['accuracy'] + 0.1, (a, b)"
 
   parity:
     runs-on: ubuntu-latest
@@ -36,6 +36,6 @@ jobs:
           node-version: 22
       - run: pip install -e .
       - name: Rebuild the expected answers from Python, then check JavaScript matches
-        run: rounds export
+        run: circa export
       - run: npm ci && npm test && npm run build
         working-directory: web

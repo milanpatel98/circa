@@ -2,9 +2,9 @@
 requires citations. The same benchmark and the same checker then score it.
 
     export ANTHROPIC_API_KEY=...
-    rounds bench --answerer claude --limit 10
+    circa bench --answerer claude --limit 10
 
-Set ROUNDS_MODEL to choose the model. Nothing here runs without a key.
+Set CIRCA_MODEL to choose the model. Nothing here runs without a key.
 """
 
 from __future__ import annotations
@@ -92,7 +92,7 @@ def http_transport(body: dict) -> dict:
 class ClaudeAnswerer:
     def __init__(self, transport=http_transport, model: str | None = None, max_turns: int = 8):
         self.transport = transport
-        self.model = model or os.environ.get("ROUNDS_MODEL", "claude-sonnet-5-5")
+        self.model = model or os.environ.get("CIRCA_MODEL", "claude-sonnet-5-5")
         self.max_turns = max_turns
         self._index: dict[str, BM25] = {}
 

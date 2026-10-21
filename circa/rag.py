@@ -1,7 +1,7 @@
 """The usual approach, for comparison: turn each record into a line of text, retrieve the top k lines for the
 question with BM25, and answer from those lines only.
 
-To isolate retrieval, the reader is Rounds' own engine and the query is expanded with the same vocabulary,
+To isolate retrieval, the reader is Circa' own engine and the query is expanded with the same vocabulary,
 so the only difference is that the answer sees k retrieved records instead of the whole chart.
 """
 

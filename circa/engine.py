@@ -345,11 +345,11 @@ class Engine:
         return self._answered(claims, {"years": years})
 
     def _advice(self, chart, concept, window):
-        return {"status": "advice", "result": {}, "claims": [{"text": "That is a treatment decision, and Rounds only reports what the record shows. "
+        return {"status": "advice", "result": {}, "claims": [{"text": "That is a treatment decision, and Circa only reports what the record shows. "
                                                              "Ask about current medications, recent labs or the problem list instead.", "cites": []}]}
 
     def _unsupported(self, chart, concept, window):
-        return {"status": "unsupported", "result": {}, "claims": [{"text": "The record does not cover that. Rounds can answer about labs, vitals, conditions, "
+        return {"status": "unsupported", "result": {}, "claims": [{"text": "The record does not cover that. Circa can answer about labs, vitals, conditions, "
                                                                    "medications, allergies, vaccines and visits.", "cites": []}]}
 
 

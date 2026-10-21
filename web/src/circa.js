@@ -1,4 +1,4 @@
-// A line-by-line port of rounds/lexicon.py (norm), parse.py and engine.py.
+// A line-by-line port of circa/lexicon.py (norm), parse.py and engine.py.
 // test/parity.mjs asks every benchmark question for the demo patients and checks the answers match Python exactly.
 
 export function norm(text) {
@@ -492,10 +492,10 @@ export class Engine {
   }
 
   _advice() {
-    return { status: "advice", result: {}, claims: [{ text: "That is a treatment decision, and Rounds only reports what the record shows. Ask about current medications, recent labs or the problem list instead.", cites: [] }] };
+    return { status: "advice", result: {}, claims: [{ text: "That is a treatment decision, and Circa only reports what the record shows. Ask about current medications, recent labs or the problem list instead.", cites: [] }] };
   }
 
   _unsupported() {
-    return { status: "unsupported", result: {}, claims: [{ text: "The record does not cover that. Rounds can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.", cites: [] }] };
+    return { status: "unsupported", result: {}, claims: [{ text: "The record does not cover that. Circa can answer about labs, vitals, conditions, medications, allergies, vaccines and visits.", cites: [] }] };
   }
 }

@@ -1,11 +1,11 @@
-"""rounds: ask questions of synthetic FHIR patient records, and measure how well it answers.
+"""circa: ask questions of synthetic FHIR patient records, and measure how well it answers.
 
-  rounds ingest [synthea/fhir]     build data/charts.jsonl.gz and data/lexicon.json from Synthea bundles
-  rounds patients                  list patients
-  rounds ask PATIENT "question"    answer one question (PATIENT: id prefix or name)
-  rounds questions                 build bench/questions.jsonl
-  rounds bench [--answerer ...]    score an answerer: rounds, rag5, rag20 or claude
-  rounds export                    write the website's data
+  circa ingest [synthea/fhir]     build data/charts.jsonl.gz and data/lexicon.json from Synthea bundles
+  circa patients                  list patients
+  circa ask PATIENT "question"    answer one question (PATIENT: id prefix or name)
+  circa questions                 build bench/questions.jsonl
+  circa bench [--answerer ...]    score an answerer: circa, rag5, rag20 or claude
+  circa export                    write the website's data
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ from .verify import check
 
 
 def _answerer(name: str, lex: dict):
-    if name == "rounds":
+    if name == "circa":
         return Engine(lex)
     if name.startswith("rag"):
         from .rag import RagAnswerer
@@ -45,13 +45,13 @@ def find(charts: list[dict], who: str) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(prog="rounds", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(prog="circa", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("ingest"); p.add_argument("src", nargs="?", default="synthea/fhir")
     sub.add_parser("patients")
     p = sub.add_parser("ask"); p.add_argument("patient"); p.add_argument("question"); p.add_argument("--json", action="store_true")
     sub.add_parser("questions")
-    p = sub.add_parser("bench"); p.add_argument("--answerer", default="rounds"); p.add_argument("--split", choices=["dev", "heldout", "all"], default="all")
+    p = sub.add_parser("bench"); p.add_argument("--answerer", default="circa"); p.add_argument("--split", choices=["dev", "heldout", "all"], default="all")
     p.add_argument("--limit", type=int, default=0, help="only the first N patients")
     sub.add_parser("export")
     a = ap.parse_args(argv)
