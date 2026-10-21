@@ -12,16 +12,16 @@ Clinicians ask a patient's chart the same questions every day. "What was her las
 
 Two cohorts, both FHIR R4:
 
-- **Real:** 100 de-identified patients from the [MIMIC-IV Clinical Database Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (Beth Israel Deaconess Medical Center), every clinical record in the release: 872,006 of them. Admissions, ED visits and ICU stays; diagnoses; medication orders, doses given, dispenses and home medications; procedures; labs and microbiology; ICU charting (vitals, assessments, outputs).
+- **Real:** 100 de-identified patients from the [MIMIC-IV Clinical Database Demo on FHIR](https://physionet.org/content/mimic-iv-fhir-demo/2.1.0/) (Beth Israel Deaconess Medical Center), every clinical record in the release: 898,516 of them (a few thousand source entries are empty, such as a vital sign with no value, and are left out). Admissions, ED visits and ICU stays; diagnoses; medication orders, doses given, dispenses and home medications; procedures; labs and microbiology; ICU charting (vitals, assessments, outputs).
 - **Synthetic:** 130 [Synthea](https://github.com/synthetichealth/synthea) patients, which add allergies, vaccines and outpatient visits that the hospital data does not have.
 
 Every question has an answer key computed from the record by separate code (`gold.py`). Each is asked twice: in the wording written while the parser was built, and in **held-out wording** written separately by someone who never saw the parser (`bench/heldout.json`). Held-out scores:
 
 | Answerer | Real patients (1,679 questions) | Wrong answers | Synthetic (2,917) | Wrong answers |
 | --- | --- | --- | --- | --- |
-| **Circa** | **97.2%** (95% CI 96.3–97.9) | **7** | **96.2%** (95.4–96.8) | **40** |
-| Search, top 20 records | 65.8% | 490 | 79.4% | 492 |
-| Search, top 5 records | 58.8% | 560 | 65.6% | 875 |
+| **Circa** | **97.8%** (95% CI 97.0–98.4) | **4** | **96.2%** (95.4–96.8) | **40** |
+| Search, top 20 records | 66.1% | 481 | 79.4% | 492 |
+| Search, top 5 records | 58.4% | 567 | 65.6% | 875 |
 
 "Search" is the usual retrieval-augmented approach: index each record as text, retrieve the records most similar to the question with BM25, and answer from those. To make the comparison about evidence and nothing else, the search baseline uses Circa's own vocabulary for query expansion and Circa's own answer logic. The only difference is that it reads k retrieved records instead of querying the whole chart.
 
@@ -29,16 +29,16 @@ Where retrieval breaks, on real patients:
 
 | Question type | Circa | Search, top 20 | Search, top 5 |
 | --- | --- | --- | --- |
-| Latest result ("last A1c") | 100% | 50% | 27% |
-| Trend | 100% | 43% | 6% |
-| Current medication ("still on heparin?") | 99% | 78% | 73% |
-| Stopped medication | 100% | 17% | 0% |
+| Latest result ("last A1c") | 100% | 51% | 21% |
+| Trend | 100% | 41% | 8% |
+| Current medication ("still on heparin?") | 100% | 85% | 82% |
+| Stopped medication | 100% | 13% | 0% |
 | Medication list | 100% | 0% | 0% |
-| Problem list | 90% | 0% | 0% |
-| ER visits in a period | 100% | 48% | 48% |
-| Last visit | 85% | 38% | 33% |
+| Problem list | 93% | 0% | 0% |
+| ER visits in a period | 100% | 47% | 47% |
+| Last visit | 85% | 34% | 28% |
 
-Similar is not the same as newest, and the top k records are not the whole list. A real hospital stay can carry 40 medication orders and 30 diagnoses; 20 retrieved records cannot list them. More data makes search worse, not better: one ICU patient has 50,306 records, and adding the ICU charting dropped search from 70.3% to 65.8% while Circa held steady.
+Similar is not the same as newest, and the top k records are not the whole list. A real hospital stay can carry 40 medication orders and 30 diagnoses; 20 retrieved records cannot list them. More data makes search worse, not better: one ICU patient has 50,306 records, and adding the ICU charting dropped search from 70.3% to 66.1% while Circa held steady.
 
 **Hospital records mean different things.** MIMIC diagnoses are billing codes attached to a stay, with no onset or resolved date, so Circa says "recorded at the hospital stay of …" rather than "active". Every medication order is completed by discharge, so "current medications" means those ordered during the most recent stay, and the answer says so. Dates are shifted into the 2100s for privacy; each patient's "today" is their latest record.
 
@@ -46,7 +46,7 @@ Similar is not the same as newest, and the top k records are not the whole list.
 
 - *Synthetic:* the first held-out run scored **95.9%**. It exposed one vocabulary bug: packaging words in RxNorm names ("Auto-Injector", "28 Day Pack") were read as medicine names. Fixing only that gives 96.2%. `artifacts/heldout-first-run.json` keeps the first run.
 - *Real:* the first held-out run scored **95.3%** (40 wrong answers). Two parser gaps caused most misses: years in the shifted 2100s were not read as years, and "currently on glucose" was read as the glucose lab rather than the medicine. Fixing those gives 97.3%. Both fixes came after the synthetic held-out set had been opened; they leave its score unchanged.
-- *All records:* adding the ICU, medication-administration, procedure and microbiology records (from 118,869 to 872,006 records) changed which lab and vital questions get asked, so the benchmark was regenerated. Its first run scored 97.2% with no parser change; ICU blood pressure, heart rate, temperature and weight questions were added to the vocabulary before the run.
+- *All records:* adding the ICU, medication-administration, procedure and microbiology records (from 118,869 to 898,516 records) changed which lab and vital questions get asked, so the benchmark was regenerated. Its first run scored 97.2% with no parser change; ICU blood pressure, heart rate, temperature and weight questions were added to the vocabulary before the run. An audit then found 11,000 medication records whose names sit in another field (IV mixes, formulary codes) and 12,000 text lab results ("<0.01", "NEG") that were not being read. Reading them gives 97.8%.
 
 No held-out phrasing was edited after it was opened.
 
