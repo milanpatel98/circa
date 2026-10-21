@@ -2,37 +2,30 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Engine, fmtDate, yearsBetween } from "./rounds.js";
 
 const REPO = "https://github.com/milanpatel98/rounds";
-const STATUS = { answered: "Answered", not_found: "Not in the record", unsupported: "Outside the record", advice: "Declined" };
-const TYPE = { Observation: "Observation", Condition: "Condition", MedicationRequest: "Medication", AllergyIntolerance: "Allergy",
-  Immunization: "Immunization", Encounter: "Visit", Procedure: "Procedure" };
-const pct1 = (k, n) => `${(Math.round((k / n) * 1000) / 10).toFixed(1)}%`;
-const whole = (x) => `${Math.round(x * 100)}`;
-
-function useTheme() {
-  const [theme, setTheme] = useState(() => {
-    try {
-      return localStorage.getItem("rounds-theme") || "dark";
-    } catch {
-      return "dark";
-    }
-  });
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    try {
-      localStorage.setItem("rounds-theme", theme);
-    } catch {
-      /* private mode */
-    }
-  }, [theme]);
-  return [theme, setTheme];
-}
+const KIND = { Observation: "Lab or vital", Condition: "Condition", MedicationRequest: "Medication order", AllergyIntolerance: "Allergy",
+  Immunization: "Vaccine", Encounter: "Visit", Procedure: "Procedure" };
+const NOTE = {
+  answered: "",
+  not_found: "Nothing in the record answers this.",
+  unsupported: "This is outside what a patient record holds.",
+  advice: "Rounds reports the record. It does not make treatment decisions.",
+};
+const LISTS = new Set(["med_list", "problem_list", "allergy_list", "vaccine_list"]);
+const pct = (k, n) => `${(Math.round((k / n) * 1000) / 10).toFixed(1)}%`;
+const TRY = [
+  ["Last A1c", (p) => `What was ${p} last A1c?`],
+  ["Current medications", (p, s) => `What medications is ${s} on?`],
+  ["Allergies", () => "Any allergies?"],
+  ["Blood pressure trend", (p) => `How has ${p} blood pressure changed?`],
+  ["ER visits this year", () => "ER visits in the past year?"],
+  ["Treatment advice", (p) => `Should we increase ${p} lisinopril?`],
+];
 
 export default function App() {
   const [meta, setMeta] = useState(null);
   const [lex, setLex] = useState(null);
   const [results, setResults] = useState(null);
-  const [tab, setTab] = useState(() => (location.hash === "#results" ? "results" : location.hash === "#how" ? "how" : "ask"));
-  const [theme, setTheme] = useTheme();
+  const [view, setView] = useState(() => location.hash.slice(1) || "ask");
 
   useEffect(() => {
     Promise.all(["patients", "lexicon", "results"].map((f) => fetch(`data/${f}.json`).then((r) => r.json()))).then(([p, l, r]) => {
@@ -40,75 +33,57 @@ export default function App() {
       setLex(l);
       setResults(r);
     });
+    const onHash = () => setView(location.hash.slice(1) || "ask");
+    addEventListener("hashchange", onHash);
+    return () => removeEventListener("hashchange", onHash);
   }, []);
-  useEffect(() => {
-    history.replaceState(null, "", tab === "ask" ? location.pathname : `#${tab}`);
-  }, [tab]);
 
   const engine = useMemo(() => (lex ? new Engine(lex) : null), [lex]);
 
   return (
-    <div className="app">
+    <div className="page">
       <header className="top">
-        <span className="brand">
-          <span className="ring" aria-hidden="true" />
-          Rounds
-        </span>
-        <div className="top-r">
-          <span className="mono dim hide-sm">{meta ? `AS OF ${fmtDate(meta.asOf).toUpperCase()}` : ""}</span>
-          <div className="seg" role="group" aria-label="Appearance">
-            <button aria-pressed={theme === "dark"} className={theme === "dark" ? "on" : ""} onClick={() => setTheme("dark")} title="Dark">
-              <Moon />
-            </button>
-            <button aria-pressed={theme === "light"} className={theme === "light" ? "on" : ""} onClick={() => setTheme("light")} title="Light">
-              <Sun />
-            </button>
-          </div>
-        </div>
+        <a href="#" className={`brand ${view === "ask" ? "here" : ""}`}>Rounds</a>
+        <nav>
+          <a href="#results" className={view === "results" ? "here" : ""}>Results</a>
+          <a href="#method" className={view === "method" ? "here" : ""}>Method</a>
+          <a href={REPO}>Code</a>
+        </nav>
       </header>
 
-      <main className="col">
-        <h1>{tab === "ask" ? "Ask" : tab === "results" ? "Results" : "How it works"}</h1>
-        <p className="sub">Answers from a patient’s FHIR record. Every sentence cites the record it came from.</p>
-        <nav className="tabs" role="tablist">
-          {[["ask", "Ask"], ["results", "Results"], ["how", "How it works"]].map(([k, l]) => (
-            <button key={k} role="tab" aria-selected={tab === k} className={tab === k ? "on" : ""} onClick={() => setTab(k)}>
-              {l}
-            </button>
-          ))}
-        </nav>
-
-        {tab === "ask" && (meta && engine ? <Ask meta={meta} engine={engine} /> : <p className="dim pad">Loading…</p>)}
-        {tab === "results" && results && <Results r={results} meta={meta} />}
-        {tab === "how" && <How />}
+      <main>
+        {view === "results" && results && meta ? <Results r={results} meta={meta} />
+          : view === "method" ? <Method />
+          : meta && engine ? <Ask meta={meta} engine={engine} /> : null}
       </main>
 
-      <footer className="foot col">
-        <span>© 2026 Milan Patel · MIT License</span>
-        <a href={REPO}>Source</a>
-      </footer>
+      <footer className="foot">© 2026 Milan Patel. MIT License. Synthetic patients only.</footer>
     </div>
   );
 }
 
-/* ---- ask ------------------------------------------------------------------------------- */
+/* ---- ask -------------------------------------------------------------------------------- */
 
 function Ask({ meta, engine }) {
   const [pid, setPid] = useState(meta.patients[0].id);
-  const [open, setOpen] = useState(false);
+  const [picking, setPicking] = useState(false);
   const [file, setFile] = useState(null);
   const [q, setQ] = useState("");
   const [answer, setAnswer] = useState(null);
   const [asked, setAsked] = useState("");
-  const [expanded, setExpanded] = useState(null);
-  const [ms, setMs] = useState(0);
-  const menu = useRef(null);
+  const [sheet, setSheet] = useState(null); // id of the record to show, or "all"
+  const pickRef = useRef(null);
+  const inputRef = useRef(null);
   const patient = meta.patients.find((p) => p.id === pid);
+  const first = patient.name.split(" ")[0];
+  const poss = patient.sex === "female" ? "her" : "his";
+  const subj = patient.sex === "female" ? "she" : "he";
 
   useEffect(() => {
     let live = true;
     setFile(null);
     setAnswer(null);
+    setSheet(null);
     fetch(`data/p/${pid}.json`).then((r) => r.json()).then((f) => live && setFile(f));
     return () => {
       live = false;
@@ -116,69 +91,57 @@ function Ask({ meta, engine }) {
   }, [pid]);
 
   useEffect(() => {
-    if (file && !answer) run(patient.suggest[0]);
-  }, [file]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    const close = (e) => menu.current && !menu.current.contains(e.target) && setOpen(false);
+    const close = (e) => pickRef.current && !pickRef.current.contains(e.target) && setPicking(false);
+    const esc = (e) => e.key === "Escape" && (setSheet(null), setPicking(false));
     document.addEventListener("pointerdown", close);
-    return () => document.removeEventListener("pointerdown", close);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", esc);
+    };
   }, []);
 
   const records = useMemo(() => (file ? Object.fromEntries(file.chart.records.map((r) => [r.id, r])) : {}), [file]);
 
   function run(text) {
     if (!file || !text.trim()) return;
-    const t0 = performance.now();
-    const a = engine.ask(file.chart, text);
-    setMs(performance.now() - t0);
-    setAnswer(a);
+    setAnswer(engine.ask(file.chart, text));
     setAsked(text.trim());
     setQ("");
-    setExpanded(null);
+    setSheet(null);
   }
 
-  // every cited record, numbered once in order of first appearance; long series collapse into one row
   const sources = useMemo(() => {
     const out = [];
-    const seen = new Set();
-    for (const c of answer?.claims || []) {
+    const list = answer && LISTS.has(answer.intent) && answer.claims.length > 2;
+    for (const c of (list ? answer.claims.slice(1).map((c) => ({ cites: c.cites.slice(0, 1) })) : answer?.claims) || []) {
       if (c.cites.length > 8) continue;
-      for (const id of c.cites) if (!seen.has(id)) {
-        seen.add(id);
-        out.push(id);
-      }
+      for (const id of c.cites) if (!out.includes(id)) out.push(id);
     }
     return out;
   }, [answer]);
-  const num = (id) => sources.indexOf(id) + 1;
 
   return (
-    <section className="pad" aria-label="Ask a question">
-      <div className="who" ref={menu}>
-        <button className="who-btn" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
-          <span className="avatar">{patient.name[0]}</span>
-          <span className="who-text">
-            <span className="who-name">{patient.name}</span>
-            <span className="mono dim">
-              {patient.sex === "female" ? "F" : "M"} · {yearsBetween(patient.birthDate, meta.asOf)} · {patient.records.toLocaleString()} RECORDS
-            </span>
-          </span>
-          <Chevron down />
+    <section className="ask">
+      <div className="who" ref={pickRef}>
+        <button className="who-name" onClick={() => setPicking((v) => !v)} aria-haspopup="listbox" aria-expanded={picking}>
+          {patient.name}
+          <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
-        {open && (
-          <ul className="menu" role="listbox">
+        <p className="who-sub">
+          {yearsBetween(patient.birthDate, meta.asOf)}, {patient.sex}. {patient.records.toLocaleString()} records up to {fmtDate(meta.asOf)}.
+        </p>
+        {picking && (
+          <ul className="pick" role="listbox" aria-label="Choose a patient">
             {meta.patients.map((p) => (
               <li key={p.id}>
-                <button role="option" aria-selected={p.id === pid} className={p.id === pid ? "on" : ""}
-                  onClick={() => {
-                    setPid(p.id);
-                    setOpen(false);
-                  }}>
+                <button role="option" aria-selected={p.id === pid} onClick={() => {
+                  setPid(p.id);
+                  setPicking(false);
+                  inputRef.current?.focus();
+                }}>
                   <span>{p.name}</span>
-                  <span className="mono dim">
-                    {p.sex === "female" ? "F" : "M"} · {yearsBetween(p.birthDate, meta.asOf)}
-                  </span>
+                  <span className="soft">{yearsBetween(p.birthDate, meta.asOf)}, {p.sex}</span>
                 </button>
               </li>
             ))}
@@ -186,215 +149,201 @@ function Ask({ meta, engine }) {
         )}
       </div>
 
-      <form className="field" onSubmit={(e) => {
+      <form className="q" onSubmit={(e) => {
         e.preventDefault();
         run(q);
       }}>
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ask about this patient" aria-label="Question" disabled={!file} />
-        <button type="submit" className="btn" disabled={!file || !q.trim()}>
-          Ask
-        </button>
+        <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Ask about ${first}`} aria-label="Question" disabled={!file} />
+        <button type="submit" disabled={!file || !q.trim()}>Ask</button>
       </form>
 
-      <div className="try">
-        {patient.suggest.map((s) => (
-          <button key={s} onClick={() => run(s)} disabled={!file}>
-            {s}
-          </button>
+      <p className="try">
+        {TRY.map(([label, make], i) => (
+          <span key={label}>
+            <button onClick={() => run(make(poss, subj))} disabled={!file}>{label}</button>
+            {i < TRY.length - 1 ? <span className="sep" aria-hidden="true">/</span> : null}
+          </span>
         ))}
-      </div>
+      </p>
 
       {answer && (
-        <div className="answer" aria-live="polite">
-          <p className="label">{asked}</p>
-          <p className="said">
-            {answer.claims.map((c, i) => (
-              <span key={i}>
-                {c.text}
-                {c.cites.length > 0 && c.cites.length <= 8 && <sup>{[...new Set(c.cites.map(num))].map((n) => (
-                  <button key={n} className={`cite ${expanded === sources[n - 1] ? "on" : ""}`}
-                    onClick={() => setExpanded(expanded === sources[n - 1] ? null : sources[n - 1])}>{n}</button>
-                ))}</sup>}{" "}
-              </span>
-            ))}
-          </p>
-          <p className="mono dim meta">
-            <span className={`st st-${answer.status}`}>{STATUS[answer.status].toUpperCase()}</span>
-            {sources.length > 0 && ` · ${sources.length} SOURCE${sources.length === 1 ? "" : "S"} · NUMBERS AND DATES CHECKED`}
-            {` · ${ms < 1 ? "<1" : Math.round(ms)} MS`}
-          </p>
-
-          {sources.length > 0 && (
-            <div className="group">
-              <p className="label">Sources</p>
-              <ul className="rows">
-                {sources.map((id, i) => (
-                  <Source key={id} n={i + 1} id={id} rec={records[id]} raw={file?.raw?.[id]} chart={file.chart}
-                    open={expanded === id} onToggle={() => setExpanded(expanded === id ? null : id)} />
-                ))}
+        <article className="said" aria-live="polite">
+          <p className="asked">{asked}</p>
+          {LISTS.has(answer.intent) && answer.claims.length > 2 ? (
+            <>
+              <p className="text">{answer.claims[0].text.replace(/:$/, ".")}</p>
+              <ul className="items">
+                {answer.claims.slice(1).map((c, i) => {
+                  const n = sources.indexOf(c.cites[0]) + 1;
+                  return (
+                    <li key={i}>
+                      <span>{c.text.replace(/[;.]$/, "")}</span>
+                      {n > 0 && <button className={`cite ${sheet === sources[n - 1] ? "on" : ""}`} onClick={() => setSheet(sources[n - 1])} aria-label={`Show record ${n}`}>{n}</button>}
+                    </li>
+                  );
+                })}
               </ul>
-            </div>
+            </>
+          ) : (
+            <p className="text">
+              {answer.claims.map((c, i) => (
+                <span key={i}>
+                  {c.text}
+                  {c.cites.length > 0 && c.cites.length <= 8 && [...new Set(c.cites.map((id) => sources.indexOf(id) + 1))].map((n) => (
+                    <button key={n} className={`cite ${sheet === sources[n - 1] ? "on" : ""}`} onClick={() => setSheet(sources[n - 1])}
+                      aria-label={`Show record ${n}`}>{n}</button>
+                  ))}{" "}
+                </span>
+              ))}
+            </p>
           )}
-        </div>
+          {NOTE[answer.status] && <p className="note">{NOTE[answer.status]}</p>}
+          {sources.length > 0 && (
+            <button className="records" onClick={() => setSheet("all")}>
+              {sources.length === 1 ? "1 record cited" : `${sources.length} records cited`}, every number and date checked against them
+            </button>
+          )}
+        </article>
+      )}
+
+      {sheet && file && (
+        <Sheet ids={sources} focus={sheet === "all" ? null : sheet} records={records} raw={file.raw} chart={file.chart} onClose={() => setSheet(null)} />
       )}
     </section>
   );
 }
 
-function Source({ n, id, rec, raw, chart, open, onToggle }) {
-  const isPatient = id === chart.id;
-  const name = isPatient ? chart.name : rec?.name;
-  const kind = isPatient ? "Patient" : TYPE[rec?.type] || "Record";
-  const date = isPatient ? chart.birthDate : rec?.date;
+function Sheet({ ids, focus, records, raw, chart, onClose }) {
+  const [open, setOpen] = useState(focus);
+  const panel = useRef(null);
+  useEffect(() => setOpen(focus), [focus]);
+  useEffect(() => panel.current?.focus(), []);
   return (
-    <li className={`src ${open ? "open" : ""}`}>
-      <button className="row" onClick={onToggle} aria-expanded={open}>
-        <span className="mono n">{n}</span>
-        <span className="row-main">
-          <span className="row-title">{name}</span>
-          <span className="row-sub">{kind}{rec?.code ? ` · ${rec.system.toUpperCase()} ${rec.code}` : ""}</span>
-        </span>
-        <span className="mono dim">{date ? fmtDate(date).toUpperCase() : ""}</span>
-        <Chevron down={open} />
-      </button>
-      {open && <pre className="json">{isPatient ? JSON.stringify({ resourceType: "Patient", id, birthDate: chart.birthDate, gender: chart.sex }, null, 2)
-        : raw ? JSON.stringify(raw, null, 2) : "Not included in this demo."}</pre>}
-    </li>
-  );
-}
-
-/* ---- results ---------------------------------------------------------------------------- */
-
-function Results({ r, meta }) {
-  const H = (name) => r[name].by_split.heldout;
-  const rows = r.categories.filter(([k]) => r.rounds.by_category[k]);
-  return (
-    <section className="pad">
-      <p className="big mono">{pct1(H("rounds").correct, H("rounds").n)}</p>
-      <p className="label">Correct · held-out wording · {H("rounds").n.toLocaleString()} questions</p>
-      <p className="line">
-        <span className="mono">{pct1(H("rag20").correct, H("rag20").n)}</span> search, top 20 · <span className="mono">{pct1(H("rag5").correct, H("rag5").n)}</span> search, top 5
-      </p>
-
-      <div className="group">
-        <p className="label">Confident wrong answers</p>
-        <ul className="rows">
-          <Row label="Rounds" value={H("rounds").wrong_answers} />
-          <Row label="Search, top 20 records" value={H("rag20").wrong_answers} />
-          <Row label="Search, top 5 records" value={H("rag5").wrong_answers} />
-        </ul>
-      </div>
-
-      <div className="group">
-        <div className="label cols">
-          <span>By question type</span>
-          <span className="mono">ROUNDS</span>
-          <span className="mono">TOP 20</span>
-          <span className="mono">TOP 5</span>
+    <>
+      <div className="scrim" onClick={onClose} />
+      <aside className="sheet" role="dialog" aria-label="Cited records" tabIndex={-1} ref={panel}>
+        <div className="sheet-head">
+          <p>From {chart.name.split(" ")[0]}’s record</p>
+          <button onClick={onClose} aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
+          </button>
         </div>
-        <ul className="rows">
-          {rows.map(([k, label]) => {
-            const v = ["rounds", "rag20", "rag5"].map((n) => r[n].by_category[k].heldout);
+        <ol className="recs">
+          {ids.map((id, i) => {
+            const isPatient = id === chart.id;
+            const r = records[id];
+            const isOpen = open === id;
             return (
-              <li key={k} className="row cols">
-                <span className="row-title">{label}</span>
-                {v.map((x, i) => (
-                  <span key={i} className={`mono ${i ? "dim" : ""} ${i && x < 0.5 ? "low" : ""}`}>{whole(x)}</span>
-                ))}
+              <li key={id} className={isOpen ? "open" : ""}>
+                <button className="rec" onClick={() => setOpen(isOpen ? null : id)} aria-expanded={isOpen}>
+                  <span className="rec-n">{i + 1}</span>
+                  <span className="rec-body">
+                    <span className="rec-name">{isPatient ? chart.name : r?.name}</span>
+                    <span className="soft">
+                      {isPatient ? `Patient, born ${fmtDate(chart.birthDate)}` : `${KIND[r?.type] || "Record"}, ${fmtDate(r.date)}`}
+                    </span>
+                  </span>
+                </button>
+                {isOpen && (
+                  <pre className="fhir">
+                    {isPatient ? JSON.stringify({ resourceType: "Patient", id, gender: chart.sex, birthDate: chart.birthDate }, null, 2)
+                      : raw?.[id] ? JSON.stringify(raw[id], null, 2) : "Not included in this demo."}
+                  </pre>
+                )}
               </li>
             );
           })}
-        </ul>
-      </div>
+        </ol>
+        <p className="sheet-foot soft">Each record is shown exactly as it arrived, in FHIR, the format US health systems exchange.</p>
+      </aside>
+    </>
+  );
+}
 
-      <div className="group notes">
-        <p className="label">Method</p>
-        <p>
-          {r.questions.toLocaleString()} questions about {meta.cohort} synthetic patients. Each has an answer key computed from the record by separate code,
-          and is asked in wording written by someone who never saw the parser.
-        </p>
-        <p>
-          Search is the usual approach: retrieve the records most similar to the question and answer from those. It uses the same vocabulary and answer
-          logic as Rounds, so the only difference is what it reads.
-        </p>
-        <p>
-          With the wording it was built on, Rounds scores {pct1(r.rounds.by_split.dev.correct, r.rounds.by_split.dev.n)}. The first held-out run scored{" "}
-          {pct1(r.first_run_heldout.correct, r.first_run_heldout.n)}; it exposed one vocabulary bug, and fixing only that gives{" "}
-          {pct1(H("rounds").correct, H("rounds").n)}.
-        </p>
+/* ---- results ------------------------------------------------------------------------------ */
+
+function Results({ r, meta }) {
+  const [more, setMore] = useState(false);
+  const H = (n) => r[n].by_split.heldout;
+  const lines = [["Rounds", "rounds"], ["Search, reading the 20 closest records", "rag20"], ["Search, reading the 5 closest records", "rag5"]];
+  const fails = ["latest", "med_active", "meds", "problems"];
+  const label = Object.fromEntries(r.categories);
+  return (
+    <section className="prose">
+      <h1>Right on {pct(H("rounds").correct, H("rounds").n)} of questions worded in ways it had never seen.</h1>
+      <p className="lead">
+        {r.questions.toLocaleString()} questions about {meta.cohort} synthetic patients, each checked against an answer key worked out separately from the
+        record. Half were phrased by someone who never saw how Rounds reads questions; those are the scores below.
+      </p>
+
+      <div className="bars">
+        {lines.map(([name, k]) => (
+          <div key={k} className={`bar ${k === "rounds" ? "ours" : ""}`}>
+            <span className="bar-name">{name}</span>
+            <span className="bar-track"><span style={{ width: `${(H(k).correct / H(k).n) * 100}%` }} /></span>
+            <span className="bar-v">{pct(H(k).correct, H(k).n)}</span>
+          </div>
+        ))}
       </div>
+      <p className="soft small">
+        Search is how most document assistants work: find the records that read most like the question, answer from those. It used the same vocabulary and
+        answer logic as Rounds here, so the only difference is what it gets to read.
+      </p>
+
+      <h2>Where reading a few records goes wrong</h2>
+      <p>
+        “Latest” means newest, not most similar, and “current” needs the whole list. Search returned {H("rag20").wrong_answers} confidently wrong answers;
+        Rounds returned {H("rounds").wrong_answers}, and declined rather than guessed on the rest of its misses.
+      </p>
+      <table className="t">
+        <thead>
+          <tr><th scope="col">Question</th><th scope="col">Rounds</th><th scope="col">Search, 20</th></tr>
+        </thead>
+        <tbody>
+          {(more ? r.categories.map(([k]) => k).filter((k) => r.rounds.by_category[k]) : fails).map((k) => (
+            <tr key={k}>
+              <td>{label[k]}</td>
+              <td>{Math.round(r.rounds.by_category[k].heldout * 100)}%</td>
+              <td className="soft">{Math.round(r.rag20.by_category[k].heldout * 100)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button className="link" onClick={() => setMore((m) => !m)}>{more ? "Show fewer" : "Show all 22 question types"}</button>
+
+      <h2>How the number was kept honest</h2>
+      <p>
+        On the wording it was built with, Rounds scores {pct(r.rounds.by_split.dev.correct, r.rounds.by_split.dev.n)}, which says little. The first run on
+        unseen wording scored {pct(r.first_run_heldout.correct, r.first_run_heldout.n)}. It turned up one bug, packaging words read as medicine names, and
+        fixing only that gives {pct(H("rounds").correct, H("rounds").n)}. No question-reading rules changed after that wording was opened.
+      </p>
     </section>
   );
 }
 
-function Row({ label, value }) {
-  return (
-    <li className="row">
-      <span className="row-title">{label}</span>
-      <span className="mono dim">{value.toLocaleString()}</span>
-    </li>
-  );
-}
+/* ---- method ------------------------------------------------------------------------------- */
 
-/* ---- how --------------------------------------------------------------------------------- */
-
-function How() {
-  const groups = [
-    ["Data", [
-      ["FHIR R4 records", "Synthetic patients from Synthea, pinned version and seeds. Labs, vitals, conditions, medication orders, allergies, vaccines and visits, each with its resource id."],
-    ]],
-    ["Question", [
-      ["Vocabulary", "How clinicians say it, mapped to codes: “A1c” to LOINC, “high blood pressure” to SNOMED, “a statin” to every statin order in RxNorm."],
-      ["Parser", "Finds the terms, the time frame and what is asked. No model. Anything it cannot place is refused, not guessed."],
-    ]],
-    ["Answer", [
-      ["Whole-chart query", "Latest means newest by time, current means an active order. The answer is computed over every record, not a retrieved few."],
-      ["Citations", "Each sentence carries the ids of the records it rests on."],
-      ["Checker", "Every number and date must appear in the cited records. It works on any answerer, including a language model."],
-    ]],
-  ];
+function Method() {
   return (
-    <section className="pad">
-      {groups.map(([label, items]) => (
-        <div className="group" key={label}>
-          <p className="label">{label}</p>
-          <ul className="rows">
-            {items.map(([t, d]) => (
-              <li key={t} className="row stack">
-                <span className="row-title">{t}</span>
-                <span className="row-sub">{d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-      <div className="group">
-        <p className="label">Limits</p>
-        <ul className="rows">
-          <li className="row stack">
-            <span className="row-sub">Synthetic data, structured fields only, no clinical notes. Not for clinical use.</span>
-          </li>
-        </ul>
-      </div>
+    <section className="prose">
+      <h1>A chart answers questions. It should also show where each answer came from.</h1>
+      <h2>The record</h2>
+      <p>
+        Patients are generated with Synthea and stored in FHIR, the format US hospitals exchange. Rounds reads labs, vitals, conditions, medication orders,
+        allergies, vaccines and visits, and keeps the id of every record.
+      </p>
+      <h2>Reading the question</h2>
+      <p>
+        A vocabulary maps how clinicians talk to medical codes: A1c to its lab code, high blood pressure to hypertension, a statin to every statin ever
+        ordered. No language model is involved. A question it cannot place is declined, not guessed at.
+      </p>
+      <h2>Answering</h2>
+      <p>
+        The answer is worked out over the whole chart, so latest means newest and current means still active. Every sentence carries the records it rests
+        on, and a separate check confirms each number and date appears in them. The same check works on any answerer, including a language model.
+      </p>
+      <h2>Limits</h2>
+      <p>Synthetic patients and structured fields only. Clinical notes are not read. Not for clinical use.</p>
     </section>
   );
 }
-
-/* ---- icons ------------------------------------------------------------------------------- */
-
-const Chevron = ({ down }) => (
-  <svg className={`chev ${down ? "down" : ""}`} width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
-    <path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-const Moon = () => (
-  <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
-    <path d="M13 9.6A5.5 5.5 0 0 1 6.4 3a5.5 5.5 0 1 0 6.6 6.6Z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-  </svg>
-);
-const Sun = () => (
-  <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
-    <circle cx="8" cy="8" r="2.8" fill="none" stroke="currentColor" strokeWidth="1.4" />
-    <path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
