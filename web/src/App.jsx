@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Engine, fmtDate, yearsBetween } from "./circa.js";
+import NeuralHorn from "./NeuralHorn.jsx";
 
 const NAME = "Circa";
 const REPO = "https://github.com/milanpatel98/circa";
@@ -144,7 +145,10 @@ export default function App() {
       {route.page === "results" && <Results r={results} />}
       <Dock page={route.page === "results" ? "results" : route.page === "home" ? "home" : "patients"} />
       <footer className={`foot wrap ${route.page === "home" ? "on-home" : ""}`}>
-        <span>© 2026 Milan Patel · MIT License</span>
+        <span className="foot-l">
+          <NeuralHorn className="circa-nh" />
+          <span>· MIT License</span>
+        </span>
         <a href={REPO}>GitHub</a>
       </footer>
     </>

@@ -141,3 +141,16 @@ web/                the site, with a JavaScript port of the engine
 ## License
 
 Code: MIT. Real patient data: MIMIC-IV Clinical Database Demo on FHIR v2.1.0 (PhysioNet), Open Database License v1.0; the charts built from it are a derived database under the same license. Synthea is Apache 2.0.
+
+---
+
+<p align="center">
+  <a href="https://www.theneuralhorn.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/neural-horn-white.svg">
+      <img src="docs/brand/neural-horn-black.svg" alt="The Neural Horn" height="22">
+    </picture>
+  </a>
+  <br>
+  <sub>© 2026 The Neural Horn</sub>
+</p>

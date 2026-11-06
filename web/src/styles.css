@@ -980,6 +980,42 @@ button.cite::after {
   color: var(--soft);
 }
 
+.foot-l {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.circa-nh {
+  font-size: 13.5px;
+  transition: color 0.2s ease;
+}
+.circa-nh .nh-mark {
+  height: 12.5px;
+  color: var(--ink);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+}
+.circa-nh .nh-name {
+  padding-bottom: 2px;
+  background: linear-gradient(var(--olive), var(--olive)) left bottom / 0% 1.5px no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.circa-nh:hover,
+.circa-nh:focus-visible {
+  color: var(--olive);
+}
+.circa-nh:hover .nh-mark,
+.circa-nh:focus-visible .nh-mark {
+  color: var(--olive);
+}
+.circa-nh:hover .nh-name,
+.circa-nh:focus-visible .nh-name {
+  background-size: 100% 1.5px;
+}
+.circa-nh:focus-visible {
+  outline: none;
+}
+
 /* ---- narrow ------------------------------------------------------------------------------------ */
 
 @media (max-width: 900px) {
